@@ -518,3 +518,404 @@ I should be able to explain:
 ## Next
 
 Commit 03 will transform the raw synthetic CDP into deterministic customer-level features and a customer-360 layer that SignalDesk can query reliably.
+
+---
+
+## Commit 03 — Raw to Customer 360
+
+### Hypothesis
+
+SignalDesk should not ask an LLM to calculate basic customer facts from raw CDP data.
+
+Before probabilistic reasoning is introduced, the system needs a deterministic semantic layer that resolves identity, standardizes business definitions, applies reproducible time windows, and exposes customer evidence in a form that can be tested and reconciled.
+
+The initial hypothesis was:
+
+> DuckDB + SQL can transform the synthetic CDP into a trustworthy one-row-per-customer semantic layer fast enough that correctness and simplicity matter more than premature distributed processing.
+
+### Architecture
+
+Commit 03 uses:
+
+- Parquet / CSV as raw storage,
+- DuckDB as the analytical engine,
+- SQL for deterministic transformations,
+- Python for orchestration, benchmarking, and validation.
+
+The transformation graph is:
+
+```text
+raw
+ ↓
+staging
+ ↓
+domain feature marts
+ ↓
+customer_360
+```
+
+The final grain is:
+
+> exactly one row per resolved NovaCart customer.
+
+### Semantic contract
+
+Before writing the transformations, the Customer 360 contract defined:
+
+- one explicit customer grain,
+- an `as_of_ts`,
+- exact 30/60/90/120-day window semantics,
+- successful-order definitions,
+- null vs zero behavior,
+- identity-resolution rules,
+- PII boundaries,
+- deterministic feature definitions.
+
+The layer intentionally excludes raw email, phone, date of birth, and address fields.
+
+It also does **not** create a new `churn_signal`.
+
+Commit 01 established that NovaCart already has an upstream at-risk model. Commit 03 therefore exposes deterministic evidence that can explain risk instead of silently replacing the existing model.
+
+Examples include:
+
+- `purchase_decline_flag`,
+- `engagement_decline_flag`,
+- `support_attention_flag`.
+
+### Identity resolution
+
+Raw sessions and events may be anonymous at collection time.
+
+Staging therefore preserves:
+
+```text
+observed_customer_id
+resolved_customer_id
+```
+
+The resolved key is derived through the identity table when possible.
+
+This lets Customer 360 recover pre-login activity without rewriting history or pretending the original source already knew the customer.
+
+### Deterministic feature layer
+
+Customer 360 now exposes deterministic features across:
+
+- identity,
+- purchase behavior,
+- behavioral engagement,
+- support,
+- campaign interaction,
+- subscriptions,
+- consent.
+
+Examples include:
+
+- lifetime orders and revenue,
+- orders in recent and prior windows,
+- purchase change percentage,
+- preferred category,
+- session counts,
+- engagement change,
+- product views and cart additions,
+- support-case counts and sentiment,
+- email delivery/open/click rates,
+- active subscriptions,
+- current channel consent.
+
+### Full-refresh benchmark
+
+The completed 100K-customer build produced:
+
+- source customers: `100,000`,
+- Customer 360 rows: `100,000`,
+- transform runtime: `3.43 seconds`,
+- throughput: `29,150.57 customers/second`.
+
+Validation result:
+
+- tests: `33`,
+- passed: `33`,
+- failed: `0`.
+
+The tests verify:
+
+- one-row-per-customer grain,
+- uniqueness and completeness,
+- valid temporal ordering,
+- nested time-window consistency,
+- non-negative revenue and counts,
+- bounded rates,
+- deterministic decline-flag definitions,
+- support reconciliation,
+- campaign funnel consistency,
+- subscription constraints,
+- reproducible `as_of_ts`.
+
+### First implementation failure
+
+The first DuckDB execution failed because several aggregate CTEs referenced `ctx.as_of_ts` inside filtered aggregates without grouping by it.
+
+DuckDB raised a binder error.
+
+The fix was to make the grouping contract explicit:
+
+```sql
+GROUP BY customer_id, as_of_ts
+```
+
+across the affected purchase, engagement, support, campaign, and subscription transformations.
+
+This was a useful reminder that syntax-checking Python is not enough to validate SQL execution semantics.
+
+### Incremental-processing hypothesis
+
+After the full-refresh baseline passed, I tested whether an incremental Customer 360 would materially improve performance.
+
+The first naive idea would be:
+
+```text
+new source rows
+→ recompute those customers
+```
+
+That is incorrect for a time-windowed semantic layer.
+
+A customer can change without receiving new data because an existing fact may cross a 30/60/90/120-day boundary.
+
+Therefore:
+
+```text
+affected customers
+=
+data-changed customers
+UNION
+time-boundary-affected customers
+```
+
+### Durable facts vs volatile recency
+
+The initial Customer 360 materialized relative values such as:
+
+- `days_since_purchase`,
+- `days_since_last_seen`,
+- `days_since_last_support_case`,
+- `days_since_last_campaign`.
+
+Advancing the semantic clock by one day would make many rows stale even if no business event changed.
+
+The incremental-aware design instead materializes absolute timestamps such as:
+
+- `last_purchase_at`,
+- `last_seen_at`,
+- `last_support_case_at`,
+- `last_campaign_at`.
+
+Relative `days_since_*` fields are derived in the final Customer 360 view from those durable timestamps and `runtime_context`.
+
+This separates:
+
+> durable customer fact
+
+from:
+
+> interpretation relative to the current as-of timestamp.
+
+### Incremental benchmark
+
+A controlled next-day benchmark advanced the semantic clock by 24 hours.
+
+Source-data changes were generated for:
+
+`2,000 customers` (`2%` of the population).
+
+However, after including time-window expiry, the actual affected set became:
+
+`23,645 customers`
+
+or:
+
+`23.645%` of the population.
+
+That means a 2% source-data change expanded into almost 12x as many semantically affected customers.
+
+Measured timings:
+
+- delta apply: `0.2321 seconds`,
+- affected-customer detection: `0.2103 seconds`,
+- incremental feature recomputation: `0.3769 seconds`,
+- incremental semantic total: `0.5872 seconds`,
+- full-reference feature recomputation: `0.9573 seconds`.
+
+Feature-only incremental speedup:
+
+`2.54x`
+
+When affected-customer detection is included, the effective semantic speedup is approximately:
+
+`1.63x`
+
+### Incremental reconciliation
+
+Performance was not accepted without equivalence.
+
+The benchmark applied the same delta to:
+
+- an incremental database,
+- a fresh full-reference database.
+
+The outputs were compared in both directions:
+
+```sql
+incremental_customer_360
+EXCEPT
+full_customer_360
+```
+
+and:
+
+```sql
+full_customer_360
+EXCEPT
+incremental_customer_360
+```
+
+Results:
+
+- incremental rows: `100,000`,
+- full-reference rows: `100,000`,
+- incremental minus full: `0`,
+- full minus incremental: `0`,
+- exact match: `true`.
+
+### Engineering decision
+
+Incremental processing works and is exactly reconcilable.
+
+However, the full 100K Customer 360 already completes in `3.43 seconds`.
+
+The incremental semantic layer reduces feature computation, but the practical gain at this scale is modest once affected-customer detection and operational complexity are included.
+
+Therefore the current decision is:
+
+> Keep full refresh as the default architecture at 100K customers.
+
+The incremental implementation remains as a proven optimization path for a future scale, SLA, or compute-cost requirement.
+
+This decision avoids adding permanent complexity for a problem that is already solved cheaply.
+
+### Key tradeoffs
+
+**Full refresh vs incremental**
+
+Full refresh is simpler, easier to reason about, and already fast enough.
+
+Incremental processing adds:
+
+- affected-customer detection,
+- time-boundary logic,
+- partial feature-mart rebuilding,
+- state management,
+- reconciliation requirements,
+- more operational failure modes.
+
+The measured benefit does not yet justify making it the default.
+
+**Materialized recency vs derived recency**
+
+Materializing `days_since_*` is convenient but creates unnecessary daily rewrites.
+
+Storing durable timestamps and deriving recency at query time produces cleaner semantics and better incremental behavior.
+
+**Composite risk score vs deterministic evidence**
+
+A composite score might be convenient for an AI prompt, but it would hide business logic and duplicate the upstream at-risk model.
+
+The semantic layer therefore exposes inspectable evidence instead.
+
+### What I learned
+
+An AI application still depends on traditional semantic-layer engineering.
+
+Before the LLM can reason about a customer, someone must define:
+
+- which identity is the customer,
+- which events are duplicates,
+- what counts as a successful order,
+- which time window is being compared,
+- what null means,
+- what zero means,
+- how support attention is defined,
+- which consent state is current.
+
+Those decisions are deterministic engineering decisions, not prompting problems.
+
+I also learned that incremental processing for time-windowed models is more subtle than CDC.
+
+A dataset can change semantically even when no new row arrives.
+
+Finally, I learned that optimization should end with a decision, not just a benchmark.
+
+The incremental implementation was correct and faster, but the full refresh remained the better default because the baseline was already cheap and the incremental complexity was not yet justified.
+
+### Before/after
+
+**Before**
+
+- raw domain-level CDP tables,
+- anonymous and known activity mixed at source level,
+- no deterministic customer-level semantic contract,
+- no tested feature mart,
+- no full-refresh benchmark,
+- no incremental equivalence experiment.
+
+**After**
+
+- explicit Customer 360 contract,
+- resolved identity semantics,
+- deterministic domain feature marts,
+- one-row-per-customer semantic layer,
+- 100K-customer build in 3.43 seconds,
+- 33/33 data tests passing,
+- incremental-processing implementation,
+- time-boundary-aware affected-customer detection,
+- exact incremental/full reconciliation,
+- evidence-based decision to keep full refresh as the default.
+
+### Still unproven
+
+Commit 03 does not prove:
+
+- that the feature definitions match a real production company's semantic definitions,
+- that the upstream at-risk model is correct,
+- that these features are sufficient for an LLM investigation,
+- that the Customer 360 should remain a single wide model at much larger scale,
+- that DuckDB is the correct production warehouse technology,
+- that incremental processing becomes worthwhile at larger scale.
+
+Those questions require later system behavior and measurements.
+
+### Can I explain/rebuild this from scratch?
+
+**Target: Yes.**
+
+I should be able to explain:
+
+- why the semantic contract was defined before SQL,
+- why raw anonymous activity keeps both observed and resolved identity,
+- why an LLM should not calculate basic customer metrics,
+- why `churn_signal` was deliberately excluded,
+- why `as_of_ts` must be explicit,
+- why time-window expiry affects incremental processing,
+- why absolute timestamps are more durable than materialized `days_since_*`,
+- how incremental output was reconciled against a full rebuild,
+- why the measured speedup did not automatically justify adopting incremental processing.
+
+---
+
+## Next
+
+Commit 04 will introduce the first LLM calls over deterministic Customer 360 JSON.
+
+The next goal is to learn the LLM request lifecycle, structured outputs, retries, latency, token usage, cost, and probabilistic behavior without adding RAG or an agent framework yet.
