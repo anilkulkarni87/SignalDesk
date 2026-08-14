@@ -1,0 +1,75 @@
+{
+  "documents": 1000,
+  "family_counts": {
+    "offers": 143,
+    "retention": 178,
+    "loyalty": 90,
+    "shipping": 100,
+    "subscriptions": 64,
+    "consent": 53,
+    "support": 150,
+    "refunds": 108,
+    "campaigns": 114
+  },
+  "status_counts": {
+    "CURRENT": 694,
+    "DRAFT": 97,
+    "SUPERSEDED": 153,
+    "INCOMPLETE": 56
+  },
+  "document_type_counts": {
+    "POLICY": 330,
+    "PLAYBOOK": 241,
+    "PROCEDURE": 226,
+    "FAQ": 95,
+    "OPERATING_GUIDE": 108
+  },
+  "tests": {
+    "document_count": {
+      "actual": 1000,
+      "minimum": 1000,
+      "passed": true
+    },
+    "unique_document_ids": {
+      "duplicates": 0,
+      "passed": true
+    },
+    "metadata_complete": {
+      "documents_missing_required_metadata": 0,
+      "passed": true
+    },
+    "minimum_content_length": {
+      "short_documents": 0,
+      "minimum_words": 70,
+      "passed": true
+    },
+    "family_coverage": {
+      "missing_families": [],
+      "passed": true
+    },
+    "status_mixture": {
+      "missing_statuses": [],
+      "passed": true
+    },
+    "current_authoritative_policy_coverage": {
+      "families_with_current_approved_policy": [
+        "campaigns",
+        "consent",
+        "loyalty",
+        "offers",
+        "refunds",
+        "retention",
+        "shipping",
+        "subscriptions",
+        "support"
+      ],
+      "missing_families": [],
+      "passed": true
+    },
+    "known_knowledge_gaps": {
+      "count": 4,
+      "passed": true
+    }
+  },
+  "passed": true
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "gap_id": "GAP-001",
+    "topic": "exact causal uplift from retention discounts",
+    "reason": "NovaCart has no authoritative policy or experiment result establishing who is incrementally saved by a discount.",
+    "expected_behavior": "Do not infer causal benefit from churn risk or historical offer use."
+  },
+  {
+    "gap_id": "GAP-002",
+    "topic": "customer-specific discretionary discount amount",
+    "reason": "No approved rule maps an individual customer profile to an optimized discount percentage.",
+    "expected_behavior": "Do not invent personalized discount values."
+  },
+  {
+    "gap_id": "GAP-003",
+    "topic": "automatic execution of retention interventions",
+    "reason": "V1 requires human approval and has no authoritative automation policy.",
+    "expected_behavior": "Recommend only; do not claim an action can be executed automatically."
+  },
+  {
+    "gap_id": "GAP-004",
+    "topic": "support compensation beyond documented service recovery limits",
+    "reason": "No durable source authorizes exceptions above the documented limits.",
+    "expected_behavior": "Escalate or state insufficient evidence."
+  }
+]
