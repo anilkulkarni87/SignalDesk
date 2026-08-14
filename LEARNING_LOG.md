@@ -919,3 +919,735 @@ I should be able to explain:
 Commit 04 will introduce the first LLM calls over deterministic Customer 360 JSON.
 
 The next goal is to learn the LLM request lifecycle, structured outputs, retries, latency, token usage, cost, and probabilistic behavior without adding RAG or an agent framework yet.
+
+
+## Commit 04 — LLM API Playground
+
+### Hypothesis
+
+SignalDesk should introduce LLM reasoning only after deterministic customer facts are available.
+
+The goal of Commit 04 was not to build an agent or RAG system. It was to learn the LLM request lifecycle directly:
+
+- structured inputs,
+- structured outputs,
+- retries,
+- streaming,
+- latency,
+- token usage,
+- reasoning effort,
+- cost,
+- evaluation of probabilistic behavior.
+
+The working hypothesis was:
+
+> A lightweight model with strict structured output should be sufficient to interpret deterministic Customer 360 evidence without requiring additional reasoning compute.
+
+---
+
+### Architecture
+
+The first probabilistic component was deliberately small:
+
+```text
+Customer 360
+    ↓
+Python / OpenAI Responses API
+    ↓
+Strict structured assessment
+```
+
+The LLM receives a bounded Customer 360 snapshot and returns:
+
+```text
+risk_level
+summary
+evidence[]
+recommended_investigation[]
+limitations[]
+```
+
+This commit intentionally does **not** include:
+
+- RAG,
+- policy documents,
+- tool calling,
+- agents,
+- LangGraph,
+- action execution.
+
+The purpose was to learn the primitive before adding orchestration.
+
+---
+
+### Deterministic vs probabilistic boundary
+
+The model may decide which Customer 360 features are relevant, but it does not own their values.
+
+For example, the model can return:
+
+```json
+{
+  "feature": "orders_60d",
+  "interpretation": "Recent purchasing is lower than the comparison period."
+}
+```
+
+Application code then retrieves the actual `orders_60d` value from Customer 360.
+
+This preserves the boundary:
+
+```text
+deterministic system
+    calculates customer facts
+
+probabilistic system
+    interprets customer facts
+```
+
+This prevents the LLM from becoming the source of truth for metrics that SQL can calculate deterministically.
+
+---
+
+### First API request
+
+The first request used:
+
+```text
+model: gpt-5.6-luna
+reasoning effort: none
+```
+
+Result:
+
+- API call succeeded,
+- strict output schema passed,
+- retry attempts: `1`,
+- latency: `5.4377 seconds`,
+- input tokens: `1,056`,
+- output tokens: `376`,
+- reasoning tokens: `0`,
+- total tokens: `1,432`,
+- estimated cost: `$0.003312`.
+
+The assessment referenced only valid Customer 360 features, and application code attached the deterministic feature values afterward.
+
+This demonstrated that structured model reasoning could be layered on top of the semantic layer without giving the model ownership of customer metrics.
+
+---
+
+### Streaming experiment
+
+A separate streaming request was implemented to observe the API event lifecycle directly.
+
+The experiment returned incremental text chunks while the response was generated.
+
+The key learning was:
+
+> Streaming changes how a response is delivered. It does not change the semantic responsibilities of the model.
+
+For SignalDesk, streaming may later improve perceived UI responsiveness, but it does not replace evaluation, structured output, or deterministic customer facts.
+
+---
+
+### Initial 30-case evaluation
+
+A 30-case evaluation set was generated from Customer 360.
+
+Version 1 contained five scenario types:
+
+```text
+multiple warning signals
+purchase decline only
+engagement decline only
+support attention only
+no warning signals
+```
+
+Each scenario contained six customers.
+
+The expected labels were an evaluation rubric over observable Customer 360 evidence.
+
+The hidden synthetic generation truth was deliberately not used.
+
+These labels therefore represented an application-level evaluation contract, not a production churn model.
+
+---
+
+### V1 evaluation result
+
+Configuration:
+
+```text
+model: gpt-5.6-luna
+reasoning: none
+prompt: commit04_v1
+```
+
+Results:
+
+| Metric | Result |
+|---|---:|
+| API success | 100% |
+| Schema validity | 100% |
+| V1 rubric agreement | 83.33% |
+| Required evidence coverage | 90% |
+| Evidence-feature validity | 100% |
+| Mean latency | 3.6555s |
+| p50 latency | 3.5404s |
+| p95 latency | 4.5735s |
+| Mean input tokens | 1,056.4 |
+| Mean output tokens | 402.73 |
+| Total estimated cost | $0.104184 |
+| Mean cost/request | $0.0034728 |
+
+At first glance, the model appeared to have five classification failures.
+
+Manual inspection showed that the more important failure was in the evaluation design.
+
+---
+
+### The V1 evaluation itself was flawed
+
+V1 assigned expected labels primarily from:
+
+```text
+purchase_decline_flag
+engagement_decline_flag
+support_attention_flag
+```
+
+The model, however, received a much richer Customer 360 containing features such as:
+
+```text
+days_since_purchase
+refund_rate_90d
+customer_status
+support severity
+CSAT
+subscription state
+campaign engagement
+```
+
+This created contradictory evaluation examples.
+
+Examples included:
+
+#### Support-only case expected MEDIUM
+
+Observed evidence also included:
+
+```text
+220 days since purchase
+2 open support cases
+1 negative support case
+1 high-priority support case
+```
+
+The model returned `HIGH`.
+
+That was a defensible interpretation of the supplied evidence.
+
+#### Another support-only case expected MEDIUM
+
+Observed evidence included:
+
+```text
+195 days since purchase
+100% recent refund rate
+2 open cases
+3 negative cases
+1 high-priority case
+low CSAT
+customer_status = PAUSED
+```
+
+The model again returned `HIGH`.
+
+The expected MEDIUM label was weaker than the actual evidence.
+
+#### No-warning case expected LOW
+
+The three warning flags were false, but:
+
+```text
+customer_status = CLOSED
+```
+
+The model returned `MEDIUM`.
+
+Again, the model was using information that the case generator had ignored.
+
+Therefore:
+
+> V1's `83.33%` should be interpreted as rubric agreement, not clean model accuracy.
+
+---
+
+### Evidence-schema defect discovered
+
+V1 also exposed a schema-design defect.
+
+Features such as:
+
+```text
+customer_status
+```
+
+were supplied to the model and could influence its reasoning, but were not all permitted by the structured `EvidenceFeature` schema.
+
+This created a situation where the model could reason from a fact without being allowed to formally cite it.
+
+The evidence schema was expanded so material model inputs could also become auditable evidence references.
+
+---
+
+### Evaluation V2
+
+The correct response to V1 was **not** to immediately modify the prompt.
+
+Instead, the evaluation dataset was fixed.
+
+V2 selected cleaner cases whose broader Customer 360 evidence was consistent with the intended expected label.
+
+The model and prompt remained unchanged.
+
+This established an important principle:
+
+> When an eval fails, investigate the evaluation contract before optimizing the model.
+
+---
+
+### V2 baseline — Luna / reasoning none
+
+The corrected 30-case evaluation produced:
+
+| Metric | Result |
+|---|---:|
+| Cases | 30 |
+| Successful API calls | 30 |
+| API success | 100% |
+| Schema validity | 100% |
+| V2 rubric agreement | 90% |
+| Required evidence coverage | 76.67% |
+| Evidence-feature validity | 100% |
+| Mean latency | 3.3522s |
+| p50 latency | 3.2860s |
+| p95 latency | 4.0253s |
+| Mean input tokens | 1,048.77 |
+| Mean output tokens | 392.5 |
+| Reasoning tokens | 0 |
+| Total cost | $0.102113 |
+| Mean cost/request | $0.00340377 |
+
+Rubric agreement by scenario:
+
+| Scenario | Agreement |
+|---|---:|
+| Multiple warning signals | 83.33% |
+| Purchase decline only | 83.33% |
+| Engagement decline only | 83.33% |
+| Support attention only | 100% |
+| No warning signals | 100% |
+
+The V2 baseline crossed the initial `>=85%` behavioral target.
+
+---
+
+### Correct classification is not enough
+
+V2 produced:
+
+```text
+V2 rubric agreement        = 90%
+required evidence coverage = 76.67%
+```
+
+This exposed another important distinction:
+
+> A correct conclusion does not guarantee a complete evidence trail.
+
+The model could produce the expected risk classification while omitting evidence that the evaluation considered important.
+
+For SignalDesk, this matters because a Retention Specialist needs more than a classification.
+
+They need an explanation that can be inspected and challenged.
+
+Structured Outputs solved:
+
+```text
+response shape
+field types
+allowed evidence keys
+```
+
+They did not automatically solve:
+
+```text
+reasoning quality
+classification quality
+evidence completeness
+```
+
+---
+
+### Controlled reasoning-effort experiment
+
+After establishing the V2 baseline, exactly one variable was changed:
+
+```text
+reasoning effort:
+none → low
+```
+
+The following remained fixed:
+
+```text
+same model
+same prompt
+same output schema
+same 30 V2 customers
+same evaluation rubric
+```
+
+This made it a controlled experiment.
+
+---
+
+### Luna / reasoning low
+
+Results:
+
+| Metric | Result |
+|---|---:|
+| API success | 100% |
+| Schema validity | 100% |
+| V2 rubric agreement | 90% |
+| Required evidence coverage | 66.67% |
+| Evidence-feature validity | 100% |
+| Mean latency | 3.5848s |
+| p50 latency | 3.3768s |
+| p95 latency | 4.3934s |
+| Mean input tokens | 1,048.77 |
+| Mean output tokens | 436.43 |
+| Total reasoning tokens | 1,426 |
+| Mean reasoning tokens/request | 47.53 |
+| Maximum reasoning tokens/request | 117 |
+| Total cost | $0.110021 |
+| Mean cost/request | $0.00366737 |
+
+---
+
+### Reasoning experiment comparison
+
+| Metric | Luna / none | Luna / low |
+|---|---:|---:|
+| V2 rubric agreement | **90.0%** | **90.0%** |
+| Required evidence | **76.67%** | 66.67% |
+| API success | 100% | 100% |
+| Schema validity | 100% | 100% |
+| Evidence-feature validity | 100% | 100% |
+| Mean latency | **3.3522s** | 3.5848s |
+| p95 latency | **4.0253s** | 4.3934s |
+| Mean input tokens | 1,048.77 | 1,048.77 |
+| Mean output tokens | **392.5** | 436.43 |
+| Total reasoning tokens | **0** | 1,426 |
+| Mean reasoning tokens/request | **0** | 47.53 |
+| Mean cost/request | **$0.00340377** | $0.00366737 |
+
+The additional `1,426` reasoning tokens produced:
+
+```text
+0 percentage-point improvement
+```
+
+in V2 rubric agreement.
+
+They also produced:
+
+```text
+lower evidence completeness
+higher latency
+more output tokens
+higher cost
+```
+
+---
+
+### Engineering decision
+
+For this structured Customer 360 interpretation workload, the current default is:
+
+```text
+model: gpt-5.6-luna
+reasoning effort: none
+```
+
+Why:
+
+```text
+90% V2 rubric agreement
+100% schema validity
+100% evidence-feature validity
+better evidence coverage than reasoning=low
+lower latency
+lower token consumption
+lower cost
+```
+
+The conclusion is workload-specific.
+
+It does **not** mean reasoning tokens are generally useless.
+
+It means:
+
+> Additional reasoning compute must demonstrate measurable value for the specific task before being adopted.
+
+For this task, it did not.
+
+---
+
+### What failed
+
+Commit 04 produced several useful failures:
+
+#### Import/package failure
+
+Running:
+
+```bash
+python evals/commit04/runner.py
+```
+
+failed because the nested script execution changed Python's import path.
+
+The evaluation package was changed to use module execution:
+
+```bash
+python -m evals.commit04.runner
+```
+
+#### V1 rubric failure
+
+The initial evaluation labels ignored important Customer 360 evidence.
+
+Manual failure analysis showed that several apparent model errors were actually ambiguous evaluation cases.
+
+#### Evidence-schema failure
+
+Some supplied model features could affect reasoning but could not be formally cited.
+
+The schema was corrected.
+
+These failures reinforced that AI engineering problems can exist in:
+
+```text
+application code
+prompt
+schema
+evaluation dataset
+gold labels
+metrics
+model behavior
+```
+
+The model is only one possible source of failure.
+
+---
+
+### What I learned
+
+#### 1. Deterministic and probabilistic systems need different tests
+
+Customer 360 produced:
+
+```text
+33 tests
+33 deterministic passes
+```
+
+The LLM produced:
+
+```text
+30 successful requests
+30 schema-valid responses
+27 V2 classifications matching the rubric
+```
+
+Nothing crashed.
+
+The output was structurally valid.
+
+Yet behavior still differed from expectations.
+
+That is why AI systems require behavioral evals in addition to unit and integration tests.
+
+#### 2. Structured output is not correctness
+
+I achieved:
+
+```text
+100% schema validity
+```
+
+but only:
+
+```text
+90% V2 rubric agreement
+```
+
+A perfectly formed JSON object can still contain the wrong decision.
+
+#### 3. Valid evidence is not complete evidence
+
+The model achieved:
+
+```text
+100% evidence-feature validity
+```
+
+but only:
+
+```text
+76.67% required-evidence coverage
+```
+
+The model never cited a nonexistent feature.
+
+It still sometimes omitted important evidence.
+
+This is important for explainable customer workflows.
+
+#### 4. Evals are software
+
+The first evaluation set was itself defective.
+
+Gold labels should not be treated as unquestionable truth.
+
+They need:
+
+```text
+design
+review
+versioning
+testing
+failure analysis
+```
+
+just like application code.
+
+#### 5. Do not optimize the model before understanding the failure
+
+After V1 produced 83.33% agreement, the tempting response would have been:
+
+```text
+change prompt
+increase reasoning
+use larger model
+```
+
+Manual review showed that this would have optimized against several bad labels.
+
+Fixing the evaluation first was the correct engineering decision.
+
+#### 6. More reasoning is not automatically better
+
+`reasoning=low` consumed:
+
+```text
+1,426 additional reasoning tokens
+```
+
+across the 30 cases.
+
+It produced:
+
+```text
+no improvement in rubric agreement
+worse evidence completeness
+higher latency
+higher cost
+```
+
+The correct question is not:
+
+> Can I give the model more reasoning?
+
+It is:
+
+> Does additional reasoning improve this workload enough to justify its cost?
+
+---
+
+### Before / after
+
+#### Before
+
+```text
+deterministic Customer 360
+no model calls
+no model output contract
+no latency baseline
+no token measurements
+no cost measurements
+no behavioral evaluation
+no understanding of reasoning-effort tradeoffs
+```
+
+#### After
+
+```text
+Responses API client
+strict structured output
+bounded retry behavior
+streaming experiment
+deterministic evidence attachment
+30-case evaluation harness
+V1 failure analysis
+V2 evaluation rubric
+90% V2 rubric agreement
+100% schema validity
+100% evidence-feature validity
+latency measurements
+token measurements
+cost measurements
+controlled reasoning experiment
+measured decision to use reasoning=none
+```
+
+---
+
+### Still unproven
+
+Commit 04 does not prove:
+
+- real churn prediction accuracy,
+- recommendation correctness,
+- policy grounding,
+- causal impact of retention interventions,
+- retrieval quality,
+- tool-selection quality,
+- agent task completion,
+- end-to-end production latency.
+
+The model currently reasons only over a bounded deterministic Customer 360 snapshot.
+
+---
+
+### Can I explain/rebuild this from scratch?
+
+**Target: Yes.**
+
+I should be able to explain:
+
+- why Customer 360 remains the source of deterministic truth,
+- why the LLM references features instead of calculating their values,
+- how Structured Outputs differ from semantic correctness,
+- why behavioral evals are needed in addition to unit tests,
+- why V1's 83.33% was partly an evaluation-design problem,
+- why fixing the eval was better than immediately modifying the prompt,
+- why classification agreement and evidence completeness are separate metrics,
+- how latency, tokens, retries, and cost are measured,
+- what reasoning tokens represent in the experiment,
+- why `reasoning=none` won this workload,
+- why model optimization must follow measurement rather than intuition.

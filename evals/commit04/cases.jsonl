@@ -1,0 +1,30 @@
+{"case_id": "multiple_warning_signals_01", "case_type": "multiple_warning_signals", "customer_id": "C0090564", "expected_risk_level": "HIGH", "required_evidence_any": ["support_attention_flag", "purchase_decline_flag", "engagement_decline_flag"]}
+{"case_id": "multiple_warning_signals_02", "case_type": "multiple_warning_signals", "customer_id": "C0039294", "expected_risk_level": "HIGH", "required_evidence_any": ["support_attention_flag", "purchase_decline_flag", "engagement_decline_flag"]}
+{"case_id": "multiple_warning_signals_03", "case_type": "multiple_warning_signals", "customer_id": "C0053006", "expected_risk_level": "HIGH", "required_evidence_any": ["support_attention_flag", "purchase_decline_flag", "engagement_decline_flag"]}
+{"case_id": "multiple_warning_signals_04", "case_type": "multiple_warning_signals", "customer_id": "C0001668", "expected_risk_level": "HIGH", "required_evidence_any": ["support_attention_flag", "purchase_decline_flag", "engagement_decline_flag"]}
+{"case_id": "multiple_warning_signals_05", "case_type": "multiple_warning_signals", "customer_id": "C0073312", "expected_risk_level": "HIGH", "required_evidence_any": ["support_attention_flag", "purchase_decline_flag", "engagement_decline_flag"]}
+{"case_id": "multiple_warning_signals_06", "case_type": "multiple_warning_signals", "customer_id": "C0099604", "expected_risk_level": "HIGH", "required_evidence_any": ["support_attention_flag", "purchase_decline_flag", "engagement_decline_flag"]}
+{"case_id": "purchase_decline_only_01", "case_type": "purchase_decline_only", "customer_id": "C0003085", "expected_risk_level": "MEDIUM", "required_evidence_any": ["purchase_decline_flag"]}
+{"case_id": "purchase_decline_only_02", "case_type": "purchase_decline_only", "customer_id": "C0086300", "expected_risk_level": "MEDIUM", "required_evidence_any": ["purchase_decline_flag"]}
+{"case_id": "purchase_decline_only_03", "case_type": "purchase_decline_only", "customer_id": "C0075208", "expected_risk_level": "MEDIUM", "required_evidence_any": ["purchase_decline_flag"]}
+{"case_id": "purchase_decline_only_04", "case_type": "purchase_decline_only", "customer_id": "C0020375", "expected_risk_level": "MEDIUM", "required_evidence_any": ["purchase_decline_flag"]}
+{"case_id": "purchase_decline_only_05", "case_type": "purchase_decline_only", "customer_id": "C0050408", "expected_risk_level": "MEDIUM", "required_evidence_any": ["purchase_decline_flag"]}
+{"case_id": "purchase_decline_only_06", "case_type": "purchase_decline_only", "customer_id": "C0095205", "expected_risk_level": "MEDIUM", "required_evidence_any": ["purchase_decline_flag"]}
+{"case_id": "engagement_decline_only_01", "case_type": "engagement_decline_only", "customer_id": "C0091123", "expected_risk_level": "MEDIUM", "required_evidence_any": ["engagement_decline_flag"]}
+{"case_id": "engagement_decline_only_02", "case_type": "engagement_decline_only", "customer_id": "C0049027", "expected_risk_level": "MEDIUM", "required_evidence_any": ["engagement_decline_flag"]}
+{"case_id": "engagement_decline_only_03", "case_type": "engagement_decline_only", "customer_id": "C0016709", "expected_risk_level": "MEDIUM", "required_evidence_any": ["engagement_decline_flag"]}
+{"case_id": "engagement_decline_only_04", "case_type": "engagement_decline_only", "customer_id": "C0064913", "expected_risk_level": "MEDIUM", "required_evidence_any": ["engagement_decline_flag"]}
+{"case_id": "engagement_decline_only_05", "case_type": "engagement_decline_only", "customer_id": "C0018293", "expected_risk_level": "MEDIUM", "required_evidence_any": ["engagement_decline_flag"]}
+{"case_id": "engagement_decline_only_06", "case_type": "engagement_decline_only", "customer_id": "C0042246", "expected_risk_level": "MEDIUM", "required_evidence_any": ["engagement_decline_flag"]}
+{"case_id": "support_attention_only_01", "case_type": "support_attention_only", "customer_id": "C0084843", "expected_risk_level": "MEDIUM", "required_evidence_any": ["support_attention_flag"]}
+{"case_id": "support_attention_only_02", "case_type": "support_attention_only", "customer_id": "C0027232", "expected_risk_level": "MEDIUM", "required_evidence_any": ["support_attention_flag"]}
+{"case_id": "support_attention_only_03", "case_type": "support_attention_only", "customer_id": "C0050832", "expected_risk_level": "MEDIUM", "required_evidence_any": ["support_attention_flag"]}
+{"case_id": "support_attention_only_04", "case_type": "support_attention_only", "customer_id": "C0095152", "expected_risk_level": "MEDIUM", "required_evidence_any": ["support_attention_flag"]}
+{"case_id": "support_attention_only_05", "case_type": "support_attention_only", "customer_id": "C0035637", "expected_risk_level": "MEDIUM", "required_evidence_any": ["support_attention_flag"]}
+{"case_id": "support_attention_only_06", "case_type": "support_attention_only", "customer_id": "C0001876", "expected_risk_level": "MEDIUM", "required_evidence_any": ["support_attention_flag"]}
+{"case_id": "no_warning_signals_01", "case_type": "no_warning_signals", "customer_id": "C0035947", "expected_risk_level": "LOW", "required_evidence_any": []}
+{"case_id": "no_warning_signals_02", "case_type": "no_warning_signals", "customer_id": "C0085403", "expected_risk_level": "LOW", "required_evidence_any": []}
+{"case_id": "no_warning_signals_03", "case_type": "no_warning_signals", "customer_id": "C0061530", "expected_risk_level": "LOW", "required_evidence_any": []}
+{"case_id": "no_warning_signals_04", "case_type": "no_warning_signals", "customer_id": "C0012445", "expected_risk_level": "LOW", "required_evidence_any": []}
+{"case_id": "no_warning_signals_05", "case_type": "no_warning_signals", "customer_id": "C0006273", "expected_risk_level": "LOW", "required_evidence_any": []}
+{"case_id": "no_warning_signals_06", "case_type": "no_warning_signals", "customer_id": "C0033269", "expected_risk_level": "LOW", "required_evidence_any": []}

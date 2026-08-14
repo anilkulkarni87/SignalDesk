@@ -1,0 +1,49 @@
+{
+  "cases": 30,
+  "successful_api_calls": 30,
+  "api_success_rate_pct": 100.0,
+  "schema_valid_rate_pct": 100.0,
+  "risk_accuracy_pct": 90.0,
+  "required_evidence_rate_pct": 66.67,
+  "evidence_feature_validity_pct": 100.0,
+  "latency_seconds": {
+    "mean": 3.5848,
+    "p50": 3.3768,
+    "p95": 4.3934
+  },
+  "tokens_per_request": {
+    "mean_input": 1048.77,
+    "mean_output": 436.43
+  },
+  "estimated_cost_usd": {
+    "total": 0.110021,
+    "mean_per_request": 0.00366737
+  },
+  "risk_accuracy_by_case_type": {
+    "multiple_warning_signals": {
+      "cases": 6,
+      "risk_correct": 4,
+      "risk_accuracy_pct": 66.67
+    },
+    "purchase_decline_only": {
+      "cases": 6,
+      "risk_correct": 5,
+      "risk_accuracy_pct": 83.33
+    },
+    "engagement_decline_only": {
+      "cases": 6,
+      "risk_correct": 6,
+      "risk_accuracy_pct": 100.0
+    },
+    "support_attention_only": {
+      "cases": 6,
+      "risk_correct": 6,
+      "risk_accuracy_pct": 100.0
+    },
+    "no_warning_signals": {
+      "cases": 6,
+      "risk_correct": 6,
+      "risk_accuracy_pct": 100.0
+    }
+  }
+}
