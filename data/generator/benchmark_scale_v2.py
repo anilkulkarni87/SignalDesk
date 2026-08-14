@@ -12,10 +12,14 @@ For each configured customer count, this script:
 
 Example:
     python data/generator/benchmark_scale.py \
-        --generator data/generator/generate_synthetic_cdp.py \
-        --structural-validator data/generator/validate_synthetic_cdp.py \
-        --semantic-validator data/generator/validate_semantic_behavior.py \
+        --generator data/generator/generate_synthetic_cdp_v4.py \
+        --structural-validator data/generator/validate_synthetic_cdp_scale.py \
+        --semantic-validator data/generator/validate_semantic_behavior_scale.py \
         --sizes 1000 10000 100000 \
+        --output-format parquet \
+        --products 1000 \
+        --avg-orders 5 \
+        --avg-browsing-sessions 6 \
         --output-root data/generated/scale
 """
 
@@ -273,3 +277,16 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+# python data/generator/benchmark_scale_v2.py \
+#   --generator data/generator/generate_synthetic_cdp_v4.py \
+#   --structural-validator data/generator/validate_synthetic_cdp_scale.py \
+#   --semantic-validator data/generator/validate_semantic_behavior_scale.py \
+#   --sizes 1000 10000 100000 \
+#   --products 1000 \
+#   --avg-orders 5 \
+#   --avg-browsing-sessions 6 \
+#   --output-format parquet \
+#   --output-root data/generated/scale
