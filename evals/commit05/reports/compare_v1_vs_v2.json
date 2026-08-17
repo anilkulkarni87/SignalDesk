@@ -1,0 +1,591 @@
+{
+  "baseline_file": "evals/commit05/reports/results_v1_gpt_5_6_luna_none.jsonl",
+  "candidate_file": "evals/commit05/reports/results_v2_gpt_5_6_luna_none.jsonl",
+  "common_cases": 50,
+  "baseline_summary": {
+    "cases": 50,
+    "successful_api_calls": 50,
+    "prompt_versions": [
+      "commit04_v1_frozen"
+    ],
+    "models": [
+      "gpt-5.6-luna"
+    ],
+    "reasoning_efforts": [
+      "none"
+    ],
+    "api_success_rate_pct": 100.0,
+    "schema_valid_rate_pct": 100.0,
+    "risk_accuracy_pct": 86.0,
+    "required_evidence_rate_pct": 78.0,
+    "evidence_feature_validity_pct": 100.0,
+    "latency_seconds": {
+      "mean": 3.435,
+      "p50": 3.2683,
+      "p95": 4.9521
+    },
+    "tokens_per_request": {
+      "mean_input": 1048.72,
+      "mean_output": 393.78,
+      "mean_reasoning": 0,
+      "max_reasoning": 0,
+      "total_reasoning": 0
+    },
+    "estimated_cost_usd": {
+      "total": 0.17057,
+      "mean_per_request": 0.0034114
+    },
+    "risk_accuracy_by_case_type": {
+      "multiple_warning_signals": {
+        "cases": 10,
+        "risk_correct": 6,
+        "required_evidence_present": 6,
+        "schema_valid": 10,
+        "risk_accuracy_pct": 60.0,
+        "required_evidence_rate_pct": 60.0,
+        "schema_valid_rate_pct": 100.0
+      },
+      "purchase_decline_only": {
+        "cases": 10,
+        "risk_correct": 10,
+        "required_evidence_present": 8,
+        "schema_valid": 10,
+        "risk_accuracy_pct": 100.0,
+        "required_evidence_rate_pct": 80.0,
+        "schema_valid_rate_pct": 100.0
+      },
+      "engagement_decline_only": {
+        "cases": 10,
+        "risk_correct": 7,
+        "required_evidence_present": 9,
+        "schema_valid": 10,
+        "risk_accuracy_pct": 70.0,
+        "required_evidence_rate_pct": 90.0,
+        "schema_valid_rate_pct": 100.0
+      },
+      "support_attention_only": {
+        "cases": 10,
+        "risk_correct": 10,
+        "required_evidence_present": 6,
+        "schema_valid": 10,
+        "risk_accuracy_pct": 100.0,
+        "required_evidence_rate_pct": 60.0,
+        "schema_valid_rate_pct": 100.0
+      },
+      "no_warning_signals": {
+        "cases": 10,
+        "risk_correct": 10,
+        "required_evidence_present": 10,
+        "schema_valid": 10,
+        "risk_accuracy_pct": 100.0,
+        "required_evidence_rate_pct": 100.0,
+        "schema_valid_rate_pct": 100.0
+      }
+    },
+    "risk_failures": [
+      {
+        "case_id": "multiple_warning_signals_02",
+        "case_type": "multiple_warning_signals",
+        "expected": "HIGH",
+        "actual": "MEDIUM"
+      },
+      {
+        "case_id": "multiple_warning_signals_05",
+        "case_type": "multiple_warning_signals",
+        "expected": "HIGH",
+        "actual": "MEDIUM"
+      },
+      {
+        "case_id": "multiple_warning_signals_07",
+        "case_type": "multiple_warning_signals",
+        "expected": "HIGH",
+        "actual": "MEDIUM"
+      },
+      {
+        "case_id": "multiple_warning_signals_08",
+        "case_type": "multiple_warning_signals",
+        "expected": "HIGH",
+        "actual": "MEDIUM"
+      },
+      {
+        "case_id": "engagement_decline_only_04",
+        "case_type": "engagement_decline_only",
+        "expected": "MEDIUM",
+        "actual": "LOW"
+      },
+      {
+        "case_id": "engagement_decline_only_07",
+        "case_type": "engagement_decline_only",
+        "expected": "MEDIUM",
+        "actual": "LOW"
+      },
+      {
+        "case_id": "engagement_decline_only_10",
+        "case_type": "engagement_decline_only",
+        "expected": "MEDIUM",
+        "actual": "LOW"
+      }
+    ],
+    "evidence_misses": [
+      {
+        "case_id": "multiple_warning_signals_02",
+        "case_type": "multiple_warning_signals",
+        "missing_required_evidence": [
+          "engagement_decline_flag"
+        ]
+      },
+      {
+        "case_id": "multiple_warning_signals_06",
+        "case_type": "multiple_warning_signals",
+        "missing_required_evidence": [
+          "engagement_decline_flag"
+        ]
+      },
+      {
+        "case_id": "multiple_warning_signals_08",
+        "case_type": "multiple_warning_signals",
+        "missing_required_evidence": [
+          "engagement_decline_flag"
+        ]
+      },
+      {
+        "case_id": "multiple_warning_signals_09",
+        "case_type": "multiple_warning_signals",
+        "missing_required_evidence": [
+          "engagement_decline_flag"
+        ]
+      },
+      {
+        "case_id": "purchase_decline_only_01",
+        "case_type": "purchase_decline_only",
+        "missing_required_evidence": [
+          "purchase_decline_flag"
+        ]
+      },
+      {
+        "case_id": "purchase_decline_only_05",
+        "case_type": "purchase_decline_only",
+        "missing_required_evidence": [
+          "purchase_decline_flag"
+        ]
+      },
+      {
+        "case_id": "engagement_decline_only_01",
+        "case_type": "engagement_decline_only",
+        "missing_required_evidence": [
+          "engagement_decline_flag"
+        ]
+      },
+      {
+        "case_id": "support_attention_only_03",
+        "case_type": "support_attention_only",
+        "missing_required_evidence": [
+          "support_attention_flag"
+        ]
+      },
+      {
+        "case_id": "support_attention_only_04",
+        "case_type": "support_attention_only",
+        "missing_required_evidence": [
+          "support_attention_flag"
+        ]
+      },
+      {
+        "case_id": "support_attention_only_07",
+        "case_type": "support_attention_only",
+        "missing_required_evidence": [
+          "support_attention_flag"
+        ]
+      },
+      {
+        "case_id": "support_attention_only_08",
+        "case_type": "support_attention_only",
+        "missing_required_evidence": [
+          "support_attention_flag"
+        ]
+      }
+    ]
+  },
+  "candidate_summary": {
+    "cases": 50,
+    "successful_api_calls": 50,
+    "prompt_versions": [
+      "commit05_v2_warning_flag_calibration"
+    ],
+    "models": [
+      "gpt-5.6-luna"
+    ],
+    "reasoning_efforts": [
+      "none"
+    ],
+    "api_success_rate_pct": 100.0,
+    "schema_valid_rate_pct": 100.0,
+    "risk_accuracy_pct": 100.0,
+    "required_evidence_rate_pct": 100.0,
+    "evidence_feature_validity_pct": 100.0,
+    "latency_seconds": {
+      "mean": 3.3811,
+      "p50": 3.2016,
+      "p95": 4.8174
+    },
+    "tokens_per_request": {
+      "mean_input": 1187.72,
+      "mean_output": 389.48,
+      "mean_reasoning": 0,
+      "max_reasoning": 0,
+      "total_reasoning": 0
+    },
+    "estimated_cost_usd": {
+      "total": 0.17623,
+      "mean_per_request": 0.0035246
+    },
+    "risk_accuracy_by_case_type": {
+      "multiple_warning_signals": {
+        "cases": 10,
+        "risk_correct": 10,
+        "required_evidence_present": 10,
+        "schema_valid": 10,
+        "risk_accuracy_pct": 100.0,
+        "required_evidence_rate_pct": 100.0,
+        "schema_valid_rate_pct": 100.0
+      },
+      "purchase_decline_only": {
+        "cases": 10,
+        "risk_correct": 10,
+        "required_evidence_present": 10,
+        "schema_valid": 10,
+        "risk_accuracy_pct": 100.0,
+        "required_evidence_rate_pct": 100.0,
+        "schema_valid_rate_pct": 100.0
+      },
+      "engagement_decline_only": {
+        "cases": 10,
+        "risk_correct": 10,
+        "required_evidence_present": 10,
+        "schema_valid": 10,
+        "risk_accuracy_pct": 100.0,
+        "required_evidence_rate_pct": 100.0,
+        "schema_valid_rate_pct": 100.0
+      },
+      "support_attention_only": {
+        "cases": 10,
+        "risk_correct": 10,
+        "required_evidence_present": 10,
+        "schema_valid": 10,
+        "risk_accuracy_pct": 100.0,
+        "required_evidence_rate_pct": 100.0,
+        "schema_valid_rate_pct": 100.0
+      },
+      "no_warning_signals": {
+        "cases": 10,
+        "risk_correct": 10,
+        "required_evidence_present": 10,
+        "schema_valid": 10,
+        "risk_accuracy_pct": 100.0,
+        "required_evidence_rate_pct": 100.0,
+        "schema_valid_rate_pct": 100.0
+      }
+    },
+    "risk_failures": [],
+    "evidence_misses": []
+  },
+  "metric_deltas": {
+    "risk_accuracy_pct": 14.0,
+    "required_evidence_rate_pct": 22.0,
+    "schema_valid_rate_pct": 0.0,
+    "mean_latency_seconds": -0.0539,
+    "p95_latency_seconds": -0.1347,
+    "mean_input_tokens": 139.0,
+    "mean_output_tokens": -4.3,
+    "mean_cost_usd": 0.000113
+  },
+  "regression_count": 0,
+  "improvement_count": 16,
+  "changed_risk_count": 7,
+  "regressions": [],
+  "improvements": [
+    {
+      "case_id": "engagement_decline_only_01",
+      "case_type": "engagement_decline_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": true,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "engagement_decline_only_04",
+      "case_type": "engagement_decline_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "LOW",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": true,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "engagement_decline_only_07",
+      "case_type": "engagement_decline_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "LOW",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": true,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "engagement_decline_only_10",
+      "case_type": "engagement_decline_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "LOW",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": true,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "multiple_warning_signals_02",
+      "case_type": "multiple_warning_signals",
+      "expected_risk_level": "HIGH",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "HIGH",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "multiple_warning_signals_05",
+      "case_type": "multiple_warning_signals",
+      "expected_risk_level": "HIGH",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "HIGH",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": true,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "multiple_warning_signals_06",
+      "case_type": "multiple_warning_signals",
+      "expected_risk_level": "HIGH",
+      "baseline_risk": "HIGH",
+      "candidate_risk": "HIGH",
+      "baseline_risk_correct": true,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "multiple_warning_signals_07",
+      "case_type": "multiple_warning_signals",
+      "expected_risk_level": "HIGH",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "HIGH",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": true,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "multiple_warning_signals_08",
+      "case_type": "multiple_warning_signals",
+      "expected_risk_level": "HIGH",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "HIGH",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "multiple_warning_signals_09",
+      "case_type": "multiple_warning_signals",
+      "expected_risk_level": "HIGH",
+      "baseline_risk": "HIGH",
+      "candidate_risk": "HIGH",
+      "baseline_risk_correct": true,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "purchase_decline_only_01",
+      "case_type": "purchase_decline_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": true,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "purchase_decline_only_05",
+      "case_type": "purchase_decline_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": true,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "support_attention_only_03",
+      "case_type": "support_attention_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": true,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "support_attention_only_04",
+      "case_type": "support_attention_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": true,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "support_attention_only_07",
+      "case_type": "support_attention_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": true,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "support_attention_only_08",
+      "case_type": "support_attention_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": true,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    }
+  ],
+  "changed_risk_cases": [
+    {
+      "case_id": "engagement_decline_only_04",
+      "case_type": "engagement_decline_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "LOW",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": true,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "engagement_decline_only_07",
+      "case_type": "engagement_decline_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "LOW",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": true,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "engagement_decline_only_10",
+      "case_type": "engagement_decline_only",
+      "expected_risk_level": "MEDIUM",
+      "baseline_risk": "LOW",
+      "candidate_risk": "MEDIUM",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": true,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "multiple_warning_signals_02",
+      "case_type": "multiple_warning_signals",
+      "expected_risk_level": "HIGH",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "HIGH",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "multiple_warning_signals_05",
+      "case_type": "multiple_warning_signals",
+      "expected_risk_level": "HIGH",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "HIGH",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": true,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "multiple_warning_signals_07",
+      "case_type": "multiple_warning_signals",
+      "expected_risk_level": "HIGH",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "HIGH",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": true,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    },
+    {
+      "case_id": "multiple_warning_signals_08",
+      "case_type": "multiple_warning_signals",
+      "expected_risk_level": "HIGH",
+      "baseline_risk": "MEDIUM",
+      "candidate_risk": "HIGH",
+      "baseline_risk_correct": false,
+      "candidate_risk_correct": true,
+      "baseline_required_evidence": false,
+      "candidate_required_evidence": true,
+      "candidate_missing_required_evidence": []
+    }
+  ],
+  "decision_inputs": {
+    "candidate_has_regressions": false,
+    "candidate_mean_cost_usd": 0.0035246,
+    "baseline_mean_cost_usd": 0.0034114
+  }
+}
