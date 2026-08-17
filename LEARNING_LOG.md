@@ -1651,3 +1651,399 @@ I should be able to explain:
 - what reasoning tokens represent in the experiment,
 - why `reasoning=none` won this workload,
 - why model optimization must follow measurement rather than intuition.
+
+---
+
+## Commit 05 - Prompt Evaluation Harness
+
+### Goal
+
+Commit 05 turned the Commit 04 LLM experiment into a prompt regression system.
+
+The learning goal was:
+
+```text
+Treat prompts like versioned software artifacts.
+```
+
+Instead of asking whether a new prompt "seems better," I wanted to answer:
+
+```text
+Did Prompt V2 improve behavior?
+Did it introduce regressions?
+Did evidence coverage improve?
+Did latency, token usage, or cost change?
+Which exact cases changed?
+```
+
+This commit still deliberately avoided:
+
+- RAG,
+- embeddings,
+- agents,
+- tools,
+- policy retrieval.
+
+The model continued to reason only over deterministic Customer 360 snapshots.
+
+---
+
+### What I built
+
+Commit 05 added:
+
+```text
+src/llm/prompt_versions/v1.py
+src/llm/prompt_versions/v2.py
+evals/commit05/cases.jsonl
+evals/commit05/make_cases.py
+evals/commit05/runner.py
+evals/commit05/metrics.py
+evals/commit05/compare.py
+evals/commit05/reports/
+```
+
+V1 is a frozen copy of the released Commit 04 prompt:
+
+```text
+prompt = commit04_v1_frozen
+model = gpt-5.6-luna
+reasoning = none
+```
+
+V2 began as a behaviorally identical placeholder.
+
+The rule was important:
+
+```text
+Do not change V2 until V1 failures are measured on a fixed case suite.
+```
+
+---
+
+### First false start
+
+The first Commit 05 run compared V1 against the placeholder V2.
+
+That was useful only as a repeatability experiment.
+
+It did not prove prompt improvement because:
+
+- V2 was behaviorally identical to V1,
+- the case selector had weakened Commit 04 v2 safeguards,
+- 24 of 50 cases had ambiguous broader warning evidence,
+- `multiple_warning_signals_03` omitted `support_attention_flag` from required evidence.
+
+This repeated a Commit 04 lesson:
+
+```text
+If the eval set is wrong, model metrics can look precise while measuring the
+wrong thing.
+```
+
+So I fixed the evaluation before tuning the prompt.
+
+---
+
+### Clean 50-case suite
+
+I regenerated Commit 05 cases using Commit 04 eval v2 selectors.
+
+The new suite has:
+
+```text
+50 total cases
+10 multiple warning signal cases
+10 purchase decline only cases
+10 engagement decline only cases
+10 support attention only cases
+10 no warning signal cases
+```
+
+The selectors intentionally remove contradictory broader evidence from the
+single-signal and LOW categories.
+
+Examples:
+
+- LOW cases require active customers with recent purchases, recent sessions, no warning flags, no refunds, and no recent subscription cancellation.
+- support-only cases require a material but moderate support issue, while excluding purchase decline, engagement decline, dormant behavior, high-priority cases, heavy negative support volume, refunds, and cancellation.
+- multi-warning cases require `purchase_decline_flag` plus at least one independent warning domain.
+
+The regenerated suite passed local validation:
+
+```text
+cases: 50
+counts: 10 per category
+selector violations: 0
+rubric_version: commit05_eval_from_commit04_v2_selectors
+```
+
+---
+
+### V1 baseline on clean cases
+
+V1 produced:
+
+```text
+API success:              100%
+schema validity:          100%
+evidence feature validity: 100%
+risk accuracy:             86%
+required evidence:         78%
+reasoning tokens:           0
+```
+
+The failures were concentrated:
+
+```text
+multiple_warning_signals:
+  6 / 10 risk correct
+  6 / 10 required evidence present
+
+engagement_decline_only:
+  7 / 10 risk correct
+  9 / 10 required evidence present
+
+support_attention_only:
+  10 / 10 risk correct
+  6 / 10 required evidence present
+```
+
+Manual review showed two measured problems:
+
+1. V1 under-classified some customers with both `purchase_decline_flag` and
+   `engagement_decline_flag` as MEDIUM instead of HIGH.
+2. V1 sometimes reached the right classification while omitting the exact true
+   warning flag from evidence.
+
+This was now a prompt problem, not an eval problem.
+
+---
+
+### V2 hypothesis
+
+V2 became:
+
+```text
+commit05_v2_warning_flag_calibration
+```
+
+The hypothesis:
+
+```text
+V1 under-classified customers with both purchase_decline_flag and
+engagement_decline_flag set, and sometimes omitted true warning flags from
+evidence. V2 should improve HIGH classification for multiple warning signals
+and required-evidence coverage by making the three curated warning flags
+explicit decision anchors.
+```
+
+The prompt change was intentionally small.
+
+V2 made these rules explicit:
+
+- treat `purchase_decline_flag`, `engagement_decline_flag`, and `support_attention_flag` as curated warning signals,
+- cite true warning flags when they influence the assessment,
+- classify purchase decline plus engagement decline or support attention as HIGH,
+- classify exactly one true curated warning flag as MEDIUM rather than LOW,
+- reserve LOW for customers with no curated warning flags and no other material warning signal.
+
+---
+
+### V1 vs V2 result
+
+V2 produced:
+
+```text
+API success:              100%
+schema validity:          100%
+evidence feature validity: 100%
+risk accuracy:            100%
+required evidence:        100%
+reasoning tokens:           0
+```
+
+Comparison:
+
+```text
+risk accuracy:
+  V1: 86%
+  V2: 100%
+  delta: +14 points
+
+required evidence:
+  V1: 78%
+  V2: 100%
+  delta: +22 points
+
+regressions:
+  0
+
+improvements:
+  16
+
+changed risk cases:
+  7
+```
+
+Cost and token impact:
+
+```text
+mean input tokens: +139
+mean output tokens: -4.3
+mean cost/request: +$0.000113
+mean latency: -0.0539s
+p95 latency: -0.1347s
+```
+
+The input-token increase was expected because V2 contains more explicit
+calibration rules.
+
+The tradeoff was acceptable for this workload because V2 directly fixed the
+measured failures without regressions.
+
+Decision:
+
+```text
+Adopt V2 for this evaluation suite.
+```
+
+---
+
+### What I learned
+
+#### 1. A prompt comparison needs a fixed input suite
+
+Changing the prompt and the cases at the same time destroys the experiment.
+
+Commit 05 only became meaningful after the 50 Customer 360 inputs were fixed.
+
+#### 2. Repeatability is not improvement
+
+The first V1/V2 comparison looked like a comparison report, but V2 was still a
+placeholder.
+
+That run measured model variability and harness behavior, not prompt quality.
+
+#### 3. Prompt changes need hypotheses
+
+The useful V2 change did not come from preference.
+
+It came from measured V1 failures:
+
+```text
+under-classified multiple warning signals
+missing true warning-flag evidence
+```
+
+That made V2 small, reviewable, and testable.
+
+#### 4. Regression count matters as much as average accuracy
+
+An average metric can improve while individual important cases get worse.
+
+The comparison report made regressions explicit.
+
+For this run:
+
+```text
+regressions = 0
+```
+
+That is why the adoption decision is defensible.
+
+#### 5. Evidence completeness is a separate product quality metric
+
+V2 did not only improve the final risk label.
+
+It improved the explanation trail:
+
+```text
+required evidence: 78% -> 100%
+```
+
+For SignalDesk, that matters because a human reviewer needs to see the
+deterministic facts behind the model's conclusion.
+
+#### 6. More prompt text has a cost
+
+V2 added about 139 input tokens per request.
+
+That is not free.
+
+But the measured gain was large enough to justify the extra cost for now.
+
+---
+
+### Before / after
+
+#### Before
+
+```text
+single prompt
+one evaluation runner
+no prompt version directory
+no fixed 50-case prompt regression suite
+no V1/V2 comparison report
+no regression list
+no measured adoption decision
+```
+
+#### After
+
+```text
+frozen V1 prompt
+hypothesis-driven V2 prompt
+50 fixed clean evaluation cases
+same model and reasoning setting across versions
+V1 baseline report
+V2 candidate report
+comparison report
+per-case improvements
+regression count
+latency, token, and cost deltas
+measured decision to adopt V2
+```
+
+---
+
+### Still unproven
+
+Commit 05 does not prove:
+
+- real churn prediction accuracy,
+- generalization beyond the 50-case suite,
+- quality on messy production data,
+- policy-grounded recommendations,
+- causal intervention impact,
+- retrieval quality,
+- agent behavior,
+- tool-use correctness.
+
+It proves something narrower and useful:
+
+```text
+Given this fixed Customer 360 evaluation suite, Prompt V2 improves measured
+risk classification and required-evidence coverage over frozen V1 without
+observed regressions.
+```
+
+---
+
+### Can I explain/rebuild this from scratch?
+
+**Target: Yes.**
+
+I should be able to explain:
+
+- why V1 must stay frozen,
+- why V2 starts as a placeholder,
+- why eval cases must be fixed before tuning,
+- why the first Commit 05 comparison was not proof of prompt improvement,
+- how Commit 04 v2 selectors made the 50 cases cleaner,
+- how required evidence differs from evidence-feature validity,
+- how to read a V1 failure report and form a narrow V2 hypothesis,
+- why regression count is a first-class adoption metric,
+- why `gpt-5.6-luna` with `reasoning=none` stayed fixed,
+- why this still avoids RAG and agents,
+- why prompt adoption should be a measured decision, not a vibe check.
