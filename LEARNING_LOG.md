@@ -3652,3 +3652,181 @@ model proposes
 application validates and executes
 evaluation decides whether behavior earned adoption
 ```
+
+## Commit 11 - From an Agent Loop to a Stateful Workflow
+
+Commit 11 asks whether explicit orchestration adds useful control without
+changing the accepted agent behavior.
+
+The treatment is intentionally narrow:
+
+```text
+fixed                              changed
+-----                              -------
+gpt-5.6-luna                       manual loop -> LangGraph StateGraph
+reasoning = none                   local variables -> typed graph state
+Commit 10 V4 prompt                implicit branches -> named routes
+six read-only tools                no checkpoints -> per-node checkpoints
+50 frozen customers                restart -> resume from failed node
+answer schema and evaluator
+```
+
+### The loop already had state
+
+Commit 10 carried the request, Responses API transcript, pending function
+calls, tool traces, usage totals, and final answer in Python variables. That was
+state even though it was not named as a state machine.
+
+LangGraph does not create intelligence. It makes those variables a contract
+shared by explicit nodes:
+
+```text
+interpret_request
+resolve_customer
+investigation_router
+profile | events | knowledge | reason_about_case
+recommend_action
+approval_required
+finish
+```
+
+The model still decides which tool to request. Application code maps that
+approved tool to a deterministic route, validates its arguments, binds it to
+the task customer, executes it, and records the transition.
+
+### Checkpoints change failure semantics
+
+The graph compiles with an `InMemorySaver`. Every successful graph step creates
+a checkpoint keyed by a thread ID. If `reason_about_case` fails, the stored
+snapshot still identifies that node as the next step. Calling
+`resume(thread_id)` retries from there instead of repeating request
+interpretation and customer resolution.
+
+This is process-local learning infrastructure, not durable production
+persistence. A process restart loses the checkpoints. Commit 11 demonstrates
+the contract before choosing a durable store.
+
+### The action path is visible but closed
+
+The roadmap's graph includes recommendation, approval, and action execution,
+but Commit 12 owns human approval and consequential tools. Commit 11 therefore
+records:
+
+```text
+recommendation    = ANALYSIS_ONLY
+approval_required = false
+action_executed   = false
+```
+
+The action node raises if reached. Modeling a future edge does not grant the
+system future authority.
+
+### Quantifiable workflow experiment
+
+The 50 accepted Commit 10 runs produce 100 frozen workflow scenarios:
+
+```text
+50 standard replays
+50 replays with one injected reasoning-node failure followed by resume
+```
+
+Measured result:
+
+```text
+completion                 100%
+correct routing            100%
+tool-count agreement       100%
+rubric task completion     100%
+checkpoint recovery        100%
+average tool calls         2.22
+failed executions          0
+approval-required paths    0
+actions executed           0
+```
+
+Completed workflows wrote 14 to 18 checkpoints, with a mean of 16.44.
+
+This is a deterministic replay experiment. It proves that the graph can
+reproduce accepted tool traces, preserve the rubric result, and recover from a
+known injected node failure. It does not prove that a new stochastic model run
+will make identical decisions.
+
+### Live 50-case comparison
+
+The second experiment ran the same frozen customers through the LangGraph
+workflow. These variables remained fixed:
+
+```text
+model             gpt-5.6-luna
+reasoning          none
+prompt             commit10_v4_campaign_evidence_budget
+tools              six read-only Commit 09 tools
+cases              50 frozen Commit 10 tasks
+answer schema      InvestigationAnswer
+evaluator          Commit 10 V4 rubric
+```
+
+Only orchestration changed from the manual loop to the state graph.
+
+| Metric | Commit 10 loop | Commit 11 LangGraph |
+|---|---:|---:|
+| API success | 100% | 100% |
+| Correct tools | 100% | 100% |
+| Correct arguments | 100% | 100% |
+| Unnecessary-tools empty | 98% | 100% |
+| Correct conclusions | 100% | 100% |
+| Required evidence | 100% | 100% |
+| Policy citations evidenced | 100% | 100% |
+| Task completion | 100% | 100% |
+| Correct graph routing | not applicable | 100% |
+
+The comparison found no task-completion regressions, no routing failures, no
+approval-required paths, and no executed actions.
+
+Operational measurements:
+
+| Measurement | Commit 10 loop | Commit 11 LangGraph |
+|---|---:|---:|
+| Mean / p50 / p95 latency | 6.0616 / 5.4742 / 9.2174s | 5.4044 / 5.0890 / 7.7938s |
+| Tool calls | 111 | 110 |
+| API requests | 106 | 103 |
+| Input tokens | 302,870 | 293,566 |
+| Output tokens | 22,966 | 22,730 |
+| Estimated cost | $0.236846 | $0.233834 |
+
+The candidate wrote 826 checkpoints, averaging 16.52 per task. Forty-seven
+tasks completed in two model rounds and three completed in three rounds. No
+tool execution failed and no API retry was needed.
+
+The Commit 10 duplicate metrics call in `agent_purchase_decline_only_08` did
+not recur. Two engagement cases also used one fewer model round. These are
+observed stochastic differences, not evidence that LangGraph made the model
+more efficient. The graph preserved the request contract; it did not change
+the prompt hypothesis.
+
+### What Commit 11 does not prove
+
+Seventeen of 20 cited policy excerpts still use the same generic uncertainty
+and escalation passage. Provenance, exact citation evidence, and family
+coverage pass; semantic specificity remains a separate retrieval and corpus
+limitation.
+
+The 100-scenario replay proves recovery from one injected node failure. The
+live run had no failures, so it did not exercise live resume behavior. The
+checkpointer is also process-local and not durable across restarts.
+
+The 50 cases are a development regression suite, not a holdout. One live run
+does not estimate stochastic variance or production reliability. Commit 11 has
+no write-capable tool, human approval, or production action.
+
+### Commit 11 conclusion
+
+Commit 11 V1 is accepted.
+
+> Explicit LangGraph state, routing, checkpoints, and resume semantics
+> preserved the accepted agent behavior without introducing regressions.
+
+The framework earned adoption for orchestration and observability, not for an
+unmeasured claim of greater intelligence. Commit 12 can now introduce a real
+human approval boundary and consequential action tools on top of a measured,
+read-only state machine.

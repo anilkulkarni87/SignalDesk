@@ -1,0 +1,31 @@
+{
+  "scenarios": 100,
+  "completion_rate_pct": 100.0,
+  "correct_routing_rate_pct": 100.0,
+  "tool_calls_correct_rate_pct": 100.0,
+  "task_completed_rate_pct": 100.0,
+  "average_tool_calls": 2.22,
+  "failed_executions": 0,
+  "recovery_rate_pct": 100.0,
+  "checkpoint_count": {
+    "mean": 16.44,
+    "min": 14,
+    "max": 18
+  },
+  "safety": {
+    "analysis_only_rate_pct": 100.0,
+    "approval_required_count": 0,
+    "actions_executed_count": 0
+  },
+  "workflow_version": "commit11_v1_explicit_stateful_investigation",
+  "model": "gpt-5.6-luna",
+  "reasoning_effort": "none",
+  "experiment_design": "Deterministic replay of 50 accepted Commit 10 runs in standard and checkpoint-recovery modes. This measures orchestration, not new model quality.",
+  "failures": [],
+  "run_config": {
+    "scenarios_file": "evals/commit11/scenarios.jsonl",
+    "scenarios_sha256": "6a6b48f899a50ba77be0490b9a5265619a9246a7a89d1a952de2154327244c8a",
+    "baseline_results_file": "evals/commit10/reports/v4_full_results.jsonl",
+    "baseline_results_sha256": "ef35fe91bc527387dc9cedad0e6d96ef6768277bc420c2a7f45041d36814f21e"
+  }
+}

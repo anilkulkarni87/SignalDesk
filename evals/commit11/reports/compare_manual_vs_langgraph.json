@@ -1,0 +1,380 @@
+{
+  "experiment": "Same 50 frozen cases, prompt, tools, model, reasoning, schemas, and rubric; only manual-loop versus LangGraph orchestration changes.",
+  "baseline": {
+    "name": "commit10_manual_loop_v4",
+    "metrics": {
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 98.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "all_policy_citations_evidenced_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "operational": {
+      "api_success_rate_pct": 100.0,
+      "mean_tool_calls": 2.22,
+      "mean_latency_seconds": 6.0616,
+      "input_tokens_total": 302870,
+      "output_tokens_total": 22966,
+      "estimated_cost_usd_total": 0.236846
+    }
+  },
+  "candidate": {
+    "name": "commit11_langgraph_workflow_v1",
+    "metrics": {
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "all_policy_citations_evidenced_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "operational": {
+      "api_success_rate_pct": 100.0,
+      "mean_tool_calls": 2.2,
+      "mean_latency_seconds": 5.4044,
+      "input_tokens_total": 293566,
+      "output_tokens_total": 22730,
+      "estimated_cost_usd_total": 0.233834
+    }
+  },
+  "candidate_minus_baseline_rate_pct": {
+    "correct_tools_selected_rate_pct": 0.0,
+    "correct_tool_arguments_rate_pct": 0.0,
+    "unnecessary_tools_empty_rate_pct": 2.0,
+    "conclusion_correct_rate_pct": 0.0,
+    "summary_complete_rate_pct": 0.0,
+    "all_evidence_grounded_rate_pct": 0.0,
+    "required_evidence_present_rate_pct": 0.0,
+    "all_policy_citations_retrieved_rate_pct": 0.0,
+    "all_policy_citations_evidenced_rate_pct": 0.0,
+    "required_policy_families_cited_rate_pct": 0.0,
+    "task_completed_rate_pct": 0.0
+  },
+  "behavioral_regressions": [],
+  "behavioral_improvements": [],
+  "correct_routing_rate_pct": 100.0,
+  "routing_failures": [],
+  "safety": {
+    "approval_required_count": 0,
+    "actions_executed_count": 0
+  },
+  "per_case": [
+    {
+      "case_id": "agent_campaign_06",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_campaign_07",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_campaign_08",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_campaign_09",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_campaign_10",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_engagement_decline_only_01",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_engagement_decline_only_02",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_engagement_decline_only_03",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_engagement_decline_only_04",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_engagement_decline_only_05",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_engagement_decline_only_06",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_engagement_decline_only_07",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_engagement_decline_only_08",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_engagement_decline_only_09",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_engagement_decline_only_10",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_01",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_02",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_03",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_04",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_05",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_06",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_07",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_08",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_09",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_10",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_profile_01",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_profile_02",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_profile_03",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_profile_04",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_profile_05",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_purchase_decline_only_01",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_purchase_decline_only_02",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_purchase_decline_only_03",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_purchase_decline_only_04",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_purchase_decline_only_05",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_purchase_decline_only_06",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_purchase_decline_only_07",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_purchase_decline_only_08",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_purchase_decline_only_09",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_purchase_decline_only_10",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_support_attention_only_01",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_support_attention_only_02",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_support_attention_only_03",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_support_attention_only_04",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_support_attention_only_05",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_support_attention_only_06",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_support_attention_only_07",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_support_attention_only_08",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_support_attention_only_09",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    },
+    {
+      "case_id": "agent_support_attention_only_10",
+      "baseline_task_completed": true,
+      "candidate_task_completed": true,
+      "candidate_failed_metrics": []
+    }
+  ],
+  "run_config": {
+    "baseline_file": "evals/commit10/reports/v4_full_results.jsonl",
+    "baseline_sha256": "ef35fe91bc527387dc9cedad0e6d96ef6768277bc420c2a7f45041d36814f21e",
+    "candidate_file": "evals/commit11/reports/langgraph_results.jsonl",
+    "candidate_sha256": "7fe156252b945d0f323cc1ead8ab0519b6146588dbf1411d24380e25b41b1be4"
+  }
+}
