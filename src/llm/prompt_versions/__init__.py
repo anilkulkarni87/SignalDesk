@@ -1,2 +1,1 @@
-"""Versioned prompt artifacts for Commit 05."""
-
+"""Versioned prompt artifacts for SignalDesk LLM experiments."""

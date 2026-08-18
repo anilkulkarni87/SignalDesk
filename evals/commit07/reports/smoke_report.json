@@ -1,0 +1,74 @@
+{
+  "cases": 5,
+  "successful_api_calls": 5,
+  "api_success_rate_pct": 100.0,
+  "schema_valid_rate_pct": 100.0,
+  "risk_correct_rate_pct": 100.0,
+  "required_evidence_all_present_rate_pct": 100.0,
+  "required_evidence_any_present_rate_pct": 100.0,
+  "answer_correct_rate_pct": 100.0,
+  "expected_policy_docs_retrieved_rate_pct": 100.0,
+  "expected_policy_families_retrieved_rate_pct": 100.0,
+  "all_citations_retrieved_rate_pct": 100.0,
+  "all_citation_excerpts_grounded_rate_pct": 100.0,
+  "expected_policy_docs_cited_rate_pct": 100.0,
+  "expected_policy_families_cited_rate_pct": 100.0,
+  "unsupported_policy_claims_empty_rate_pct": 100.0,
+  "citation_precision_pct": 100.0,
+  "reasoning_tokens_total": 0,
+  "latency_seconds": {
+    "retrieval": {
+      "mean": 0.2943,
+      "p50": 0.0978,
+      "p95": 0.9288
+    },
+    "generation": {
+      "mean": 6.7958,
+      "p50": 6.8089,
+      "p95": 7.678
+    },
+    "total": {
+      "mean": 7.1502,
+      "p50": 7.185,
+      "p95": 8.6927
+    }
+  },
+  "tokens": {
+    "input_total": 21915,
+    "cached_input_total": 4876,
+    "output_total": 4363,
+    "total": 26278
+  },
+  "estimated_generation_cost_usd": 0.043705,
+  "by_question_type": {
+    "policy_guardrails": {
+      "cases": 2,
+      "risk_correct_rate_pct": 100.0,
+      "required_evidence_all_present_rate_pct": 100.0,
+      "required_evidence_any_present_rate_pct": 100.0,
+      "answer_correct_rate_pct": 100.0,
+      "expected_policy_docs_retrieved_rate_pct": 100.0,
+      "expected_policy_families_retrieved_rate_pct": 100.0,
+      "all_citations_retrieved_rate_pct": 100.0,
+      "all_citation_excerpts_grounded_rate_pct": 100.0,
+      "expected_policy_docs_cited_rate_pct": 100.0,
+      "expected_policy_families_cited_rate_pct": 100.0,
+      "unsupported_policy_claims_empty_rate_pct": 100.0
+    },
+    "risk_investigation": {
+      "cases": 3,
+      "risk_correct_rate_pct": 100.0,
+      "required_evidence_all_present_rate_pct": 100.0,
+      "required_evidence_any_present_rate_pct": 100.0,
+      "answer_correct_rate_pct": 100.0,
+      "expected_policy_docs_retrieved_rate_pct": 100.0,
+      "expected_policy_families_retrieved_rate_pct": 100.0,
+      "all_citations_retrieved_rate_pct": 100.0,
+      "all_citation_excerpts_grounded_rate_pct": 100.0,
+      "expected_policy_docs_cited_rate_pct": 100.0,
+      "expected_policy_families_cited_rate_pct": 100.0,
+      "unsupported_policy_claims_empty_rate_pct": 100.0
+    }
+  },
+  "failures": []
+}

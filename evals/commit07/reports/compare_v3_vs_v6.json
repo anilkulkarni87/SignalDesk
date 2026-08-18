@@ -1,0 +1,184 @@
+{
+  "baseline_file": "evals/commit07/reports/rag_v1_results.jsonl",
+  "candidate_file": "evals/commit07/reports/rag_v6_results.jsonl",
+  "baseline_prompt_versions": [
+    "commit07_v3_vector_rag"
+  ],
+  "candidate_prompt_versions": [
+    "commit07_v6_calibrated_intent_rag"
+  ],
+  "baseline_cases": 100,
+  "candidate_cases": 100,
+  "shared_cases": 100,
+  "missing_from_candidate": [],
+  "new_in_candidate": [],
+  "metrics": {
+    "api_success": {
+      "baseline_passed": 98,
+      "candidate_passed": 100,
+      "improvements": [
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails"
+      ],
+      "regressions": []
+    },
+    "schema_valid": {
+      "baseline_passed": 98,
+      "candidate_passed": 100,
+      "improvements": [
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails"
+      ],
+      "regressions": []
+    },
+    "risk_correct": {
+      "baseline_passed": 98,
+      "candidate_passed": 100,
+      "improvements": [
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails"
+      ],
+      "regressions": []
+    },
+    "required_evidence_all_present": {
+      "baseline_passed": 98,
+      "candidate_passed": 100,
+      "improvements": [
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails"
+      ],
+      "regressions": []
+    },
+    "required_evidence_any_present": {
+      "baseline_passed": 98,
+      "candidate_passed": 100,
+      "improvements": [
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails"
+      ],
+      "regressions": []
+    },
+    "answer_correct": {
+      "baseline_passed": 98,
+      "candidate_passed": 100,
+      "improvements": [
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails"
+      ],
+      "regressions": []
+    },
+    "expected_policy_docs_retrieved": {
+      "baseline_passed": 98,
+      "candidate_passed": 100,
+      "improvements": [
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails"
+      ],
+      "regressions": []
+    },
+    "expected_policy_families_retrieved": {
+      "baseline_passed": 98,
+      "candidate_passed": 100,
+      "improvements": [
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails"
+      ],
+      "regressions": []
+    },
+    "all_citations_retrieved": {
+      "baseline_passed": 98,
+      "candidate_passed": 100,
+      "improvements": [
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails"
+      ],
+      "regressions": []
+    },
+    "all_citation_excerpts_grounded": {
+      "baseline_passed": 82,
+      "candidate_passed": 100,
+      "improvements": [
+        "engagement_decline_only_06__risk_investigation",
+        "multiple_warning_signals_01__policy_guardrails",
+        "multiple_warning_signals_08__risk_investigation",
+        "multiple_warning_signals_09__risk_investigation",
+        "no_warning_signals_03__policy_guardrails",
+        "no_warning_signals_07__policy_guardrails",
+        "no_warning_signals_08__risk_investigation",
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_04__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails",
+        "support_attention_only_01__policy_guardrails",
+        "support_attention_only_02__policy_guardrails",
+        "support_attention_only_02__risk_investigation",
+        "support_attention_only_04__risk_investigation",
+        "support_attention_only_05__risk_investigation",
+        "support_attention_only_06__policy_guardrails",
+        "support_attention_only_07__policy_guardrails",
+        "support_attention_only_09__policy_guardrails"
+      ],
+      "regressions": []
+    },
+    "expected_policy_docs_cited": {
+      "baseline_passed": 90,
+      "candidate_passed": 100,
+      "improvements": [
+        "engagement_decline_only_01__policy_guardrails",
+        "engagement_decline_only_02__policy_guardrails",
+        "engagement_decline_only_07__risk_investigation",
+        "engagement_decline_only_08__risk_investigation",
+        "multiple_warning_signals_04__risk_investigation",
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_04__risk_investigation",
+        "purchase_decline_only_06__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails",
+        "purchase_decline_only_07__risk_investigation"
+      ],
+      "regressions": []
+    },
+    "expected_policy_families_cited": {
+      "baseline_passed": 74,
+      "candidate_passed": 100,
+      "improvements": [
+        "engagement_decline_only_01__policy_guardrails",
+        "engagement_decline_only_01__risk_investigation",
+        "engagement_decline_only_02__policy_guardrails",
+        "engagement_decline_only_07__risk_investigation",
+        "engagement_decline_only_08__risk_investigation",
+        "multiple_warning_signals_01__risk_investigation",
+        "multiple_warning_signals_02__risk_investigation",
+        "multiple_warning_signals_04__risk_investigation",
+        "multiple_warning_signals_06__policy_guardrails",
+        "multiple_warning_signals_09__policy_guardrails",
+        "no_warning_signals_02__risk_investigation",
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_04__risk_investigation",
+        "purchase_decline_only_06__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails",
+        "purchase_decline_only_07__risk_investigation",
+        "support_attention_only_01__policy_guardrails",
+        "support_attention_only_01__risk_investigation",
+        "support_attention_only_03__policy_guardrails",
+        "support_attention_only_03__risk_investigation",
+        "support_attention_only_04__risk_investigation",
+        "support_attention_only_08__policy_guardrails",
+        "support_attention_only_08__risk_investigation",
+        "support_attention_only_09__policy_guardrails",
+        "support_attention_only_09__risk_investigation",
+        "support_attention_only_10__risk_investigation"
+      ],
+      "regressions": []
+    },
+    "unsupported_policy_claims_empty": {
+      "baseline_passed": 96,
+      "candidate_passed": 100,
+      "improvements": [
+        "no_warning_signals_09__risk_investigation",
+        "purchase_decline_only_07__policy_guardrails",
+        "support_attention_only_01__policy_guardrails",
+        "support_attention_only_01__risk_investigation"
+      ],
+      "regressions": []
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "cases": 25,
+  "successful_api_calls": 25,
+  "api_success_rate_pct": 100.0,
+  "risk_accuracy_pct": 100.0,
+  "expected_policy_retrieval_rate_pct": 100.0,
+  "expected_policy_citation_rate_pct": 100.0,
+  "expected_policy_family_retrieval_rate_pct": 100.0,
+  "expected_policy_family_citation_rate_pct": 100.0,
+  "unsupported_policy_claims_empty_rate_pct": 100.0,
+  "failures": []
+}

@@ -1,0 +1,692 @@
+{
+  "cases": 7,
+  "top_k": 3,
+  "corpus_dir": "data/generated/knowledge",
+  "passed": 7,
+  "pass_rate_pct": 100.0,
+  "expected_doc_id_present_rate_pct": 100.0,
+  "expected_family_present_rate_pct": 100.0,
+  "expected_top_family_rate_pct": 100.0,
+  "expected_status_rate_pct": 100.0,
+  "expected_authority_rate_pct": 100.0,
+  "forbidden_absent_rate_pct": 100.0,
+  "forbidden_statuses_absent_rate_pct": 100.0,
+  "excerpts_present_rate_pct": 100.0,
+  "case_reports": [
+    {
+      "case_id": "offer_eligibility_01",
+      "query": "retention offer eligibility cooling period discount",
+      "retrieved_doc_ids": [
+        "KB-00704",
+        "KB-00595",
+        "KB-00787"
+      ],
+      "retrieved_families": [
+        "offers",
+        "offers",
+        "offers"
+      ],
+      "retrieved_statuses": [
+        "CURRENT",
+        "CURRENT",
+        "CURRENT"
+      ],
+      "retrieved_authorities": [
+        "APPROVED",
+        "APPROVED",
+        "APPROVED"
+      ],
+      "expected_doc_ids_all": [],
+      "expected_families_any": [
+        "offers"
+      ],
+      "forbidden_doc_ids": [],
+      "forbidden_statuses": [
+        "DRAFT",
+        "INCOMPLETE",
+        "SUPERSEDED"
+      ],
+      "expected_present": true,
+      "expected_family_present": true,
+      "expected_top_family_present": true,
+      "expected_status_present": true,
+      "expected_authority_present": true,
+      "forbidden_absent": true,
+      "forbidden_statuses_absent": true,
+      "excerpts_present": true,
+      "passed": true,
+      "results": [
+        {
+          "document_id": "KB-00704",
+          "title": "Retention Offer Eligibility Policy",
+          "family": "offers",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 35.1386,
+          "matched_terms": [
+            "cooling",
+            "discount",
+            "eligibility",
+            "incentive",
+            "offer",
+            "retention"
+          ],
+          "path": "data/generated/knowledge/offers/kb-00704-retention-offer-eligibility-policy.md",
+          "excerpt": "This policy explains recent-offer cooling periods for NovaCart customer operations."
+        },
+        {
+          "document_id": "KB-00595",
+          "title": "Retention Offer Eligibility Policy",
+          "family": "offers",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 34.9872,
+          "matched_terms": [
+            "discount",
+            "eligibility",
+            "incentive",
+            "offer",
+            "promotion",
+            "retention"
+          ],
+          "path": "data/generated/knowledge/offers/kb-00595-retention-offer-eligibility-policy.md",
+          "excerpt": "A customer should not receive another retention offer within 14 days of a prior retention incentive unless an approved exception is documented. Offer eligibility does not prove that an offer will improve retention."
+        },
+        {
+          "document_id": "KB-00787",
+          "title": "Retention Offer Eligibility Policy",
+          "family": "offers",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 34.5085,
+          "matched_terms": [
+            "discount",
+            "eligibility",
+            "incentive",
+            "offer",
+            "retention"
+          ],
+          "path": "data/generated/knowledge/offers/kb-00787-retention-offer-eligibility-policy.md",
+          "excerpt": "This policy explains discount exclusions for NovaCart customer operations."
+        }
+      ]
+    },
+    {
+      "case_id": "support_escalation_01",
+      "query": "open support case support escalation handoff",
+      "retrieved_doc_ids": [
+        "KB-00853",
+        "KB-00319",
+        "KB-00377"
+      ],
+      "retrieved_families": [
+        "support",
+        "support",
+        "support"
+      ],
+      "retrieved_statuses": [
+        "CURRENT",
+        "CURRENT",
+        "CURRENT"
+      ],
+      "retrieved_authorities": [
+        "APPROVED",
+        "APPROVED",
+        "APPROVED"
+      ],
+      "expected_doc_ids_all": [],
+      "expected_families_any": [
+        "support"
+      ],
+      "forbidden_doc_ids": [],
+      "forbidden_statuses": [
+        "DRAFT",
+        "INCOMPLETE",
+        "SUPERSEDED"
+      ],
+      "expected_present": true,
+      "expected_family_present": true,
+      "expected_top_family_present": true,
+      "expected_status_present": true,
+      "expected_authority_present": true,
+      "forbidden_absent": true,
+      "forbidden_statuses_absent": true,
+      "excerpts_present": true,
+      "passed": true,
+      "results": [
+        {
+          "document_id": "KB-00853",
+          "title": "Retention-to-Support Handoff Procedure",
+          "family": "support",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 27.4738,
+          "matched_terms": [
+            "escalation",
+            "handoff",
+            "service",
+            "support"
+          ],
+          "path": "data/generated/knowledge/support/kb-00853-retention-to-support-handoff-procedure.md",
+          "excerpt": "A customer with an unresolved service problem should be evaluated for support escalation before a retention incentive is considered. The handoff must include the customer identifier, issue summary, relevant order or ticket references, and supporting evidence."
+        },
+        {
+          "document_id": "KB-00319",
+          "title": "Retention-to-Support Handoff Procedure",
+          "family": "support",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 26.899,
+          "matched_terms": [
+            "escalation",
+            "handoff",
+            "service",
+            "support"
+          ],
+          "path": "data/generated/knowledge/support/kb-00319-retention-to-support-handoff-procedure.md",
+          "excerpt": "A customer with an unresolved service problem should be evaluated for service escalation before a retention incentive is considered. The handoff must include the customer identifier, issue summary, relevant order or ticket references, and supporting evidence."
+        },
+        {
+          "document_id": "KB-00377",
+          "title": "Customer Support Escalation Playbook",
+          "family": "support",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 25.4489,
+          "matched_terms": [
+            "escalation",
+            "handoff",
+            "service",
+            "support"
+          ],
+          "path": "data/generated/knowledge/support/kb-00377-customer-support-escalation-playbook.md",
+          "excerpt": "A customer with an unresolved service problem should be evaluated for support escalation before a retention incentive is considered. The handoff must include the customer identifier, issue summary, relevant order or ticket references, and supporting evidence."
+        }
+      ]
+    },
+    {
+      "case_id": "consent_01",
+      "query": "customer communication consent email opt out suppression",
+      "retrieved_doc_ids": [
+        "KB-00108",
+        "KB-00989",
+        "KB-00117"
+      ],
+      "retrieved_families": [
+        "consent",
+        "consent",
+        "consent"
+      ],
+      "retrieved_statuses": [
+        "CURRENT",
+        "CURRENT",
+        "CURRENT"
+      ],
+      "retrieved_authorities": [
+        "APPROVED",
+        "APPROVED",
+        "APPROVED"
+      ],
+      "expected_doc_ids_all": [],
+      "expected_families_any": [
+        "consent"
+      ],
+      "forbidden_doc_ids": [],
+      "forbidden_statuses": [
+        "DRAFT",
+        "INCOMPLETE",
+        "SUPERSEDED"
+      ],
+      "expected_present": true,
+      "expected_family_present": true,
+      "expected_top_family_present": true,
+      "expected_status_present": true,
+      "expected_authority_present": true,
+      "forbidden_absent": true,
+      "forbidden_statuses_absent": true,
+      "excerpts_present": true,
+      "passed": true,
+      "results": [
+        {
+          "document_id": "KB-00108",
+          "title": "Customer Communication Consent Policy",
+          "family": "consent",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 52.7082,
+          "matched_terms": [
+            "communication",
+            "consent",
+            "customer",
+            "email",
+            "opt",
+            "out",
+            "suppression"
+          ],
+          "path": "data/generated/knowledge/consent/kb-00108-customer-communication-consent-policy.md",
+          "excerpt": "This policy explains email opt-out for NovaCart customer operations."
+        },
+        {
+          "document_id": "KB-00989",
+          "title": "Channel Opt-Out Procedure",
+          "family": "consent",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 51.3667,
+          "matched_terms": [
+            "consent",
+            "customer",
+            "email",
+            "opt",
+            "out"
+          ],
+          "path": "data/generated/knowledge/consent/kb-00989-channel-opt-out-procedure.md",
+          "excerpt": "This policy explains email opt-out for NovaCart customer operations."
+        },
+        {
+          "document_id": "KB-00117",
+          "title": "Channel Opt-Out Procedure",
+          "family": "consent",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 49.949,
+          "matched_terms": [
+            "consent",
+            "customer",
+            "email",
+            "opt",
+            "out",
+            "suppression"
+          ],
+          "path": "data/generated/knowledge/consent/kb-00117-channel-opt-out-procedure.md",
+          "excerpt": "This policy explains email opt-out for NovaCart customer operations."
+        }
+      ]
+    },
+    {
+      "case_id": "causal_uplift_gap_01",
+      "query": "exact causal uplift from retention discounts",
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00328",
+        "KB-00443"
+      ],
+      "retrieved_families": [
+        "governance",
+        "loyalty",
+        "loyalty"
+      ],
+      "retrieved_statuses": [
+        "CURRENT",
+        "CURRENT",
+        "CURRENT"
+      ],
+      "retrieved_authorities": [
+        "APPROVED",
+        "APPROVED",
+        "APPROVED"
+      ],
+      "expected_doc_ids_all": [
+        "GAP-001"
+      ],
+      "expected_families_any": [
+        "governance"
+      ],
+      "forbidden_doc_ids": [],
+      "forbidden_statuses": [
+        "DRAFT",
+        "INCOMPLETE",
+        "SUPERSEDED"
+      ],
+      "expected_present": true,
+      "expected_family_present": true,
+      "expected_top_family_present": true,
+      "expected_status_present": true,
+      "expected_authority_present": true,
+      "forbidden_absent": true,
+      "forbidden_statuses_absent": true,
+      "excerpts_present": true,
+      "passed": true,
+      "results": [
+        {
+          "document_id": "GAP-001",
+          "title": "Exact Causal Uplift From Retention Discounts",
+          "family": "governance",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 68.9904,
+          "matched_terms": [
+            "benefit",
+            "causal",
+            "discounts",
+            "exact",
+            "retention",
+            "uplift"
+          ],
+          "path": "data/generated/knowledge/_truth/known_knowledge_gaps.json",
+          "excerpt": "Expected behavior: Do not infer causal benefit from churn risk or historical offer use."
+        },
+        {
+          "document_id": "KB-00328",
+          "title": "Loyalty Retention Procedure",
+          "family": "loyalty",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 13.3043,
+          "matched_terms": [
+            "benefit",
+            "retention"
+          ],
+          "path": "data/generated/knowledge/loyalty/kb-00328-loyalty-retention-procedure.md",
+          "excerpt": "This policy explains benefit expiration for NovaCart customer operations."
+        },
+        {
+          "document_id": "KB-00443",
+          "title": "Loyalty Retention Procedure",
+          "family": "loyalty",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 12.0262,
+          "matched_terms": [
+            "benefit",
+            "retention"
+          ],
+          "path": "data/generated/knowledge/loyalty/kb-00443-loyalty-retention-procedure.md",
+          "excerpt": "This policy explains benefit expiration for NovaCart customer operations."
+        }
+      ]
+    },
+    {
+      "case_id": "personalized_discount_gap_01",
+      "query": "customer specific discretionary discount amount optimized percentage",
+      "retrieved_doc_ids": [
+        "GAP-002",
+        "KB-00740",
+        "KB-00089"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "offers"
+      ],
+      "retrieved_statuses": [
+        "CURRENT",
+        "CURRENT",
+        "CURRENT"
+      ],
+      "retrieved_authorities": [
+        "APPROVED",
+        "APPROVED",
+        "APPROVED"
+      ],
+      "expected_doc_ids_all": [
+        "GAP-002"
+      ],
+      "expected_families_any": [
+        "governance"
+      ],
+      "forbidden_doc_ids": [],
+      "forbidden_statuses": [
+        "DRAFT",
+        "INCOMPLETE",
+        "SUPERSEDED"
+      ],
+      "expected_present": true,
+      "expected_family_present": true,
+      "expected_top_family_present": true,
+      "expected_status_present": true,
+      "expected_authority_present": true,
+      "forbidden_absent": true,
+      "forbidden_statuses_absent": true,
+      "excerpts_present": true,
+      "passed": true,
+      "results": [
+        {
+          "document_id": "GAP-002",
+          "title": "Customer-Specific Discretionary Discount Amount",
+          "family": "governance",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 73.5333,
+          "matched_terms": [
+            "amount",
+            "customer",
+            "discount",
+            "discretionary",
+            "optimized",
+            "percentage",
+            "specific"
+          ],
+          "path": "data/generated/knowledge/_truth/known_knowledge_gaps.json",
+          "excerpt": "Known gap: customer-specific discretionary discount amount"
+        },
+        {
+          "document_id": "KB-00740",
+          "title": "Discount Approval Rules",
+          "family": "offers",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 29.264,
+          "matched_terms": [
+            "customer",
+            "discount",
+            "incentive",
+            "offer",
+            "promotion"
+          ],
+          "path": "data/generated/knowledge/offers/kb-00740-discount-approval-rules.md",
+          "excerpt": "This policy explains maximum promotion frequency for NovaCart customer operations."
+        },
+        {
+          "document_id": "KB-00089",
+          "title": "Retention Offer Eligibility Policy",
+          "family": "offers",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 28.8509,
+          "matched_terms": [
+            "customer",
+            "incentive",
+            "offer",
+            "promotion"
+          ],
+          "path": "data/generated/knowledge/offers/kb-00089-retention-offer-eligibility-policy.md",
+          "excerpt": "This policy explains maximum promotion frequency for NovaCart customer operations."
+        }
+      ]
+    },
+    {
+      "case_id": "automatic_execution_gap_01",
+      "query": "automatic execution of retention interventions",
+      "retrieved_doc_ids": [
+        "GAP-003",
+        "KB-00396",
+        "KB-00506"
+      ],
+      "retrieved_families": [
+        "governance",
+        "retention",
+        "retention"
+      ],
+      "retrieved_statuses": [
+        "CURRENT",
+        "CURRENT",
+        "CURRENT"
+      ],
+      "retrieved_authorities": [
+        "APPROVED",
+        "APPROVED",
+        "APPROVED"
+      ],
+      "expected_doc_ids_all": [
+        "GAP-003"
+      ],
+      "expected_families_any": [
+        "governance"
+      ],
+      "forbidden_doc_ids": [],
+      "forbidden_statuses": [
+        "DRAFT",
+        "INCOMPLETE",
+        "SUPERSEDED"
+      ],
+      "expected_present": true,
+      "expected_family_present": true,
+      "expected_top_family_present": true,
+      "expected_status_present": true,
+      "expected_authority_present": true,
+      "forbidden_absent": true,
+      "forbidden_statuses_absent": true,
+      "excerpts_present": true,
+      "passed": true,
+      "results": [
+        {
+          "document_id": "GAP-003",
+          "title": "Automatic Execution Of Retention Interventions",
+          "family": "governance",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 46.3557,
+          "matched_terms": [
+            "automatic",
+            "execution",
+            "interventions",
+            "retention"
+          ],
+          "path": "data/generated/knowledge/_truth/known_knowledge_gaps.json",
+          "excerpt": "Known gap: automatic execution of retention interventions"
+        },
+        {
+          "document_id": "KB-00396",
+          "title": "Retention Intervention Playbook",
+          "family": "retention",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 11.9469,
+          "matched_terms": [
+            "retention"
+          ],
+          "path": "data/generated/knowledge/retention/kb-00396-retention-intervention-playbook.md",
+          "excerpt": "This policy explains when a retention offer may be considered for NovaCart customer operations."
+        },
+        {
+          "document_id": "KB-00506",
+          "title": "Retention Specialist Operating Guide",
+          "family": "retention",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 10.6688,
+          "matched_terms": [
+            "retention"
+          ],
+          "path": "data/generated/knowledge/retention/kb-00506-retention-specialist-operating-guide.md",
+          "excerpt": "Retention investigation should first establish what materially changed in customer behavior. The specialist should distinguish evidence of disengagement from evidence of an unresolved service issue before choosing NO_ACTION, RETENTION_OFFER, or ESCALATE_TO_SUPPORT."
+        }
+      ]
+    },
+    {
+      "case_id": "freshness_01",
+      "query": "historical single decline signal retention offer policy",
+      "retrieved_doc_ids": [
+        "KB-00787",
+        "KB-00595",
+        "KB-00089"
+      ],
+      "retrieved_families": [
+        "offers",
+        "offers",
+        "offers"
+      ],
+      "retrieved_statuses": [
+        "CURRENT",
+        "CURRENT",
+        "CURRENT"
+      ],
+      "retrieved_authorities": [
+        "APPROVED",
+        "APPROVED",
+        "APPROVED"
+      ],
+      "expected_doc_ids_all": [],
+      "expected_families_any": [
+        "offers",
+        "retention"
+      ],
+      "forbidden_doc_ids": [],
+      "forbidden_statuses": [
+        "DRAFT",
+        "INCOMPLETE",
+        "SUPERSEDED"
+      ],
+      "expected_present": true,
+      "expected_family_present": true,
+      "expected_top_family_present": true,
+      "expected_status_present": true,
+      "expected_authority_present": true,
+      "forbidden_absent": true,
+      "forbidden_statuses_absent": true,
+      "excerpts_present": true,
+      "passed": true,
+      "results": [
+        {
+          "document_id": "KB-00787",
+          "title": "Retention Offer Eligibility Policy",
+          "family": "offers",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 36.487,
+          "matched_terms": [
+            "decline",
+            "discount",
+            "historical",
+            "incentive",
+            "offer",
+            "policy",
+            "retention"
+          ],
+          "path": "data/generated/knowledge/offers/kb-00787-retention-offer-eligibility-policy.md",
+          "excerpt": "A specialist should compare the documented rule with the customer's actual evidence before making a recommendation. For example, a recent service failure may explain a decline that would otherwise look like disengagement. The rule should guide the decision, but it should not replace the underlying customer facts."
+        },
+        {
+          "document_id": "KB-00595",
+          "title": "Retention Offer Eligibility Policy",
+          "family": "offers",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 35.9575,
+          "matched_terms": [
+            "decline",
+            "discount",
+            "historical",
+            "incentive",
+            "offer",
+            "policy",
+            "promotion",
+            "retention"
+          ],
+          "path": "data/generated/knowledge/offers/kb-00595-retention-offer-eligibility-policy.md",
+          "excerpt": "A specialist should compare the documented rule with the customer's actual evidence before making a recommendation. For example, a recent service failure may explain a decline that would otherwise look like disengagement. The rule should guide the decision, but it should not replace the underlying customer facts."
+        },
+        {
+          "document_id": "KB-00089",
+          "title": "Retention Offer Eligibility Policy",
+          "family": "offers",
+          "status": "CURRENT",
+          "authority": "APPROVED",
+          "score": 35.9219,
+          "matched_terms": [
+            "decline",
+            "historical",
+            "incentive",
+            "offer",
+            "policy",
+            "promotion",
+            "retention"
+          ],
+          "path": "data/generated/knowledge/offers/kb-00089-retention-offer-eligibility-policy.md",
+          "excerpt": "A specialist should compare the documented rule with the customer's actual evidence before making a recommendation. For example, a recent service failure may explain a decline that would otherwise look like disengagement. The rule should guide the decision, but it should not replace the underlying customer facts."
+        }
+      ]
+    }
+  ]
+}

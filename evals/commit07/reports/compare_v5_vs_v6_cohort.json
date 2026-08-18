@@ -1,0 +1,97 @@
+{
+  "baseline_file": "evals/commit07/reports/v5_failure_cohort_results.jsonl",
+  "candidate_file": "evals/commit07/reports/v6_failure_cohort_results.jsonl",
+  "baseline_prompt_versions": [
+    "commit07_v5_intent_keyed_quote_rag"
+  ],
+  "candidate_prompt_versions": [
+    "commit07_v6_calibrated_intent_rag"
+  ],
+  "baseline_cases": 10,
+  "candidate_cases": 10,
+  "shared_cases": 10,
+  "missing_from_candidate": [],
+  "new_in_candidate": [],
+  "metrics": {
+    "api_success": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "schema_valid": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "risk_correct": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "required_evidence_all_present": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "required_evidence_any_present": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "answer_correct": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "expected_policy_docs_retrieved": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "expected_policy_families_retrieved": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "all_citations_retrieved": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "all_citation_excerpts_grounded": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "expected_policy_docs_cited": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "expected_policy_families_cited": {
+      "baseline_passed": 10,
+      "candidate_passed": 10,
+      "improvements": [],
+      "regressions": []
+    },
+    "unsupported_policy_claims_empty": {
+      "baseline_passed": 9,
+      "candidate_passed": 10,
+      "improvements": [
+        "multiple_warning_signals_04__risk_investigation"
+      ],
+      "regressions": []
+    }
+  }
+}

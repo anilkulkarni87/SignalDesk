@@ -1,0 +1,1020 @@
+{
+  "cases": 100,
+  "successful_api_calls": 98,
+  "api_success_rate_pct": 98.0,
+  "schema_valid_rate_pct": 98.0,
+  "risk_correct_rate_pct": 100.0,
+  "required_evidence_all_present_rate_pct": 100.0,
+  "required_evidence_any_present_rate_pct": 100.0,
+  "answer_correct_rate_pct": 100.0,
+  "expected_policy_docs_retrieved_rate_pct": 100.0,
+  "expected_policy_families_retrieved_rate_pct": 100.0,
+  "all_citations_retrieved_rate_pct": 100.0,
+  "all_citation_excerpts_grounded_rate_pct": 83.67,
+  "expected_policy_docs_cited_rate_pct": 91.84,
+  "expected_policy_families_cited_rate_pct": 75.51,
+  "unsupported_policy_claims_empty_rate_pct": 97.96,
+  "citation_precision_pct": 95.17,
+  "reasoning_tokens_total": 0,
+  "latency_seconds": {
+    "retrieval": {
+      "mean": 0.0791,
+      "p50": 0.0571,
+      "p95": 0.0864
+    },
+    "generation": {
+      "mean": 6.5548,
+      "p50": 6.4546,
+      "p95": 8.103
+    },
+    "total": {
+      "mean": 6.6944,
+      "p50": 6.6326,
+      "p95": 8.2252
+    }
+  },
+  "tokens": {
+    "input_total": 381309,
+    "cached_input_total": 119462,
+    "output_total": 80863,
+    "total": 462172
+  },
+  "estimated_generation_cost_usd": 0.758971,
+  "by_question_type": {
+    "policy_guardrails": {
+      "cases": 49,
+      "risk_correct_rate_pct": 100.0,
+      "required_evidence_all_present_rate_pct": 100.0,
+      "required_evidence_any_present_rate_pct": 100.0,
+      "answer_correct_rate_pct": 100.0,
+      "expected_policy_docs_retrieved_rate_pct": 100.0,
+      "expected_policy_families_retrieved_rate_pct": 100.0,
+      "all_citations_retrieved_rate_pct": 100.0,
+      "all_citation_excerpts_grounded_rate_pct": 83.67,
+      "expected_policy_docs_cited_rate_pct": 95.92,
+      "expected_policy_families_cited_rate_pct": 83.67,
+      "unsupported_policy_claims_empty_rate_pct": 97.96
+    },
+    "risk_investigation": {
+      "cases": 49,
+      "risk_correct_rate_pct": 100.0,
+      "required_evidence_all_present_rate_pct": 100.0,
+      "required_evidence_any_present_rate_pct": 100.0,
+      "answer_correct_rate_pct": 100.0,
+      "expected_policy_docs_retrieved_rate_pct": 100.0,
+      "expected_policy_families_retrieved_rate_pct": 100.0,
+      "all_citations_retrieved_rate_pct": 100.0,
+      "all_citation_excerpts_grounded_rate_pct": 83.67,
+      "expected_policy_docs_cited_rate_pct": 87.76,
+      "expected_policy_families_cited_rate_pct": 67.35,
+      "unsupported_policy_claims_empty_rate_pct": 97.96
+    }
+  },
+  "failures": [
+    {
+      "case_id": "multiple_warning_signals_01__risk_investigation",
+      "customer_id": "C0046145",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852",
+        "KB-00108",
+        "GAP-001"
+      ]
+    },
+    {
+      "case_id": "multiple_warning_signals_01__policy_guardrails",
+      "customer_id": "C0046145",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852",
+        "KB-00897",
+        "KB-00752",
+        "KB-00901",
+        "GAP-001",
+        "KB-00108"
+      ]
+    },
+    {
+      "case_id": "multiple_warning_signals_02__risk_investigation",
+      "customer_id": "C0053211",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00228",
+        "KB-00704",
+        "KB-00717",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852",
+        "KB-00897",
+        "GAP-001"
+      ]
+    },
+    {
+      "case_id": "multiple_warning_signals_04__risk_investigation",
+      "customer_id": "C0073320",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00012",
+        "KB-00108",
+        "KB-00216",
+        "KB-00416",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00897"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852"
+      ]
+    },
+    {
+      "case_id": "multiple_warning_signals_06__policy_guardrails",
+      "customer_id": "C0035993",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00012",
+        "KB-00416",
+        "KB-00704",
+        "KB-00717",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "GAP-001",
+        "KB-00852"
+      ]
+    },
+    {
+      "case_id": "multiple_warning_signals_08__risk_investigation",
+      "customer_id": "C0035671",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00228",
+        "KB-00704",
+        "KB-00717",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852",
+        "KB-00897",
+        "GAP-001",
+        "KB-00752",
+        "KB-00901"
+      ]
+    },
+    {
+      "case_id": "multiple_warning_signals_09__risk_investigation",
+      "customer_id": "C0014677",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852",
+        "KB-00897",
+        "KB-00752",
+        "KB-00901",
+        "KB-00108",
+        "GAP-001"
+      ]
+    },
+    {
+      "case_id": "multiple_warning_signals_09__policy_guardrails",
+      "customer_id": "C0014677",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "GAP-001",
+        "KB-00852"
+      ]
+    },
+    {
+      "case_id": "purchase_decline_only_04__risk_investigation",
+      "customer_id": "C0055539",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded",
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852",
+        "KB-00897",
+        "KB-00752",
+        "KB-00901",
+        "KB-00108"
+      ]
+    },
+    {
+      "case_id": "purchase_decline_only_06__risk_investigation",
+      "customer_id": "C0050443",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00228",
+        "KB-00704",
+        "KB-00717",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852"
+      ]
+    },
+    {
+      "case_id": "purchase_decline_only_07__risk_investigation",
+      "customer_id": "C0039006",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852"
+      ]
+    },
+    {
+      "case_id": "purchase_decline_only_07__policy_guardrails",
+      "customer_id": "C0039006",
+      "question_type": "policy_guardrails",
+      "api_success": false,
+      "error_type": "APITimeoutError",
+      "error": "Request timed out.",
+      "failed_metrics": [
+        "risk_correct",
+        "required_evidence_all_present",
+        "required_evidence_any_present",
+        "answer_correct",
+        "expected_policy_docs_retrieved",
+        "expected_policy_families_retrieved",
+        "all_citations_retrieved",
+        "all_citation_excerpts_grounded",
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited",
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [],
+      "cited_policy_doc_ids": []
+    },
+    {
+      "case_id": "engagement_decline_only_01__risk_investigation",
+      "customer_id": "C0091123",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852",
+        "KB-00897",
+        "KB-00108",
+        "GAP-001"
+      ]
+    },
+    {
+      "case_id": "engagement_decline_only_01__policy_guardrails",
+      "customer_id": "C0091123",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00852"
+      ]
+    },
+    {
+      "case_id": "engagement_decline_only_02__policy_guardrails",
+      "customer_id": "C0016709",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00752",
+        "KB-00901",
+        "KB-00852"
+      ]
+    },
+    {
+      "case_id": "engagement_decline_only_06__risk_investigation",
+      "customer_id": "C0054973",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852",
+        "KB-00897",
+        "KB-00752",
+        "KB-00901",
+        "KB-00108",
+        "GAP-001"
+      ]
+    },
+    {
+      "case_id": "engagement_decline_only_07__risk_investigation",
+      "customer_id": "C0081720",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00228",
+        "KB-00704",
+        "KB-00717",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852"
+      ]
+    },
+    {
+      "case_id": "engagement_decline_only_08__risk_investigation",
+      "customer_id": "C0074454",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00857",
+        "KB-00897",
+        "KB-00901"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_01__risk_investigation",
+      "customer_id": "C0073168",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited",
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_01__policy_guardrails",
+      "customer_id": "C0073168",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded",
+        "expected_policy_families_cited",
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_02__risk_investigation",
+      "customer_id": "C0077523",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00377",
+        "KB-00722",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_02__policy_guardrails",
+      "customer_id": "C0077523",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00377",
+        "KB-00722",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_03__risk_investigation",
+      "customer_id": "C0009213",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_03__policy_guardrails",
+      "customer_id": "C0009213",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_04__risk_investigation",
+      "customer_id": "C0037169",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded",
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_05__risk_investigation",
+      "customer_id": "C0072722",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377",
+        "KB-00108"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_06__policy_guardrails",
+      "customer_id": "C0058031",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00377",
+        "KB-00722",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_07__policy_guardrails",
+      "customer_id": "C0003982",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00377",
+        "KB-00722",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00722",
+        "KB-00722",
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_08__risk_investigation",
+      "customer_id": "C0079937",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_08__policy_guardrails",
+      "customer_id": "C0079937",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_09__risk_investigation",
+      "customer_id": "C0071547",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_09__policy_guardrails",
+      "customer_id": "C0071547",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded",
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "support_attention_only_10__risk_investigation",
+      "customer_id": "C0045859",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00377"
+      ]
+    },
+    {
+      "case_id": "no_warning_signals_02__risk_investigation",
+      "customer_id": "C0085403",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "expected_policy_families_cited"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00405",
+        "KB-00705",
+        "KB-00779",
+        "KB-00905"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00779"
+      ]
+    },
+    {
+      "case_id": "no_warning_signals_03__policy_guardrails",
+      "customer_id": "C0012445",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00405",
+        "KB-00705",
+        "KB-00779",
+        "KB-00905"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00108",
+        "KB-00216"
+      ]
+    },
+    {
+      "case_id": "no_warning_signals_07__policy_guardrails",
+      "customer_id": "C0021476",
+      "question_type": "policy_guardrails",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00405",
+        "KB-00705",
+        "KB-00779",
+        "KB-00905"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00108",
+        "KB-00216"
+      ]
+    },
+    {
+      "case_id": "no_warning_signals_08__risk_investigation",
+      "customer_id": "C0037301",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_citation_excerpts_grounded"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00405",
+        "KB-00705",
+        "KB-00779",
+        "KB-00905"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00108"
+      ]
+    },
+    {
+      "case_id": "no_warning_signals_09__risk_investigation",
+      "customer_id": "C0070288",
+      "question_type": "risk_investigation",
+      "api_success": false,
+      "error_type": "APITimeoutError",
+      "error": "Request timed out.",
+      "failed_metrics": [
+        "risk_correct",
+        "required_evidence_all_present",
+        "required_evidence_any_present",
+        "answer_correct",
+        "expected_policy_docs_retrieved",
+        "expected_policy_families_retrieved",
+        "all_citations_retrieved",
+        "all_citation_excerpts_grounded",
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited",
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [],
+      "cited_policy_doc_ids": []
+    }
+  ]
+}

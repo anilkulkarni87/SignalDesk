@@ -2771,3 +2771,386 @@ with Recall@5 above the roadmap target. The next roadmap step is Commit 07: feed
 retrieved policy context into the frozen `gpt-5.6-luna`, `reasoning=none`
 generation path and separately evaluate retrieval, answer correctness, citation
 correctness, unsupported claims, and latency.
+
+---
+
+## Commit 07 - RAG V1
+
+### Roadmap objective
+
+Commit 07 connects the measured Commit 06 retriever to generation:
+
+```text
+explicit question + Customer 360
+  -> deterministic policy query planner
+  -> vector retrieval
+  -> current approved policy context
+  -> gpt-5.6-luna, reasoning=none
+  -> structured, policy-grounded assessment
+```
+
+The learning objective is not merely to produce a plausible answer. Retrieval,
+customer-answer correctness, citation correctness, unsupported claims, latency,
+tokens, and cost must remain separately measurable.
+
+This is bounded RAG. The model does not select tools, execute actions, update a
+system of record, or run an agent loop.
+
+### Frozen evaluation
+
+The 50 clean Commit 05 customer cases remain unchanged. Each customer receives
+two questions:
+
+```text
+risk_investigation
+policy_guardrails
+```
+
+That produces 100 frozen questions over 50 Customer 360 profiles. Runtime
+policy intents are derived from the same deterministic planner used to freeze
+the cases; gold evaluation labels are never passed to the model.
+
+### Retrieval gate
+
+Before generation, all 100 questions passed retrieval and context checks:
+
+```text
+retrieval gate pass rate = 100%
+expected documents       = 100%
+expected families        = 100%
+current approved sources = 100%
+```
+
+This isolated the next failures to the generation boundary rather than vector
+search.
+
+### First full V3 result
+
+The first 100-question run produced:
+
+| Metric | Result |
+|---|---:|
+| API success | 98.0% |
+| Risk correctness | 100% of successful calls |
+| Answer correctness | 100% of successful calls |
+| Expected policy-family citation | 75.51% |
+| Exact excerpt grounding, case rate | 83.67% |
+| Exact per-citation precision | 95.17% |
+| Unsupported claims empty | 97.96% |
+| Reasoning tokens | 0 |
+| Estimated generation cost | $0.758971 |
+
+The answer score is 98 successful responses out of 98, not 100 answers out of
+100 questions. Two requests timed out.
+
+### Failure classification
+
+The raw records showed four different failure classes:
+
+1. Two transient API timeouts.
+2. Twelve quotes existed in another retrieved near-duplicate document but not
+   in the document ID selected by the model.
+3. Six generated excerpts contained malformed trailing control characters.
+4. Twenty-four successful responses omitted at least one policy family required
+   by a customer-derived planner intent.
+
+Two responses also returned `unsupported_policy_claims: [""]`. These were
+malformed empty entries, not substantive unsupported claims.
+
+The central lesson is:
+
+```text
+right documents retrieved
+  != every relevant policy used
+  != quote attributed to the right document
+```
+
+### V4 refinement hypothesis
+
+The V3 result is preserved as a baseline. V4 changes the generation boundary,
+not the frozen inputs or retriever:
+
+```text
+source content
+  -> deterministic bounded quote IDs
+  -> model selects quote IDs
+  -> application resolves exact document and excerpt
+```
+
+The prompt also receives runtime planner intents and must cover each intent that
+has an available retrieved source. Individual unsupported-claim strings must be
+non-empty, and transient API calls receive bounded measured retries.
+
+The hypothesis is:
+
+> Quote IDs will eliminate malformed and cross-attributed excerpts, while
+> explicit planner-intent coverage will raise expected-family citation above
+> 90% without reducing customer-answer correctness.
+
+The 100 frozen labels, `gpt-5.6-luna`, `reasoning=none`, retrieval parameters,
+and 16,000-character context budget remain unchanged. The next measurement is a
+targeted ten-case failure cohort, followed by a fresh 100-question V4 run and a
+per-case regression comparison.
+
+### First V4 cohort attempt: harness failure, not hypothesis result
+
+The first ten-case V4 cohort received ten API responses, but only one contained
+complete valid JSON. Nine outputs ended while writing the first or a later
+`quote_id`:
+
+```text
+API responses received       = 10 / 10
+schema-valid responses       = 1 / 10
+valid citation resolutions   = 1 / 10
+```
+
+The raw result and report are preserved as
+`v4_failure_cohort_attempt1_results.jsonl` and
+`v4_failure_cohort_attempt1_report.json`.
+
+The one valid response proved deterministic quote resolution worked: all eight
+selected quote IDs resolved to their exact source documents and excerpts. It
+also exposed over-citation: the model selected eight quotes for one required
+policy family.
+
+This run does not accept or reject the V4 hypothesis because nine answers never
+reached the scoring boundary. The harness was refined before another run:
+
+- set an explicit 3,000-token output budget,
+- treat incomplete API responses as retryable failures rather than successes,
+- retain raw incomplete output and response details for diagnosis,
+- require one strongest quote per policy family except for direct conflicts,
+- increase quote spans from 220 to 320 characters so one policy sentence is not
+  split into weak fragments.
+
+The cohort must be rerun before the full 100-question comparison.
+
+### Second V4 cohort attempt: constrained identifier failure
+
+Attempt 2 correctly classified incomplete responses and retried them. Four of
+ten cases completed; all four scored 100% for customer answers, family coverage,
+quote resolution, exact excerpts, and unsupported-claim avoidance. Six cases
+remained incomplete after three attempts:
+
+```text
+eventual completed responses = 4 / 10
+first-attempt completions     = 2 / 10
+schema validity when complete = 100%
+reason for six failures       = max_output_tokens
+```
+
+Inspection showed every incomplete output stopped while selecting a long quote
+identifier such as `KB-...::chunk-...::quote-...`. The model had already
+generated the customer assessment and limitations. This indicated a structured
+decoding bottleneck rather than ordinary prose verbosity.
+
+The result and report are preserved as
+`v4_failure_cohort_attempt2_results.jsonl` and
+`v4_failure_cohort_attempt2_report.json`.
+
+The deterministic resolver does not require a globally descriptive model-facing
+identifier. Quote anchors were therefore changed to short context-local IDs:
+
+```text
+Q001 -> document ID + chunk ID + exact source text
+Q002 -> document ID + chunk ID + exact source text
+```
+
+The response schema enumerates only the short IDs available in that request,
+the application retains source identity, and policy sources are capped at six.
+This keeps the fix inside the citation interface rather than changing retrieval
+or raising the output budget until the constrained-decoding issue disappears.
+
+### Third cohort attempt: V4 citation identity passes, coverage misses
+
+Short quote IDs removed the completion failure. All ten cases completed on the
+first attempt and produced valid structured outputs:
+
+| Metric | V4 cohort result |
+|---|---:|
+| API success | 100% |
+| Schema validity | 100% |
+| Answer correctness | 100% |
+| Citation resolution | 100% |
+| Exact citation precision | 100% |
+| Unsupported claims empty | 100% |
+| Expected document citation | 80% |
+| Expected family citation | 80% |
+
+The result is preserved as `v4_failure_cohort_attempt3_results.jsonl` and
+`v4_failure_cohort_attempt3_report.json`.
+
+The two failures each had four required intents: retention, offers, consent, and
+the `GAP-001` governance gap. The model used all six flat citation slots on
+duplicate retention, offer, and consent quotes and omitted governance. A prompt
+request for one quote per family did not make that constraint structural.
+
+V4 therefore proves the quote-anchor hypothesis but fails the family-coverage
+target. It is frozen at this result.
+
+### V5 hypothesis: make intent coverage structural
+
+V5 replaces the flat model citation list with required intent-keyed fields:
+
+```text
+I01 -> quote enum containing only retention sources
+I02 -> quote enum containing only offer sources
+I03 -> quote enum containing only consent sources
+I04 -> quote enum containing only GAP-001 sources
+```
+
+Each intent permits one strongest quote and a second only for a direct policy
+conflict. Application code still resolves short quote IDs to exact documents,
+chunks, and excerpts.
+
+The V5 hypothesis is:
+
+> Required intent-keyed citation fields will raise document and family coverage
+> from 80% to at least 90% while preserving 100% answer correctness and exact
+> citation grounding.
+
+This is a structured-output contract experiment. Retrieval, frozen labels,
+Customer 360 inputs, model, reasoning setting, and context budget remain fixed.
+
+### V5 cohort result: intent coverage passes, one claim overstates certainty
+
+V5 made intent coverage structural. The ten-case cohort produced:
+
+| Metric | V5 cohort result |
+|---|---:|
+| API and schema validity | 100% |
+| Answer correctness | 100% |
+| Expected document/family citation | 100% |
+| Citation resolution and precision | 100% |
+| Unsupported claims empty | 90% |
+
+The single failure was `multiple_warning_signals_04__risk_investigation`. Its
+summary changed the supported statement:
+
+```text
+causal benefit cannot be inferred
+```
+
+into the stronger statement:
+
+```text
+no causal benefit
+```
+
+`GAP-001` establishes missing causal evidence, not zero effect. The model
+correctly placed its own overstatement in `unsupported_policy_claims`. The
+metric therefore caught a real calibration failure and was not weakened.
+
+V5 is frozen in `v5_failure_cohort_results.jsonl` and
+`v5_failure_cohort_report.json`.
+
+### V6 hypothesis: calibrate unknown versus zero effect
+
+V6 adds one narrow prompt rule:
+
+```text
+unknown effect != no effect
+not established != proven zero
+```
+
+It also requests a summary under 300 characters so a bounded field is less
+likely to end with a malformed or compressed claim.
+
+The V6 hypothesis is:
+
+> Explicit causal-language calibration will remove the V5 unsupported claim
+> while preserving 100% answer correctness, intent coverage, and exact citation
+> grounding.
+
+### V6 cohort result: all gates pass
+
+V6 passed all ten targeted cases on the first API attempt:
+
+| Metric | V6 cohort result |
+|---|---:|
+| API and schema validity | 100% |
+| Answer correctness | 100% |
+| Expected document/family citation | 100% |
+| Citation resolution and precision | 100% |
+| Unsupported claims empty | 100% |
+| Reasoning tokens | 0 |
+
+The previously failing causal summary now states only the observed risk and
+investigation steps. It cites `GAP-001` without claiming either causal benefit
+or zero effect. The summary is 234 characters and
+`unsupported_policy_claims` is empty.
+
+Across the cohort, the longest summary was 247 characters, policy citations
+averaged 2.7 per response, and the maximum was five. The V5-to-V6 comparison
+contains one improvement and zero regressions.
+
+The targeted gate is complete. V6 is authorized for the frozen 100-question
+adoption run; passing ten targeted cases is not itself the final Commit 07
+result.
+
+### Final 100-question V6 result
+
+The live V6 retrieval gate passed all 100 questions. The full generation run
+then produced:
+
+| Metric | V6 result |
+|---|---:|
+| First-attempt API success | 100% |
+| Schema validity | 100% |
+| Risk and answer correctness | 100% |
+| Expected document/family retrieval | 100% |
+| Expected document/family citation | 100% |
+| Citation resolution and exact precision | 100% |
+| Unsupported claims empty | 100% |
+| Reasoning tokens | 0 |
+| Mean total latency | 5.5025 seconds |
+| p95 total latency | 8.2808 seconds |
+| Estimated generation cost | $0.637756 |
+
+Both question types passed independently across 50 cases each. All 100 calls
+completed on the first attempt, so retries did not hide instability.
+
+### V3 versus V6 adoption comparison
+
+The per-case comparison contains 100 shared cases and zero regressions for every
+tracked metric.
+
+Key improvements:
+
+```text
+API/schema/answer completion:      98 -> 100 cases
+exact excerpt grounding:           82 -> 100 cases
+expected policy documents cited:   90 -> 100 cases
+expected policy families cited:    74 -> 100 cases
+unsupported claims empty:          96 -> 100 cases
+```
+
+Mean total latency improved by 1.1919 seconds. Cost per successful response fell
+from approximately `$0.007745` to `$0.006378`. Input tokens increased because
+the dynamic intent schema carries more constraints, while output tokens fell
+because summaries and citations became more focused.
+
+### Manual audit and residual risk
+
+The full results contained no duplicate quote IDs and no unexpected non-ASCII
+text. Policy citations averaged 2.98 per answer with a maximum of five. One
+summary was 304 characters despite the soft under-300 instruction; it remained
+coherent and within the 500-character schema.
+
+Exact excerpt grounding proves citation identity, not semantic entailment. Nine
+policy-guardrail summaries without a governance intent say causal benefit is
+"not established." This is a conservative uncertainty statement rather than a
+claim of zero effect, but it would be more precise to say "the retrieved context
+does not establish causal benefit." A future semantic citation evaluator should
+measure that distinction rather than relying only on model self-report.
+
+### Commit 07 conclusion
+
+V6 is adopted. Commit 07 demonstrates a measured RAG pipeline in which retrieval,
+customer-answer correctness, policy-intent coverage, exact citation identity,
+unsupported claims, reliability, latency, tokens, and cost remain separately
+observable.
+
+It does not prove universal policy correctness, semantic entailment of every
+sentence, production-scale reliability, or intervention effectiveness. It does
+not add an agent or automatic execution. Those boundaries remain explicit.
