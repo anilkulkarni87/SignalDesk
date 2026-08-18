@@ -1,0 +1,2 @@
+-r requirements-commit13.txt
+mcp==1.29.0

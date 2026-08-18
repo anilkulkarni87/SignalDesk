@@ -4030,3 +4030,130 @@ domain graph transitions.
 Commit 13 proves that the safety architecture is portable across runtimes. The
 decision to retain LangGraph is contextual, not an expression of framework
 loyalty.
+
+## Commit 14 - Turning the CDP Into an MCP Server
+
+Commit 14 asks whether selected SignalDesk capabilities can cross a standardized
+integration boundary without weakening their internal contracts.
+
+### Starting point
+
+Commit 09 already provided seven deterministic Python tools. Their contracts
+include strict Pydantic schemas, typed outputs, read-only DuckDB access, bounded
+queries, PII-safe profiles, approved knowledge filters, and structured errors.
+
+The MCP milestone did not need new CDP logic. It needed a protocol adapter.
+
+### Published capability set
+
+The server exposes exactly four roadmap tools:
+
+```text
+customer_profile
+customer_events
+knowledge_search
+campaign_eligibility
+```
+
+Each maps to the existing `ToolRegistry`. No recommendation, approval, or action
+tool is exposed. Capability selection is part of authorization; an internal
+function does not become externally available by default.
+
+### Protocol and transport
+
+The implementation uses the MCP Python SDK `1.29.0` with stateless Streamable
+HTTP and JSON responses.
+
+Clients can:
+
+```text
+initialize
+discover tools
+inspect input/output schemas
+invoke a named tool
+receive structured content
+```
+
+All four tools publish read-only, non-destructive, idempotent, closed-world
+annotations. Their flat schemas reject extra fields and preserve the existing
+customer ID, event-window, result-limit, family, and channel constraints.
+
+### Authentication boundary
+
+Every MCP request requires a pre-issued bearer token with the
+`signaldesk:read` scope. The server uses the SDK `TokenVerifier` and publishes
+protected-resource metadata.
+
+The local token is supplied only through `SIGNALDESK_MCP_TOKEN` and compared as
+a SHA-256 digest. This exercises authentication at the resource boundary but is
+not a complete OAuth system.
+
+### Error taxonomy
+
+The experiment made two error layers visible:
+
+```text
+malformed or schema-invalid call -> MCP isError=true
+valid call with missing customer -> ToolCallResult success=false / NOT_FOUND
+```
+
+The first is a protocol contract failure. The second is a domain outcome. This
+distinction helps clients decide whether to repair a request or handle an
+expected business condition.
+
+### Measured result
+
+```text
+MCP tools                         4
+strict schemas                    4/4
+bearer authentication             enforced
+integration tests                 27/27 passed
+full repository tests             109/109 passed
+external model API calls          0
+write-capable MCP tools            0
+```
+
+A separate server and MCP client also completed initialization, discovery, and
+an authenticated `customer_profile` call over localhost HTTP. The result
+preserved `pii_included=false` and contained no email or phone field.
+
+### What MCP owns
+
+MCP owns the reusable conversation between client and server:
+
+```text
+discovery + schemas + invocation + structured result transport
+```
+
+SignalDesk still owns:
+
+```text
+authorization policy
+tool allow-list
+data semantics
+query bounds
+PII boundary
+knowledge authority
+domain errors
+```
+
+MCP is an integration protocol, not an agent, authorization policy, or business
+logic framework.
+
+### Limitations
+
+This is a local learning resource server. It has no token-issuing authorization
+server, TLS, short-lived identities, rotation, revocation, tenant isolation,
+rate limiting, deployment configuration, or production concurrency design.
+
+No model was called. `gpt-5.6-luna` with reasoning `none` remains the accepted
+configuration for model-driven SignalDesk workflows, but MCP transport tests
+are deterministic and independent of model quality.
+
+### Commit 14 conclusion
+
+> Standardizing tool access is valuable only when the exported capability set,
+> schemas, authentication, and domain boundaries remain explicit and tested.
+
+Commit 14 converts trusted internal CDP capabilities into a narrow integration
+product without duplicating or expanding their authority.
