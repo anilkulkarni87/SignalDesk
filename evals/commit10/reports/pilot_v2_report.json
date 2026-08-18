@@ -1,0 +1,130 @@
+{
+  "cases": 6,
+  "successful_agent_runs": 6,
+  "api_success_rate_pct": 100.0,
+  "correct_tools_selected_rate_pct": 100.0,
+  "correct_tool_arguments_rate_pct": 100.0,
+  "unnecessary_tools_empty_rate_pct": 100.0,
+  "conclusion_correct_rate_pct": 100.0,
+  "summary_complete_rate_pct": 100.0,
+  "all_evidence_grounded_rate_pct": 100.0,
+  "required_evidence_present_rate_pct": 100.0,
+  "all_policy_citations_retrieved_rate_pct": 100.0,
+  "required_policy_families_cited_rate_pct": 100.0,
+  "task_completed_rate_pct": 100.0,
+  "model": [
+    "gpt-5.6-luna"
+  ],
+  "prompt_version": [
+    "commit10_v2_paths_decomposition_and_concise_answer"
+  ],
+  "reasoning_effort": [
+    "none"
+  ],
+  "latency_seconds": {
+    "mean": 7.234,
+    "p50": 6.5121,
+    "p95": 10.8745
+  },
+  "tool_calls_per_task": {
+    "mean": 2.1667,
+    "p95": 3.0,
+    "total": 13
+  },
+  "tokens": {
+    "input_total": 28537,
+    "output_total": 3194
+  },
+  "estimated_cost_usd": {
+    "total": 0.031027,
+    "mean_per_task": 0.00517112
+  },
+  "by_task_type": {
+    "behavior_investigation": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "campaign_readiness": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "multi_signal_investigation": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "profile_lookup": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "purchase_investigation": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "support_policy_investigation": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    }
+  },
+  "failures": [],
+  "run_config": {
+    "cases_file": "evals/commit10/cases.jsonl",
+    "cases_sha256": "577b9886be71ac3ae0d71718d3f7112d117f258762768fade4197f99ba2cd08e",
+    "model": "gpt-5.6-luna",
+    "prompt_version": "commit10_v2_paths_decomposition_and_concise_answer",
+    "reasoning_effort": "none"
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "cases": 6,
+  "successful_agent_runs": 6,
+  "api_success_rate_pct": 100.0,
+  "correct_tools_selected_rate_pct": 100.0,
+  "correct_tool_arguments_rate_pct": 100.0,
+  "unnecessary_tools_empty_rate_pct": 100.0,
+  "conclusion_correct_rate_pct": 100.0,
+  "all_evidence_grounded_rate_pct": 33.33,
+  "required_evidence_present_rate_pct": 50.0,
+  "all_policy_citations_retrieved_rate_pct": 100.0,
+  "required_policy_families_cited_rate_pct": 83.33,
+  "task_completed_rate_pct": 33.33,
+  "model": [
+    "gpt-5.6-luna"
+  ],
+  "reasoning_effort": [
+    "none"
+  ],
+  "latency_seconds": {
+    "mean": 6.4422,
+    "p50": 6.232,
+    "p95": 7.6481
+  },
+  "tool_calls_per_task": {
+    "mean": 2,
+    "p95": 3.0,
+    "total": 12
+  },
+  "tokens": {
+    "input_total": 26195,
+    "output_total": 3415
+  },
+  "estimated_cost_usd": {
+    "total": 0.031426,
+    "mean_per_task": 0.00523773
+  },
+  "by_task_type": {
+    "behavior_investigation": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 0.0,
+      "required_evidence_present_rate_pct": 0.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 0.0
+    },
+    "campaign_readiness": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 0.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 0.0,
+      "task_completed_rate_pct": 0.0
+    },
+    "multi_signal_investigation": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "profile_lookup": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "purchase_investigation": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 0.0,
+      "required_evidence_present_rate_pct": 0.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 0.0
+    },
+    "support_policy_investigation": {
+      "cases": 1,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 0.0,
+      "required_evidence_present_rate_pct": 0.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 0.0
+    }
+  },
+  "failures": [
+    {
+      "case_id": "agent_purchase_decline_only_01",
+      "task_type": "purchase_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_evidence_grounded",
+        "required_evidence_present",
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_purchase_history"
+      ]
+    },
+    {
+      "case_id": "agent_engagement_decline_only_01",
+      "task_type": "behavior_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_evidence_grounded",
+        "required_evidence_present",
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_customer_events"
+      ]
+    },
+    {
+      "case_id": "agent_support_attention_only_01",
+      "task_type": "support_policy_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_evidence_grounded",
+        "required_evidence_present",
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "search_knowledge_base"
+      ]
+    },
+    {
+      "case_id": "agent_campaign_06",
+      "task_type": "campaign_readiness",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "all_evidence_grounded",
+        "required_policy_families_cited",
+        "task_completed"
+      ],
+      "called_tools": [
+        "get_campaign_eligibility",
+        "search_knowledge_base"
+      ]
+    }
+  ],
+  "run_config": {
+    "cases_file": "evals/commit10/cases.jsonl",
+    "cases_sha256": "7e7944a0dc390b2eb38bb8847bd5fb8a8c7677f196e35e4991687822fde2e1e1",
+    "model": "gpt-5.6-luna",
+    "reasoning_effort": "none"
+  }
+}
