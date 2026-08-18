@@ -1,0 +1,4633 @@
+{
+  "cases_file": "evals/commit09/cases.jsonl",
+  "cases": 105,
+  "repetitions": 5,
+  "executions": 525,
+  "tool_contracts": [
+    {
+      "name": "calculate_customer_metrics",
+      "description": "Return deterministic Customer 360 metrics grouped by business domain.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{7}$",
+            "title": "Customer Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "title": "CalculateCustomerMetricsInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "as_of_ts": {
+            "title": "As Of Ts",
+            "type": "string"
+          },
+          "purchase": {
+            "additionalProperties": true,
+            "title": "Purchase",
+            "type": "object"
+          },
+          "engagement": {
+            "additionalProperties": true,
+            "title": "Engagement",
+            "type": "object"
+          },
+          "support": {
+            "additionalProperties": true,
+            "title": "Support",
+            "type": "object"
+          },
+          "campaigns": {
+            "additionalProperties": true,
+            "title": "Campaigns",
+            "type": "object"
+          },
+          "subscriptions_and_consent": {
+            "additionalProperties": true,
+            "title": "Subscriptions And Consent",
+            "type": "object"
+          },
+          "provenance": {
+            "const": "customer_360",
+            "default": "customer_360",
+            "title": "Provenance",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id",
+          "as_of_ts",
+          "purchase",
+          "engagement",
+          "support",
+          "campaigns",
+          "subscriptions_and_consent"
+        ],
+        "title": "CustomerMetrics",
+        "type": "object"
+      },
+      "side_effects": "none"
+    },
+    {
+      "name": "create_retention_recommendation",
+      "description": "Create a deterministic, non-persisted draft recommendation from explicit evidence and current approved policy IDs. Never execute it.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{7}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "recommendation": {
+            "enum": [
+              "NO_ACTION",
+              "INVESTIGATE",
+              "RETENTION_OFFER",
+              "ESCALATE_TO_SUPPORT"
+            ],
+            "title": "Recommendation",
+            "type": "string"
+          },
+          "rationale": {
+            "maxLength": 1000,
+            "minLength": 10,
+            "title": "Rationale",
+            "type": "string"
+          },
+          "evidence_features": {
+            "items": {
+              "enum": [
+                "customer_status",
+                "loyalty_tier",
+                "days_since_last_seen",
+                "lifetime_orders",
+                "lifetime_value",
+                "orders_30d",
+                "orders_60d",
+                "orders_90d",
+                "orders_prior_60d",
+                "revenue_60d",
+                "revenue_prior_60d",
+                "days_since_purchase",
+                "refund_rate_90d",
+                "purchase_change_pct",
+                "preferred_category",
+                "purchase_decline_flag",
+                "sessions_30d",
+                "sessions_60d",
+                "sessions_90d",
+                "sessions_prior_60d",
+                "session_change_pct",
+                "product_views_60d",
+                "add_to_cart_60d",
+                "engagement_decline_flag",
+                "support_cases_90d",
+                "open_support_cases",
+                "negative_support_cases_90d",
+                "high_priority_support_cases_90d",
+                "avg_csat_90d",
+                "support_attention_flag",
+                "email_delivered_90d",
+                "email_opens_90d",
+                "email_clicks_90d",
+                "email_open_rate_90d",
+                "email_click_rate_90d",
+                "email_engagement",
+                "active_subscription_count",
+                "recent_subscription_cancellation_flag",
+                "email_opted_in",
+                "sms_opted_in",
+                "push_opted_in"
+              ],
+              "type": "string"
+            },
+            "maxItems": 8,
+            "minItems": 1,
+            "title": "Evidence Features",
+            "type": "array"
+          },
+          "policy_document_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 8,
+            "minItems": 1,
+            "title": "Policy Document Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "customer_id",
+          "recommendation",
+          "rationale",
+          "evidence_features",
+          "policy_document_ids"
+        ],
+        "title": "CreateRetentionRecommendationInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "$defs": {
+          "EvidenceValue": {
+            "additionalProperties": false,
+            "properties": {
+              "feature": {
+                "enum": [
+                  "customer_status",
+                  "loyalty_tier",
+                  "days_since_last_seen",
+                  "lifetime_orders",
+                  "lifetime_value",
+                  "orders_30d",
+                  "orders_60d",
+                  "orders_90d",
+                  "orders_prior_60d",
+                  "revenue_60d",
+                  "revenue_prior_60d",
+                  "days_since_purchase",
+                  "refund_rate_90d",
+                  "purchase_change_pct",
+                  "preferred_category",
+                  "purchase_decline_flag",
+                  "sessions_30d",
+                  "sessions_60d",
+                  "sessions_90d",
+                  "sessions_prior_60d",
+                  "session_change_pct",
+                  "product_views_60d",
+                  "add_to_cart_60d",
+                  "engagement_decline_flag",
+                  "support_cases_90d",
+                  "open_support_cases",
+                  "negative_support_cases_90d",
+                  "high_priority_support_cases_90d",
+                  "avg_csat_90d",
+                  "support_attention_flag",
+                  "email_delivered_90d",
+                  "email_opens_90d",
+                  "email_clicks_90d",
+                  "email_open_rate_90d",
+                  "email_click_rate_90d",
+                  "email_engagement",
+                  "active_subscription_count",
+                  "recent_subscription_cancellation_flag",
+                  "email_opted_in",
+                  "sms_opted_in",
+                  "push_opted_in"
+                ],
+                "title": "Feature",
+                "type": "string"
+              },
+              "value": {
+                "title": "Value"
+              }
+            },
+            "required": [
+              "feature",
+              "value"
+            ],
+            "title": "EvidenceValue",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "recommendation_id": {
+            "title": "Recommendation Id",
+            "type": "string"
+          },
+          "customer_id": {
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "as_of_ts": {
+            "title": "As Of Ts",
+            "type": "string"
+          },
+          "recommendation": {
+            "enum": [
+              "NO_ACTION",
+              "INVESTIGATE",
+              "RETENTION_OFFER",
+              "ESCALATE_TO_SUPPORT"
+            ],
+            "title": "Recommendation",
+            "type": "string"
+          },
+          "rationale": {
+            "title": "Rationale",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/$defs/EvidenceValue"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "policy_document_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Policy Document Ids",
+            "type": "array"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          },
+          "status": {
+            "const": "DRAFT",
+            "default": "DRAFT",
+            "title": "Status",
+            "type": "string"
+          },
+          "requires_human_approval": {
+            "const": true,
+            "default": true,
+            "title": "Requires Human Approval",
+            "type": "boolean"
+          },
+          "execution_allowed": {
+            "const": false,
+            "default": false,
+            "title": "Execution Allowed",
+            "type": "boolean"
+          },
+          "persisted": {
+            "const": false,
+            "default": false,
+            "title": "Persisted",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "recommendation_id",
+          "customer_id",
+          "as_of_ts",
+          "recommendation",
+          "rationale",
+          "evidence",
+          "policy_document_ids",
+          "limitations"
+        ],
+        "title": "RetentionRecommendationDraft",
+        "type": "object"
+      },
+      "side_effects": "none"
+    },
+    {
+      "name": "get_campaign_eligibility",
+      "description": "Return hard customer/channel blocks and review requirements; this does not claim final campaign or offer eligibility.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{7}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "channel": {
+            "anyOf": [
+              {
+                "enum": [
+                  "EMAIL",
+                  "SMS",
+                  "PUSH"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Channel"
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "title": "GetCampaignEligibilityInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "$defs": {
+          "ChannelEligibility": {
+            "additionalProperties": false,
+            "properties": {
+              "channel": {
+                "enum": [
+                  "EMAIL",
+                  "SMS",
+                  "PUSH"
+                ],
+                "title": "Channel",
+                "type": "string"
+              },
+              "consented": {
+                "title": "Consented",
+                "type": "boolean"
+              },
+              "status": {
+                "enum": [
+                  "BLOCKED",
+                  "REVIEW_REQUIRED"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "reasons": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Reasons",
+                "type": "array"
+              }
+            },
+            "required": [
+              "channel",
+              "consented",
+              "status",
+              "reasons"
+            ],
+            "title": "ChannelEligibility",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "as_of_ts": {
+            "title": "As Of Ts",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "BLOCKED",
+              "REVIEW_REQUIRED"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "channel_results": {
+            "items": {
+              "$ref": "#/$defs/ChannelEligibility"
+            },
+            "title": "Channel Results",
+            "type": "array"
+          },
+          "support_attention_flag": {
+            "title": "Support Attention Flag",
+            "type": "boolean"
+          },
+          "days_since_last_campaign": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Days Since Last Campaign"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "customer_id",
+          "as_of_ts",
+          "status",
+          "channel_results",
+          "support_attention_flag",
+          "days_since_last_campaign",
+          "limitations"
+        ],
+        "title": "CampaignEligibility",
+        "type": "object"
+      },
+      "side_effects": "none"
+    },
+    {
+      "name": "get_customer_events",
+      "description": "Return bounded, identity-resolved customer events in an explicit lookback window.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{7}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "days": {
+            "default": 30,
+            "maximum": 90,
+            "minimum": 1,
+            "title": "Days",
+            "type": "integer"
+          },
+          "limit": {
+            "default": 50,
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "event_types": {
+            "items": {
+              "enum": [
+                "add_to_cart",
+                "checkout_started",
+                "page_view",
+                "product_view",
+                "purchase_completed",
+                "search"
+              ],
+              "type": "string"
+            },
+            "maxItems": 6,
+            "title": "Event Types",
+            "type": "array"
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "title": "GetCustomerEventsInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "$defs": {
+          "CustomerEvent": {
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "title": "Event Id",
+                "type": "string"
+              },
+              "event_type": {
+                "enum": [
+                  "add_to_cart",
+                  "checkout_started",
+                  "page_view",
+                  "product_view",
+                  "purchase_completed",
+                  "search"
+                ],
+                "title": "Event Type",
+                "type": "string"
+              },
+              "event_timestamp": {
+                "title": "Event Timestamp",
+                "type": "string"
+              },
+              "received_at": {
+                "title": "Received At",
+                "type": "string"
+              },
+              "product_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Product Id"
+              },
+              "order_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Order Id"
+              }
+            },
+            "required": [
+              "event_id",
+              "event_type",
+              "event_timestamp",
+              "received_at",
+              "product_id",
+              "order_id"
+            ],
+            "title": "CustomerEvent",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "as_of_ts": {
+            "title": "As Of Ts",
+            "type": "string"
+          },
+          "window_days": {
+            "title": "Window Days",
+            "type": "integer"
+          },
+          "event_types": {
+            "items": {
+              "enum": [
+                "add_to_cart",
+                "checkout_started",
+                "page_view",
+                "product_view",
+                "purchase_completed",
+                "search"
+              ],
+              "type": "string"
+            },
+            "title": "Event Types",
+            "type": "array"
+          },
+          "returned_count": {
+            "title": "Returned Count",
+            "type": "integer"
+          },
+          "total_count": {
+            "title": "Total Count",
+            "type": "integer"
+          },
+          "truncated": {
+            "title": "Truncated",
+            "type": "boolean"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/$defs/CustomerEvent"
+            },
+            "title": "Events",
+            "type": "array"
+          }
+        },
+        "required": [
+          "customer_id",
+          "as_of_ts",
+          "window_days",
+          "event_types",
+          "returned_count",
+          "total_count",
+          "truncated",
+          "events"
+        ],
+        "title": "CustomerEvents",
+        "type": "object"
+      },
+      "side_effects": "none"
+    },
+    {
+      "name": "get_customer_profile",
+      "description": "Return the PII-safe customer profile and semantic-layer as-of time.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{7}$",
+            "title": "Customer Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "title": "GetCustomerProfileInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "as_of_ts": {
+            "title": "As Of Ts",
+            "type": "string"
+          },
+          "profile_created_at": {
+            "title": "Profile Created At",
+            "type": "string"
+          },
+          "customer_status": {
+            "title": "Customer Status",
+            "type": "string"
+          },
+          "loyalty_tier": {
+            "title": "Loyalty Tier",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "timezone": {
+            "title": "Timezone",
+            "type": "string"
+          },
+          "days_since_last_seen": {
+            "title": "Days Since Last Seen",
+            "type": "integer"
+          },
+          "resolved_identity_count": {
+            "title": "Resolved Identity Count",
+            "type": "integer"
+          },
+          "pii_included": {
+            "const": false,
+            "default": false,
+            "title": "Pii Included",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "customer_id",
+          "as_of_ts",
+          "profile_created_at",
+          "customer_status",
+          "loyalty_tier",
+          "country",
+          "timezone",
+          "days_since_last_seen",
+          "resolved_identity_count"
+        ],
+        "title": "CustomerProfile",
+        "type": "object"
+      },
+      "side_effects": "none"
+    },
+    {
+      "name": "get_purchase_history",
+      "description": "Return bounded customer orders and product-line evidence in an explicit lookback window.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{7}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "days": {
+            "default": 365,
+            "maximum": 730,
+            "minimum": 1,
+            "title": "Days",
+            "type": "integer"
+          },
+          "limit": {
+            "default": 20,
+            "maximum": 50,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "title": "GetPurchaseHistoryInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "$defs": {
+          "PurchaseItem": {
+            "additionalProperties": false,
+            "properties": {
+              "order_item_id": {
+                "title": "Order Item Id",
+                "type": "string"
+              },
+              "product_id": {
+                "title": "Product Id",
+                "type": "string"
+              },
+              "category": {
+                "title": "Category",
+                "type": "string"
+              },
+              "subcategory": {
+                "title": "Subcategory",
+                "type": "string"
+              },
+              "brand": {
+                "title": "Brand",
+                "type": "string"
+              },
+              "quantity": {
+                "title": "Quantity",
+                "type": "integer"
+              },
+              "unit_price": {
+                "title": "Unit Price",
+                "type": "number"
+              },
+              "line_discount": {
+                "title": "Line Discount",
+                "type": "number"
+              },
+              "line_total": {
+                "title": "Line Total",
+                "type": "number"
+              }
+            },
+            "required": [
+              "order_item_id",
+              "product_id",
+              "category",
+              "subcategory",
+              "brand",
+              "quantity",
+              "unit_price",
+              "line_discount",
+              "line_total"
+            ],
+            "title": "PurchaseItem",
+            "type": "object"
+          },
+          "PurchaseOrder": {
+            "additionalProperties": false,
+            "properties": {
+              "order_id": {
+                "title": "Order Id",
+                "type": "string"
+              },
+              "order_timestamp": {
+                "title": "Order Timestamp",
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "CANCELED",
+                  "COMPLETED",
+                  "REFUNDED",
+                  "SHIPPED"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "channel": {
+                "title": "Channel",
+                "type": "string"
+              },
+              "total_amount": {
+                "title": "Total Amount",
+                "type": "number"
+              },
+              "discount_amount": {
+                "title": "Discount Amount",
+                "type": "number"
+              },
+              "items": {
+                "items": {
+                  "$ref": "#/$defs/PurchaseItem"
+                },
+                "title": "Items",
+                "type": "array"
+              }
+            },
+            "required": [
+              "order_id",
+              "order_timestamp",
+              "status",
+              "channel",
+              "total_amount",
+              "discount_amount",
+              "items"
+            ],
+            "title": "PurchaseOrder",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "as_of_ts": {
+            "title": "As Of Ts",
+            "type": "string"
+          },
+          "window_days": {
+            "title": "Window Days",
+            "type": "integer"
+          },
+          "returned_count": {
+            "title": "Returned Count",
+            "type": "integer"
+          },
+          "total_count": {
+            "title": "Total Count",
+            "type": "integer"
+          },
+          "truncated": {
+            "title": "Truncated",
+            "type": "boolean"
+          },
+          "orders": {
+            "items": {
+              "$ref": "#/$defs/PurchaseOrder"
+            },
+            "title": "Orders",
+            "type": "array"
+          }
+        },
+        "required": [
+          "customer_id",
+          "as_of_ts",
+          "window_days",
+          "returned_count",
+          "total_count",
+          "truncated",
+          "orders"
+        ],
+        "title": "PurchaseHistory",
+        "type": "object"
+      },
+      "side_effects": "none"
+    },
+    {
+      "name": "search_knowledge_base",
+      "description": "Search only current, approved knowledge documents using a bounded deterministic lexical index.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "query": {
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Query",
+            "type": "string"
+          },
+          "top_k": {
+            "default": 5,
+            "maximum": 10,
+            "minimum": 1,
+            "title": "Top K",
+            "type": "integer"
+          },
+          "families": {
+            "items": {
+              "enum": [
+                "campaigns",
+                "consent",
+                "governance",
+                "loyalty",
+                "offers",
+                "refunds",
+                "retention",
+                "shipping",
+                "subscriptions",
+                "support"
+              ],
+              "type": "string"
+            },
+            "maxItems": 5,
+            "title": "Families",
+            "type": "array"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "SearchKnowledgeBaseInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "$defs": {
+          "KnowledgeResult": {
+            "additionalProperties": false,
+            "properties": {
+              "document_id": {
+                "title": "Document Id",
+                "type": "string"
+              },
+              "title": {
+                "title": "Title",
+                "type": "string"
+              },
+              "family": {
+                "enum": [
+                  "campaigns",
+                  "consent",
+                  "governance",
+                  "loyalty",
+                  "offers",
+                  "refunds",
+                  "retention",
+                  "shipping",
+                  "subscriptions",
+                  "support"
+                ],
+                "title": "Family",
+                "type": "string"
+              },
+              "status": {
+                "const": "CURRENT",
+                "title": "Status",
+                "type": "string"
+              },
+              "authority": {
+                "const": "APPROVED",
+                "title": "Authority",
+                "type": "string"
+              },
+              "score": {
+                "title": "Score",
+                "type": "number"
+              },
+              "matched_terms": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Matched Terms",
+                "type": "array"
+              },
+              "excerpt": {
+                "title": "Excerpt",
+                "type": "string"
+              },
+              "source_path": {
+                "title": "Source Path",
+                "type": "string"
+              }
+            },
+            "required": [
+              "document_id",
+              "title",
+              "family",
+              "status",
+              "authority",
+              "score",
+              "matched_terms",
+              "excerpt",
+              "source_path"
+            ],
+            "title": "KnowledgeResult",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "families": {
+            "items": {
+              "enum": [
+                "campaigns",
+                "consent",
+                "governance",
+                "loyalty",
+                "offers",
+                "refunds",
+                "retention",
+                "shipping",
+                "subscriptions",
+                "support"
+              ],
+              "type": "string"
+            },
+            "title": "Families",
+            "type": "array"
+          },
+          "retrieval_method": {
+            "const": "lexical_current_approved",
+            "title": "Retrieval Method",
+            "type": "string"
+          },
+          "returned_count": {
+            "title": "Returned Count",
+            "type": "integer"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/$defs/KnowledgeResult"
+            },
+            "title": "Results",
+            "type": "array"
+          }
+        },
+        "required": [
+          "query",
+          "families",
+          "retrieval_method",
+          "returned_count",
+          "results"
+        ],
+        "title": "KnowledgeSearchResults",
+        "type": "object"
+      },
+      "side_effects": "none"
+    }
+  ],
+  "tools": {
+    "calculate_customer_metrics": {
+      "tool_name": "calculate_customer_metrics",
+      "cases": 15,
+      "valid_cases": 10,
+      "invalid_cases": 5,
+      "valid_input_success_rate_pct": 100.0,
+      "invalid_input_behavior_rate_pct": 100.0,
+      "valid_latency_ms": {
+        "mean": 43.38,
+        "p50": 42.821,
+        "p95": 44.26
+      },
+      "failures": []
+    },
+    "create_retention_recommendation": {
+      "tool_name": "create_retention_recommendation",
+      "cases": 15,
+      "valid_cases": 10,
+      "invalid_cases": 5,
+      "valid_input_success_rate_pct": 100.0,
+      "invalid_input_behavior_rate_pct": 100.0,
+      "valid_latency_ms": {
+        "mean": 42.013,
+        "p50": 42.715,
+        "p95": 43.943
+      },
+      "failures": []
+    },
+    "get_campaign_eligibility": {
+      "tool_name": "get_campaign_eligibility",
+      "cases": 15,
+      "valid_cases": 10,
+      "invalid_cases": 5,
+      "valid_input_success_rate_pct": 100.0,
+      "invalid_input_behavior_rate_pct": 100.0,
+      "valid_latency_ms": {
+        "mean": 41.801,
+        "p50": 42.36,
+        "p95": 44.134
+      },
+      "failures": []
+    },
+    "get_customer_events": {
+      "tool_name": "get_customer_events",
+      "cases": 15,
+      "valid_cases": 10,
+      "invalid_cases": 5,
+      "valid_input_success_rate_pct": 100.0,
+      "invalid_input_behavior_rate_pct": 100.0,
+      "valid_latency_ms": {
+        "mean": 56.354,
+        "p50": 55.727,
+        "p95": 58.199
+      },
+      "failures": []
+    },
+    "get_customer_profile": {
+      "tool_name": "get_customer_profile",
+      "cases": 15,
+      "valid_cases": 10,
+      "invalid_cases": 5,
+      "valid_input_success_rate_pct": 100.0,
+      "invalid_input_behavior_rate_pct": 100.0,
+      "valid_latency_ms": {
+        "mean": 41.633,
+        "p50": 42.273,
+        "p95": 43.654
+      },
+      "failures": []
+    },
+    "get_purchase_history": {
+      "tool_name": "get_purchase_history",
+      "cases": 15,
+      "valid_cases": 10,
+      "invalid_cases": 5,
+      "valid_input_success_rate_pct": 100.0,
+      "invalid_input_behavior_rate_pct": 100.0,
+      "valid_latency_ms": {
+        "mean": 51.225,
+        "p50": 52.163,
+        "p95": 53.953
+      },
+      "failures": []
+    },
+    "search_knowledge_base": {
+      "tool_name": "search_knowledge_base",
+      "cases": 15,
+      "valid_cases": 10,
+      "invalid_cases": 5,
+      "valid_input_success_rate_pct": 100.0,
+      "invalid_input_behavior_rate_pct": 100.0,
+      "valid_latency_ms": {
+        "mean": 2.691,
+        "p50": 2.832,
+        "p95": 4.596
+      },
+      "failures": []
+    }
+  },
+  "overall": {
+    "valid_input_success_rate_pct": 100.0,
+    "invalid_input_behavior_rate_pct": 100.0,
+    "failed_cases": 0
+  },
+  "coverage": {
+    "line_coverage_pct": 96.05263157894737,
+    "covered_lines": 330,
+    "num_statements": 338,
+    "covered_branches": 35,
+    "num_branches": 42,
+    "target_pct": 80.0,
+    "passed": true
+  },
+  "case_reports": [
+    {
+      "arguments": {
+        "customer_id": "C0000001"
+      },
+      "case_id": "profile_valid_01",
+      "expected_success": true,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        37.605,
+        38.207,
+        37.371,
+        38.222,
+        37.729
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "days": 7,
+        "limit": 10
+      },
+      "case_id": "events_valid_01",
+      "expected_success": true,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        49.902,
+        49.772,
+        49.028,
+        49.363,
+        49.456
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "days": 730,
+        "limit": 10
+      },
+      "case_id": "purchases_valid_01",
+      "expected_success": true,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        48.0,
+        46.82,
+        50.822,
+        47.585,
+        48.823
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001"
+      },
+      "case_id": "metrics_valid_01",
+      "expected_success": true,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        38.044,
+        37.889,
+        37.71,
+        37.107,
+        37.471
+      ]
+    },
+    {
+      "arguments": {
+        "channel": "EMAIL",
+        "customer_id": "C0000001"
+      },
+      "case_id": "eligibility_valid_01",
+      "expected_success": true,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        37.88,
+        37.812,
+        37.366,
+        38.557,
+        37.921
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "engagement_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review customer evidence and current policy before deciding whether any retention intervention is appropriate.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "recommendation_valid_01",
+      "expected_success": true,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        37.459,
+        37.75,
+        38.714,
+        38.715,
+        38.432
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000002"
+      },
+      "case_id": "profile_valid_02",
+      "expected_success": true,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        39.243,
+        39.35,
+        38.372,
+        39.531,
+        39.049
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000002",
+        "days": 30,
+        "limit": 10
+      },
+      "case_id": "events_valid_02",
+      "expected_success": true,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        53.28,
+        51.73,
+        52.114,
+        52.37,
+        51.339
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000002",
+        "days": 730,
+        "limit": 10
+      },
+      "case_id": "purchases_valid_02",
+      "expected_success": true,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        48.771,
+        49.599,
+        48.951,
+        48.475,
+        48.317
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000002"
+      },
+      "case_id": "metrics_valid_02",
+      "expected_success": true,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        39.033,
+        39.698,
+        39.673,
+        39.101,
+        38.553
+      ]
+    },
+    {
+      "arguments": {
+        "channel": "SMS",
+        "customer_id": "C0000002"
+      },
+      "case_id": "eligibility_valid_02",
+      "expected_success": true,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        39.162,
+        38.555,
+        38.781,
+        39.24,
+        38.86
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000002",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "engagement_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review customer evidence and current policy before deciding whether any retention intervention is appropriate.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "recommendation_valid_02",
+      "expected_success": true,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        39.122,
+        40.095,
+        39.979,
+        38.54,
+        39.022
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000003"
+      },
+      "case_id": "profile_valid_03",
+      "expected_success": true,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        39.983,
+        40.563,
+        40.407,
+        40.128,
+        41.295
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000003",
+        "days": 90,
+        "limit": 10
+      },
+      "case_id": "events_valid_03",
+      "expected_success": true,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        54.248,
+        53.416,
+        53.899,
+        53.91,
+        53.408
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000003",
+        "days": 730,
+        "limit": 10
+      },
+      "case_id": "purchases_valid_03",
+      "expected_success": true,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        49.095,
+        49.985,
+        50.393,
+        50.734,
+        51.548
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000003"
+      },
+      "case_id": "metrics_valid_03",
+      "expected_success": true,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        39.282,
+        40.316,
+        41.038,
+        40.846,
+        40.916
+      ]
+    },
+    {
+      "arguments": {
+        "channel": "PUSH",
+        "customer_id": "C0000003"
+      },
+      "case_id": "eligibility_valid_03",
+      "expected_success": true,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        40.002,
+        40.555,
+        41.149,
+        40.28,
+        39.882
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000003",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "engagement_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review customer evidence and current policy before deciding whether any retention intervention is appropriate.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "recommendation_valid_03",
+      "expected_success": true,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        41.081,
+        40.594,
+        40.512,
+        41.863,
+        41.377
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000004"
+      },
+      "case_id": "profile_valid_04",
+      "expected_success": true,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        41.489,
+        41.736,
+        41.791,
+        41.463,
+        42.126
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000004",
+        "days": 7,
+        "limit": 10
+      },
+      "case_id": "events_valid_04",
+      "expected_success": true,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        53.561,
+        55.874,
+        55.474,
+        55.411,
+        54.361
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000004",
+        "days": 730,
+        "limit": 10
+      },
+      "case_id": "purchases_valid_04",
+      "expected_success": true,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        51.219,
+        52.239,
+        52.177,
+        50.487,
+        51.401
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000004"
+      },
+      "case_id": "metrics_valid_04",
+      "expected_success": true,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        42.073,
+        41.931,
+        42.019,
+        41.852,
+        117.278
+      ]
+    },
+    {
+      "arguments": {
+        "channel": null,
+        "customer_id": "C0000004"
+      },
+      "case_id": "eligibility_valid_04",
+      "expected_success": true,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        41.388,
+        42.113,
+        42.265,
+        41.893,
+        41.375
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000004",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "engagement_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review customer evidence and current policy before deciding whether any retention intervention is appropriate.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "recommendation_valid_04",
+      "expected_success": true,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.19,
+        42.233,
+        41.928,
+        41.492,
+        42.783
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000005"
+      },
+      "case_id": "profile_valid_05",
+      "expected_success": true,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        41.728,
+        42.373,
+        42.229,
+        42.939,
+        43.127
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000005",
+        "days": 30,
+        "limit": 10
+      },
+      "case_id": "events_valid_05",
+      "expected_success": true,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        57.156,
+        55.169,
+        56.23,
+        57.119,
+        56.087
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000005",
+        "days": 730,
+        "limit": 10
+      },
+      "case_id": "purchases_valid_05",
+      "expected_success": true,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        53.529,
+        52.62,
+        52.593,
+        53.197,
+        53.549
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000005"
+      },
+      "case_id": "metrics_valid_05",
+      "expected_success": true,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        41.772,
+        43.342,
+        42.946,
+        42.878,
+        43.002
+      ]
+    },
+    {
+      "arguments": {
+        "channel": "EMAIL",
+        "customer_id": "C0000005"
+      },
+      "case_id": "eligibility_valid_05",
+      "expected_success": true,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        42.134,
+        42.183,
+        42.55,
+        42.455,
+        43.305
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000005",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "engagement_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review customer evidence and current policy before deciding whether any retention intervention is appropriate.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "recommendation_valid_05",
+      "expected_success": true,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        42.558,
+        43.349,
+        43.064,
+        43.417,
+        42.604
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000006"
+      },
+      "case_id": "profile_valid_06",
+      "expected_success": true,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        42.582,
+        43.526,
+        42.983,
+        41.919,
+        42.705
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000006",
+        "days": 90,
+        "limit": 10
+      },
+      "case_id": "events_valid_06",
+      "expected_success": true,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        57.136,
+        56.443,
+        57.204,
+        56.669,
+        57.165
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000006",
+        "days": 730,
+        "limit": 10
+      },
+      "case_id": "purchases_valid_06",
+      "expected_success": true,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        53.594,
+        53.02,
+        52.148,
+        52.36,
+        52.689
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000006"
+      },
+      "case_id": "metrics_valid_06",
+      "expected_success": true,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        41.631,
+        43.414,
+        42.764,
+        42.421,
+        43.564
+      ]
+    },
+    {
+      "arguments": {
+        "channel": "SMS",
+        "customer_id": "C0000006"
+      },
+      "case_id": "eligibility_valid_06",
+      "expected_success": true,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.376,
+        43.395,
+        43.26,
+        44.073,
+        42.234
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000006",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "engagement_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review customer evidence and current policy before deciding whether any retention intervention is appropriate.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "recommendation_valid_06",
+      "expected_success": true,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        42.439,
+        42.79,
+        43.865,
+        43.943,
+        42.516
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000007"
+      },
+      "case_id": "profile_valid_07",
+      "expected_success": true,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        42.317,
+        42.827,
+        43.489,
+        44.296,
+        43.326
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000007",
+        "days": 7,
+        "limit": 10
+      },
+      "case_id": "events_valid_07",
+      "expected_success": true,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        56.803,
+        55.079,
+        56.171,
+        57.192,
+        55.74
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000007",
+        "days": 730,
+        "limit": 10
+      },
+      "case_id": "purchases_valid_07",
+      "expected_success": true,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        52.14,
+        52.853,
+        52.443,
+        53.85,
+        53.044
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000007"
+      },
+      "case_id": "metrics_valid_07",
+      "expected_success": true,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.708,
+        44.809,
+        42.528,
+        43.162,
+        41.884
+      ]
+    },
+    {
+      "arguments": {
+        "channel": "PUSH",
+        "customer_id": "C0000007"
+      },
+      "case_id": "eligibility_valid_07",
+      "expected_success": true,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.613,
+        43.03,
+        42.145,
+        43.291,
+        43.463
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000007",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "engagement_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review customer evidence and current policy before deciding whether any retention intervention is appropriate.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "recommendation_valid_07",
+      "expected_success": true,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.284,
+        44.293,
+        42.017,
+        43.149,
+        43.619
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000008"
+      },
+      "case_id": "profile_valid_08",
+      "expected_success": true,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.033,
+        43.423,
+        43.489,
+        41.854,
+        41.421
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000008",
+        "days": 30,
+        "limit": 10
+      },
+      "case_id": "events_valid_08",
+      "expected_success": true,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        55.509,
+        56.993,
+        57.14,
+        57.155,
+        55.732
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000008",
+        "days": 730,
+        "limit": 10
+      },
+      "case_id": "purchases_valid_08",
+      "expected_success": true,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        54.924,
+        57.626,
+        53.11,
+        53.487,
+        52.586
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000008"
+      },
+      "case_id": "metrics_valid_08",
+      "expected_success": true,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.017,
+        43.771,
+        43.73,
+        43.11,
+        44.26
+      ]
+    },
+    {
+      "arguments": {
+        "channel": null,
+        "customer_id": "C0000008"
+      },
+      "case_id": "eligibility_valid_08",
+      "expected_success": true,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.058,
+        43.218,
+        42.213,
+        42.812,
+        42.65
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000008",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "engagement_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review customer evidence and current policy before deciding whether any retention intervention is appropriate.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "recommendation_valid_08",
+      "expected_success": true,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.222,
+        44.1,
+        43.028,
+        43.051,
+        43.597
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000009"
+      },
+      "case_id": "profile_valid_09",
+      "expected_success": true,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.693,
+        42.761,
+        43.153,
+        42.694,
+        42.706
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000009",
+        "days": 90,
+        "limit": 10
+      },
+      "case_id": "events_valid_09",
+      "expected_success": true,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        124.795,
+        62.572,
+        56.592,
+        58.199,
+        56.352
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000009",
+        "days": 730,
+        "limit": 10
+      },
+      "case_id": "purchases_valid_09",
+      "expected_success": true,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        46.864,
+        47.299,
+        46.893,
+        46.629,
+        47.665
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000009"
+      },
+      "case_id": "metrics_valid_09",
+      "expected_success": true,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        42.88,
+        43.144,
+        44.109,
+        43.223,
+        43.481
+      ]
+    },
+    {
+      "arguments": {
+        "channel": "EMAIL",
+        "customer_id": "C0000009"
+      },
+      "case_id": "eligibility_valid_09",
+      "expected_success": true,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        44.246,
+        43.373,
+        43.306,
+        43.288,
+        44.028
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000009",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "engagement_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review customer evidence and current policy before deciding whether any retention intervention is appropriate.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "recommendation_valid_09",
+      "expected_success": true,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.099,
+        43.757,
+        42.912,
+        42.647,
+        43.59
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000010"
+      },
+      "case_id": "profile_valid_10",
+      "expected_success": true,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        42.666,
+        43.654,
+        43.053,
+        42.571,
+        43.44
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000010",
+        "days": 7,
+        "limit": 10
+      },
+      "case_id": "events_valid_10",
+      "expected_success": true,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        54.826,
+        55.723,
+        55.958,
+        56.244,
+        54.615
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000010",
+        "days": 730,
+        "limit": 10
+      },
+      "case_id": "purchases_valid_10",
+      "expected_success": true,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        53.207,
+        52.495,
+        53.953,
+        52.746,
+        52.687
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000010"
+      },
+      "case_id": "metrics_valid_10",
+      "expected_success": true,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.54,
+        43.78,
+        43.653,
+        44.007,
+        43.622
+      ]
+    },
+    {
+      "arguments": {
+        "channel": "SMS",
+        "customer_id": "C0000010"
+      },
+      "case_id": "eligibility_valid_10",
+      "expected_success": true,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        44.304,
+        43.439,
+        42.614,
+        44.134,
+        43.83
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000010",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "engagement_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review customer evidence and current policy before deciding whether any retention intervention is appropriate.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "recommendation_valid_10",
+      "expected_success": true,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        43.064,
+        42.986,
+        43.729,
+        43.569,
+        42.534
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "consent"
+        ],
+        "query": "email opt out suppression",
+        "top_k": 5
+      },
+      "case_id": "knowledge_valid_01",
+      "expected_success": true,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        1.265,
+        1.125,
+        1.116,
+        1.09,
+        1.09
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "retention"
+        ],
+        "query": "retention investigation no action",
+        "top_k": 5
+      },
+      "case_id": "knowledge_valid_02",
+      "expected_success": true,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        4.707,
+        4.284,
+        4.423,
+        4.276,
+        4.574
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "offers"
+        ],
+        "query": "retention offer cooling period",
+        "top_k": 5
+      },
+      "case_id": "knowledge_valid_03",
+      "expected_success": true,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        4.346,
+        4.596,
+        4.317,
+        4.298,
+        4.601
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "support"
+        ],
+        "query": "open support case escalation handoff",
+        "top_k": 5
+      },
+      "case_id": "knowledge_valid_04",
+      "expected_success": true,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        3.372,
+        3.535,
+        3.587,
+        3.321,
+        3.31
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "refunds"
+        ],
+        "query": "refund return window",
+        "top_k": 5
+      },
+      "case_id": "knowledge_valid_05",
+      "expected_success": true,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        2.878,
+        2.942,
+        3.399,
+        3.219,
+        3.055
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "shipping"
+        ],
+        "query": "shipping delay threshold",
+        "top_k": 5
+      },
+      "case_id": "knowledge_valid_06",
+      "expected_success": true,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        2.507,
+        2.421,
+        2.43,
+        2.627,
+        2.537
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "loyalty"
+        ],
+        "query": "loyalty tier benefits",
+        "top_k": 5
+      },
+      "case_id": "knowledge_valid_07",
+      "expected_success": true,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        2.752,
+        4.058,
+        2.521,
+        2.607,
+        2.768
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "campaigns"
+        ],
+        "query": "campaign contact frequency",
+        "top_k": 5
+      },
+      "case_id": "knowledge_valid_08",
+      "expected_success": true,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        2.923,
+        2.994,
+        2.839,
+        2.829,
+        2.834
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "subscriptions"
+        ],
+        "query": "subscription cancellation handling",
+        "top_k": 5
+      },
+      "case_id": "knowledge_valid_09",
+      "expected_success": true,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        1.991,
+        1.914,
+        1.788,
+        1.815,
+        1.887
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "governance"
+        ],
+        "query": "exact causal uplift retention discount",
+        "top_k": 5
+      },
+      "case_id": "knowledge_valid_10",
+      "expected_success": true,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "observed_error_codes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "latencies_ms": [
+        0.191,
+        0.149,
+        0.146,
+        0.141,
+        0.139
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "bad"
+      },
+      "case_id": "get_customer_profile_invalid_01",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.02,
+        0.005,
+        0.004,
+        0.004,
+        0.003
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C9999999"
+      },
+      "case_id": "get_customer_profile_invalid_02",
+      "expected_error_code": "NOT_FOUND",
+      "expected_success": false,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND"
+      ],
+      "latencies_ms": [
+        29.213,
+        29.442,
+        28.685,
+        29.038,
+        28.336
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": ""
+      },
+      "case_id": "get_customer_profile_invalid_03",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.017,
+        0.005,
+        0.006,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "include_email": true
+      },
+      "case_id": "get_customer_profile_invalid_04",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.006,
+        0.003,
+        0.003,
+        0.003,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C1' OR '1'='1"
+      },
+      "case_id": "get_customer_profile_invalid_05",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_customer_profile",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.004,
+        0.004,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "days": 0
+      },
+      "case_id": "get_customer_events_invalid_01",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.013,
+        0.004,
+        0.004,
+        0.008,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "days": 91
+      },
+      "case_id": "get_customer_events_invalid_02",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.005,
+        0.004,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "limit": 0
+      },
+      "case_id": "get_customer_events_invalid_03",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.004,
+        0.004,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "event_types": [
+          "login"
+        ]
+      },
+      "case_id": "get_customer_events_invalid_04",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.005,
+        0.008,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C9999999"
+      },
+      "case_id": "get_customer_events_invalid_05",
+      "expected_error_code": "NOT_FOUND",
+      "expected_success": false,
+      "tool_name": "get_customer_events",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND"
+      ],
+      "latencies_ms": [
+        28.795,
+        28.692,
+        28.425,
+        27.881,
+        28.323
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "days": 0
+      },
+      "case_id": "get_purchase_history_invalid_01",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.021,
+        0.005,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "days": 731
+      },
+      "case_id": "get_purchase_history_invalid_02",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.005,
+        0.004,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "limit": 51
+      },
+      "case_id": "get_purchase_history_invalid_03",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.004,
+        0.004,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C9999999"
+      },
+      "case_id": "get_purchase_history_invalid_04",
+      "expected_error_code": "NOT_FOUND",
+      "expected_success": false,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND"
+      ],
+      "latencies_ms": [
+        28.576,
+        28.57,
+        29.765,
+        28.313,
+        28.806
+      ]
+    },
+    {
+      "arguments": {
+        "currency": "USD",
+        "customer_id": "C0000001"
+      },
+      "case_id": "get_purchase_history_invalid_05",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_purchase_history",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.019,
+        0.005,
+        0.004,
+        0.004,
+        0.003
+      ]
+    },
+    {
+      "arguments": {
+        "query": ""
+      },
+      "case_id": "search_knowledge_base_invalid_01",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.009,
+        0.005,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "query": "ab"
+      },
+      "case_id": "search_knowledge_base_invalid_02",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.005,
+        0.004,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "query": "retention",
+        "top_k": 0
+      },
+      "case_id": "search_knowledge_base_invalid_03",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.007,
+        0.004,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "query": "retention",
+        "top_k": 11
+      },
+      "case_id": "search_knowledge_base_invalid_04",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.004,
+        0.004,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "families": [
+          "legal"
+        ],
+        "query": "retention"
+      },
+      "case_id": "search_knowledge_base_invalid_05",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "search_knowledge_base",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.006,
+        0.004,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "bad"
+      },
+      "case_id": "calculate_customer_metrics_invalid_01",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.006,
+        0.004,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C9999999"
+      },
+      "case_id": "calculate_customer_metrics_invalid_02",
+      "expected_error_code": "NOT_FOUND",
+      "expected_success": false,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND"
+      ],
+      "latencies_ms": [
+        27.955,
+        28.55,
+        28.836,
+        28.729,
+        28.71
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": ""
+      },
+      "case_id": "calculate_customer_metrics_invalid_03",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.019,
+        0.005,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "metric": "secret"
+      },
+      "case_id": "calculate_customer_metrics_invalid_04",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.006,
+        0.003,
+        0.003,
+        0.003,
+        0.003
+      ]
+    },
+    {
+      "arguments": {},
+      "case_id": "calculate_customer_metrics_invalid_05",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "calculate_customer_metrics",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.004,
+        0.003,
+        0.003,
+        0.003,
+        0.003
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "bad"
+      },
+      "case_id": "get_campaign_eligibility_invalid_01",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.006,
+        0.004,
+        0.003,
+        0.003,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C9999999"
+      },
+      "case_id": "get_campaign_eligibility_invalid_02",
+      "expected_error_code": "NOT_FOUND",
+      "expected_success": false,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND"
+      ],
+      "latencies_ms": [
+        28.559,
+        29.166,
+        28.462,
+        28.454,
+        28.351
+      ]
+    },
+    {
+      "arguments": {
+        "channel": "PHONE",
+        "customer_id": "C0000001"
+      },
+      "case_id": "get_campaign_eligibility_invalid_03",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.021,
+        0.006,
+        0.004,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "execute": true
+      },
+      "case_id": "get_campaign_eligibility_invalid_04",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.005,
+        0.003,
+        0.003,
+        0.004,
+        0.004
+      ]
+    },
+    {
+      "arguments": {},
+      "case_id": "get_campaign_eligibility_invalid_05",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "get_campaign_eligibility",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.004,
+        0.003,
+        0.003,
+        0.003,
+        0.003
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "evidence_features": [
+          "purchase_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-99999"
+        ],
+        "rationale": "Review evidence before making a decision.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "create_retention_recommendation_invalid_01",
+      "expected_error_code": "NOT_FOUND",
+      "expected_success": false,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND",
+        "NOT_FOUND"
+      ],
+      "latencies_ms": [
+        38.815,
+        38.019,
+        38.971,
+        38.528,
+        39.631
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "evidence_features": [
+          "purchase_decline_flag",
+          "purchase_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Review evidence before making a decision.",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "create_retention_recommendation_invalid_02",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.027,
+        0.007,
+        0.006,
+        0.007,
+        0.007
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "evidence_features": [
+          "purchase_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "short",
+        "recommendation": "INVESTIGATE"
+      },
+      "case_id": "create_retention_recommendation_invalid_03",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.008,
+        0.006,
+        0.006,
+        0.01,
+        0.005
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000001",
+        "evidence_features": [
+          "purchase_decline_flag"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Attempt an unsupported automatic customer action.",
+        "recommendation": "SEND_EMAIL"
+      },
+      "case_id": "create_retention_recommendation_invalid_04",
+      "expected_error_code": "VALIDATION_ERROR",
+      "expected_success": false,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR",
+        "VALIDATION_ERROR"
+      ],
+      "latencies_ms": [
+        0.006,
+        0.005,
+        0.005,
+        0.005,
+        0.005
+      ]
+    },
+    {
+      "arguments": {
+        "customer_id": "C0000006",
+        "evidence_features": [
+          "customer_status"
+        ],
+        "policy_document_ids": [
+          "KB-00779"
+        ],
+        "rationale": "Attempt a draft when every communication channel is blocked.",
+        "recommendation": "RETENTION_OFFER"
+      },
+      "case_id": "create_retention_recommendation_invalid_05",
+      "expected_error_code": "CONFLICT",
+      "expected_success": false,
+      "tool_name": "create_retention_recommendation",
+      "passed": true,
+      "observed_success": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "observed_error_codes": [
+        "CONFLICT",
+        "CONFLICT",
+        "CONFLICT",
+        "CONFLICT",
+        "CONFLICT"
+      ],
+      "latencies_ms": [
+        87.396,
+        86.379,
+        88.284,
+        86.718,
+        88.001
+      ]
+    }
+  ]
+}
