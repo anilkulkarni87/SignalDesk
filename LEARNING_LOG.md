@@ -2047,3 +2047,727 @@ I should be able to explain:
 - why `gpt-5.6-luna` with `reasoning=none` stayed fixed,
 - why this still avoids RAG and agents,
 - why prompt adoption should be a measured decision, not a vibe check.
+
+---
+
+## Commit 07 Draft - Policy-Grounded Retrieval Built Early
+
+> Roadmap reconciliation: the work recorded in this section combines retrieval
+> with LLM generation, policy citations, and customer-tied cases. The original
+> SignalDesk roadmap classifies that as Commit 07 RAG groundwork. References to
+> "Commit 06" inside this historical section describe the order in which the
+> prototype was built, not its final roadmap placement. Commit 06 must first
+> measure embeddings and vector search independently.
+
+### Goal
+
+Commit 06 introduced retrieval without introducing agents.
+
+The learning goal was:
+
+```text
+Separate customer facts from business policy context.
+```
+
+Commit 05 gave me a measured prompt baseline.
+
+Commit 06 added a new input source:
+
+```text
+Customer 360 snapshot
+  deterministic facts about the customer
+
+Retrieved knowledge documents
+  bounded business guidance about policies, procedures, and known gaps
+
+LLM assessment
+  interpretation that must keep those two evidence types separate
+```
+
+This commit still did not allow the model to execute actions, call tools, update
+systems, or act as an agent.
+
+---
+
+### Why retrieval adds a new failure surface
+
+Before retrieval, a bad LLM answer could come from:
+
+```text
+bad customer data
+bad prompt
+bad schema
+bad eval case
+model behavior
+```
+
+After retrieval, a bad answer can also come from:
+
+```text
+wrong document retrieved
+right document not retrieved
+stale source retrieved
+draft or incomplete source treated as current
+policy context mixed up with customer facts
+retrieved context overclaimed by the model
+```
+
+That means retrieval needs its own tests before the LLM uses the context.
+
+---
+
+### Corpus used
+
+The knowledge corpus was the generated NovaCart corpus created by:
+
+```bash
+python data/knowledge/generate_knowledge_docs_v2.py
+```
+
+It contains:
+
+```text
+1,000 documents
+694 CURRENT docs
+153 SUPERSEDED docs
+97 DRAFT docs
+56 INCOMPLETE docs
+330 POLICY docs
+4 known knowledge gaps
+```
+
+This was the right corpus for Commit 06 because it is intentionally messy:
+
+- overlapping terminology,
+- current and stale documents,
+- approved and reference material,
+- incomplete sources,
+- multiple plausible matches,
+- known gaps where the correct behavior is abstention.
+
+A tiny hand-written corpus would make the first demo easier, but it would hide
+the real retrieval problem.
+
+---
+
+### What I built
+
+Commit 06 added:
+
+```text
+src/retrieval/documents.py
+src/retrieval/lexical.py
+src/retrieval/search.py
+src/retrieval/query_planner.py
+src/llm/policy_schemas.py
+src/llm/prompt_versions/v3.py
+evals/commit06/retrieval_cases.jsonl
+evals/commit06/retrieval_metrics.py
+evals/commit06/make_policy_cases.py
+evals/commit06/planner_metrics.py
+evals/commit06/policy_cases.jsonl
+evals/commit06/policy_runner.py
+evals/commit06/policy_metrics.py
+README_COMMIT06.md
+```
+
+The retriever is deliberately simple and inspectable.
+
+It:
+
+- parses Markdown frontmatter,
+- loads generated known gaps as retrievable `GAP-*` sources,
+- filters to `CURRENT` and `APPROVED` sources,
+- tokenizes text,
+- expands a small synonym set,
+- scores lexical matches,
+- returns document IDs, families, status, authority, matched terms, and excerpts.
+
+This is not meant to be the final retrieval architecture.
+
+It is meant to make retrieval behavior visible.
+
+---
+
+### Retrieval-only evaluation
+
+The first retrieval test did not call the model.
+
+It asked whether the retriever could find the right type of source from the
+generated corpus.
+
+Result:
+
+```text
+cases: 7
+pass rate: 100%
+expected doc ID present: 100%
+expected family present: 100%
+expected top family: 100%
+expected status CURRENT: 100%
+expected authority APPROVED: 100%
+forbidden stale statuses absent: 100%
+excerpts present: 100%
+```
+
+This tested:
+
+- offer eligibility retrieval,
+- support escalation retrieval,
+- consent and suppression retrieval,
+- causal uplift gap retrieval,
+- personalized discount amount gap retrieval,
+- automatic execution gap retrieval,
+- freshness behavior that excludes stale sources.
+
+---
+
+### Tying retrieval to customers
+
+The first policy-grounded model check used only five hand-written retrieval
+queries.
+
+That worked, but it did not fully answer:
+
+```text
+How does retrieval tie to a specific customer?
+```
+
+The correct bridge is a deterministic policy query planner.
+
+The planner reads Customer 360 facts and chooses policy lookups:
+
+```text
+support_attention_flag = true
+  -> support escalation / handoff guidance
+
+purchase_decline_flag or engagement_decline_flag = true
+  -> retention offer eligibility guidance
+  -> known gap for causal discount uplift
+
+email, SMS, or push opt-out = true
+  -> consent and suppression guidance
+
+recent_subscription_cancellation_flag = true
+  -> subscription cancellation guidance
+
+no warning signals and no channel constraint
+  -> general retention review guidance
+```
+
+Then `make_policy_cases.py` uses the fixed Commit 05 cases to generate
+customer-tied Commit 06 cases:
+
+```text
+Commit 05 case
+  -> customer_id
+  -> Customer 360 snapshot
+  -> planned policy queries
+  -> expected policy families and gap IDs
+```
+
+The expanded suite contains:
+
+```text
+25 total cases
+5 multiple warning signal cases
+5 purchase decline only cases
+5 engagement decline only cases
+5 support attention only cases
+5 no warning signal cases
+```
+
+Planner result:
+
+```text
+planner eval: 25 / 25 passed
+```
+
+---
+
+### Query-planning failure and fix
+
+The first customer-tied version combined all planned policy queries into one
+long retrieval query.
+
+That caused a real retrieval problem:
+
+```text
+strong consent or offer terms could swamp weaker but important support terms
+```
+
+For support-only customers who also had channel opt-outs, the combined query
+retrieved consent documents but missed support documents.
+
+The fix was to run each planned policy query separately:
+
+```text
+customer snapshot
+  -> multiple planned queries
+  -> top results per query
+  -> deduplicate sources
+  -> send merged context to the model
+```
+
+That made the bridge reliable:
+
+```text
+planner eval: 25 / 25 passed
+```
+
+This was an important retrieval lesson:
+
+```text
+Query planning matters as much as scoring.
+```
+
+---
+
+### Policy-grounded output schema
+
+Commit 06 added policy-specific output fields:
+
+```text
+policy_sources
+unsupported_policy_claims
+```
+
+Customer evidence still cites Customer 360 fields such as:
+
+```text
+purchase_decline_flag
+engagement_decline_flag
+support_attention_flag
+orders_60d
+email_opted_in
+```
+
+Policy sources cite retrieved document IDs such as:
+
+```text
+KB-00704
+KB-00853
+GAP-001
+GAP-003
+```
+
+That separation matters.
+
+Customer facts answer:
+
+```text
+What is true about this customer?
+```
+
+Policy sources answer:
+
+```text
+What guidance or limits may SignalDesk rely on?
+```
+
+---
+
+### Schema-semantics failure and fix
+
+The first 5-case policy-grounded model run produced:
+
+```text
+risk accuracy: 100%
+policy retrieval: 100%
+policy citation: 100%
+unsupported policy claims empty: 0%
+```
+
+At first, that looked bad.
+
+Manual review showed the schema was ambiguous.
+
+The model used `unsupported_policy_claims` like:
+
+```text
+policy limitations or things not established by retrieved context
+```
+
+But that was not the intended meaning.
+
+The intended meaning was:
+
+```text
+policy claims the assessment actually made without retrieved support
+```
+
+So the contract was tightened:
+
+```text
+limitations:
+  missing facts, uncertainty, and unsupported possibilities not claimed
+
+unsupported_policy_claims:
+  unsupported policy claims actually made by the assessment
+```
+
+After that fix, the 5-case run passed:
+
+```text
+cases: 5
+risk accuracy: 100%
+policy retrieval: 100%
+policy citation: 100%
+unsupported policy claims empty: 100%
+failures: 0
+```
+
+---
+
+### Expanded 25-case policy-grounded result
+
+After tying retrieval to customers and fixing per-query retrieval, the expanded
+model evaluation produced:
+
+```text
+cases: 25
+successful API calls: 25
+API success: 100%
+risk accuracy: 100%
+expected policy retrieval: 100%
+expected policy citation: 100%
+expected policy family retrieval: 100%
+expected policy family citation: 100%
+unsupported policy claims empty: 100%
+failures: 0
+```
+
+This means V3 preserved Commit 05 risk behavior while using retrieved generated
+knowledge context and citing policy sources correctly on these 25 customer-tied
+cases.
+
+---
+
+### What I learned
+
+#### 1. Retrieval should be tested before generation
+
+If the wrong context is retrieved, the model can produce a bad answer even with
+a good prompt.
+
+The retrieval-only eval makes this failure visible before the LLM is involved.
+
+#### 2. Customer facts and policy context are different evidence types
+
+Customer 360 facts should remain deterministic.
+
+Policy context should remain source-cited guidance.
+
+The model should not blur those together.
+
+#### 3. The generated corpus is better than a tiny fixture for this lesson
+
+The generated corpus contains stale, incomplete, overlapping, and non-primary
+documents.
+
+That forces the retrieval layer to handle authority and freshness.
+
+#### 4. Query planning is a real system component
+
+One combined query can lose important intent.
+
+Running separate planned queries per customer signal produced better coverage.
+
+#### 5. Output fields need precise semantics
+
+`unsupported_policy_claims` failed because the schema name alone was not enough.
+
+The model needed a clear distinction between:
+
+```text
+limitations
+unsupported claims
+```
+
+#### 6. Known gaps are useful retrieval targets
+
+For questions about causal discount uplift or automatic execution, the right
+answer is not another policy.
+
+The right answer is a known gap:
+
+```text
+GAP-001
+GAP-003
+```
+
+That teaches the model when not to overclaim.
+
+---
+
+### Before / after
+
+#### Before
+
+```text
+Customer 360 only
+no retrieval layer
+no policy citations
+no freshness filtering
+no known-gap retrieval
+no customer-driven query planning
+no policy-grounded output schema
+```
+
+#### After
+
+```text
+generated knowledge corpus used as retrieval source
+lexical retrieval with source metadata
+current approved source filtering
+known gaps loaded as retrievable sources
+retrieval-only eval
+customer-driven policy query planner
+25 customer-tied policy cases
+planner eval
+V3 policy-grounded prompt
+policy source citations
+unsupported policy claim metric
+25-case policy-grounded model eval with zero failures
+```
+
+---
+
+### Still unproven
+
+Commit 06 does not prove:
+
+- semantic retrieval quality at production scale,
+- embedding retrieval quality,
+- ranking quality across all 1,000 documents,
+- robustness to adversarial policy conflicts,
+- real-world policy correctness,
+- intervention recommendation quality,
+- agent planning,
+- tool-use correctness,
+- production latency or caching behavior.
+
+It proves something narrower:
+
+```text
+Given the generated NovaCart knowledge corpus and 25 customer-tied cases,
+SignalDesk can deterministically plan policy retrieval from Customer 360 facts,
+retrieve current approved sources, cite policy context separately from customer
+evidence, and avoid unsupported policy claims.
+```
+
+---
+
+### Can I explain/rebuild this from scratch?
+
+**Target: Yes.**
+
+I should be able to explain:
+
+- why retrieval was introduced after prompt evaluation,
+- why `data/generated/knowledge` is the correct Commit 06 corpus,
+- how status and authority metadata affect retrieval,
+- why known gaps should be retrievable,
+- how Customer 360 facts drive policy query planning,
+- why separate planned queries worked better than one combined query,
+- how policy sources differ from customer evidence,
+- why `unsupported_policy_claims` needed tighter semantics,
+- why the LLM still does not execute actions,
+- why this is retrieval-grounded generation, not an agent.
+
+---
+
+## Commit 06 - Embeddings and Vector Search
+
+### Roadmap objective
+
+Commit 06 isolates retrieval from answer generation:
+
+```text
+document
+  -> chunk
+  -> embedding
+  -> pgvector
+  -> cosine similarity search
+  -> retrieval metrics
+```
+
+The purpose is to learn whether semantic similarity can retrieve NovaCart's
+private business knowledge when a user's wording differs from the document's
+wording.
+
+This commit does not call `gpt-5.6-luna`, generate an answer, choose a tool, or
+execute an action. The generation configuration remains frozen for Commit 07:
+
+```text
+model = gpt-5.6-luna
+reasoning = none
+```
+
+### Hypothesis
+
+OpenAI embeddings plus pgvector cosine search will improve Recall@5 over the
+lexical baseline on paraphrased policy questions.
+
+Roadmap target:
+
+```text
+Vector Recall@5 > 85%
+```
+
+### Frozen inputs
+
+The retrieval dataset contains 50 cases:
+
+- 5 cases for each of 9 generated knowledge families,
+- 4 known-knowledge-gap cases,
+- 1 cross-family campaign and consent case.
+
+Each case freezes all current approved document IDs matching its curated family
+and topic selectors. That avoids arbitrarily declaring one of several equivalent
+generated policies to be the only correct result.
+
+For this experiment, Recall@K is the percentage of queries with at least one
+curated relevant document in the top K document-level results. MRR measures the
+rank of the first relevant document.
+
+### Lexical baseline
+
+The optimized lexical index is built once and reused across all 50 queries.
+
+```text
+Recall@1 = 36.0%
+Recall@3 = 58.0%
+Recall@5 = 68.0%
+MRR      = 0.4697
+Mean query latency ~= 5 ms
+```
+
+The 68% Recall@5 result gives the embedding experiment something real to beat.
+Its misses include semantic paraphrases for declining purchases, consent
+timestamps, automatic execution gaps, and cross-family suppression rules.
+
+### Implementation
+
+The current implementation adds:
+
+- section-aware chunking with a 220-word maximum and 40-word overlap for long
+  sections,
+- 1,093 deterministic chunks from 1,004 retrievable records,
+- `text-embedding-3-small` embedding batches,
+- PostgreSQL plus pgvector storage,
+- an HNSW cosine index,
+- query-time `CURRENT` and `APPROVED` metadata filtering,
+- chunk-to-document deduplication,
+- Recall@1, Recall@3, Recall@5, MRR, and latency reporting,
+- lexical-versus-vector per-case comparison.
+
+All source documents, including stale and incomplete ones, enter the index.
+Authority filtering happens at retrieval time so freshness failures remain
+testable.
+
+### Local verification completed
+
+- generated corpus validation passed for 1,000 Markdown documents and 4 known
+  gaps,
+- 50-case generation test passed,
+- chunking and metric unit tests passed,
+- Python compilation passed,
+- the 7-case policy retrieval smoke test still passed,
+- the 25-case customer query planner regression test still passed,
+- a real local pgvector integration test passed for schema creation, upsert,
+  filtering, document deduplication, HNSW indexing, and cosine ranking using
+  synthetic vectors.
+
+### Measured vector result
+
+The real index used:
+
+```text
+embedding model      = text-embedding-3-small
+embedding dimensions = 1,536
+documents            = 1,004
+chunks                = 1,093
+index input tokens    = 300,972
+index embedding time  = 15.150 seconds
+total index build     = 18.305 seconds
+```
+
+The frozen 50-query comparison produced:
+
+| Metric | Lexical | Vector | Change |
+|---|---:|---:|---:|
+| Recall@1 | 36.0% | 86.0% | +50.0 points |
+| Recall@3 | 58.0% | 92.0% | +34.0 points |
+| Recall@5 | 68.0% | 98.0% | +30.0 points |
+| MRR | 0.4697 | 0.9007 | +0.4310 |
+| Mean end-to-end latency | 4.312 ms | 35.480 ms | +31.168 ms |
+| p95 end-to-end latency | 5.129 ms | 40.470 ms | +35.341 ms |
+
+Vector search itself averaged 12.120 ms with p95 17.110 ms. The 35.480 ms
+end-to-end mean also includes the query's share of a batched embedding request.
+
+The hypothesis passed. Vector Recall@5 exceeded the 85% roadmap target by 13
+percentage points and improved over lexical Recall@5 by 30 points.
+
+### The one remaining miss
+
+Vector retrieval found a relevant document in the top five for 49 of 50 cases.
+The miss was:
+
+```text
+case:  retention_02
+query: What evidence should be reviewed before considering a customer save incentive?
+```
+
+The frozen relevant set contains retention-family documents with topic `when a
+retention offer may be considered`. The vector top five instead contained
+current approved offer-family policies covering eligibility, exclusions, margin
+rules, and cooling periods.
+
+This is not a freshness failure. It is an adjacent-family ranking failure. The
+query is close to both concepts:
+
+```text
+retention decision: should an intervention be considered?
+offer eligibility:  is an incentive allowed under policy?
+```
+
+I did not relabel the case or tune the retriever after seeing the result. A future
+Commit 08 experiment can test whether query decomposition, family-aware hybrid
+ranking, or metadata filters resolve this boundary without harming cross-family
+questions.
+
+### Tradeoff
+
+Semantic retrieval materially improved relevance but cost more latency:
+
+```text
+lexical mean              = 4.312 ms
+vector search-only mean   = 12.120 ms
+vector end-to-end mean    = 35.480 ms
+```
+
+This is an acceptable baseline for the learning system because the original
+workflow target is measured in minutes, not milliseconds. It is not proof that
+the same tradeoff is acceptable at production concurrency or scale.
+
+### What I learned
+
+- Embeddings solved paraphrase failures that lexical matching could not.
+- Retrieval evaluation must be separate from LLM answer evaluation.
+- Metadata still matters with vectors; semantic similarity does not determine
+  whether a source is current or authoritative.
+- Chunk results must be deduplicated before document-level metrics are computed.
+- A high average score still needs per-case failure review.
+- Similar business concepts can remain difficult even when semantic retrieval is
+  strong.
+- The honest result is 98%, not a post-hoc tuned 100%.
+
+### Commit 06 conclusion
+
+Commit 06 is complete. It demonstrates an independently measured retrieval layer
+with Recall@5 above the roadmap target. The next roadmap step is Commit 07: feed
+retrieved policy context into the frozen `gpt-5.6-luna`, `reasoning=none`
+generation path and separately evaluate retrieval, answer correctness, citation
+correctness, unsupported claims, and latency.

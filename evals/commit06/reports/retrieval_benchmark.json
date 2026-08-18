@@ -1,0 +1,2563 @@
+{
+  "cases_file": "evals/commit06/retrieval_cases.jsonl",
+  "corpus_dir": "data/generated/knowledge",
+  "cases": 50,
+  "retrievers": {
+    "lexical": {
+      "retriever": "lexical",
+      "cases": 50,
+      "metric_definition": "Recall@K is the percentage of queries with at least one curated relevant document in the top K document-level results.",
+      "recall_at_1_pct": 36.0,
+      "recall_at_3_pct": 58.0,
+      "recall_at_5_pct": 68.0,
+      "mrr": 0.4697,
+      "latency_ms": {
+        "mean": 4.312,
+        "p50": 4.587,
+        "p95": 5.129
+      },
+      "index_build_latency_ms": 83.605,
+      "case_reports": [
+        {
+          "case_id": "retention_01",
+          "category": "retention",
+          "query": "When should the team leave an at-risk customer alone instead of intervening?",
+          "relevant_document_ids": [
+            "KB-00183",
+            "KB-00405",
+            "KB-00705",
+            "KB-00779"
+          ],
+          "retrieved_document_ids": [
+            "KB-00405",
+            "KB-00705",
+            "KB-00491",
+            "KB-00668",
+            "KB-00713"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.896,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "retention_02",
+          "category": "retention",
+          "query": "What evidence should be reviewed before considering a customer save incentive?",
+          "relevant_document_ids": [
+            "KB-00050",
+            "KB-00293",
+            "KB-00381",
+            "KB-00396",
+            "KB-00439",
+            "KB-00479",
+            "KB-00632",
+            "KB-00643",
+            "KB-00843",
+            "KB-00930"
+          ],
+          "retrieved_document_ids": [
+            "KB-00697",
+            "KB-00602",
+            "KB-00212",
+            "KB-00774",
+            "KB-00843"
+          ],
+          "first_relevant_rank": 5,
+          "reciprocal_rank": 0.2,
+          "latency_ms": 4.655,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "retention_03",
+          "category": "retention",
+          "query": "Should an unresolved service issue be handled before a retention incentive?",
+          "relevant_document_ids": [
+            "KB-00346",
+            "KB-00365",
+            "KB-00491",
+            "KB-00764",
+            "KB-00782",
+            "KB-00876",
+            "KB-00956"
+          ],
+          "retrieved_document_ids": [
+            "KB-00669",
+            "KB-00908",
+            "KB-00396",
+            "KB-00319",
+            "KB-00284"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 4.692,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "retention_04",
+          "category": "retention",
+          "query": "How should falling order frequency and reduced spending be investigated?",
+          "relevant_document_ids": [
+            "KB-00153",
+            "KB-00602",
+            "KB-00668",
+            "KB-00713",
+            "KB-00717",
+            "KB-00852",
+            "KB-00897"
+          ],
+          "retrieved_document_ids": [
+            "KB-00145",
+            "KB-00912",
+            "KB-00789",
+            "KB-00808",
+            "KB-00845"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 3.117,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "retention_05",
+          "category": "retention",
+          "query": "How should weakening email and website activity be interpreted?",
+          "relevant_document_ids": [
+            "KB-00033",
+            "KB-00057",
+            "KB-00212",
+            "KB-00267",
+            "KB-00506",
+            "KB-00600",
+            "KB-00774",
+            "KB-00817",
+            "KB-00837",
+            "KB-00924",
+            "KB-00960"
+          ],
+          "retrieved_document_ids": [
+            "KB-00108",
+            "KB-00117",
+            "KB-00562",
+            "KB-00905",
+            "KB-00989"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 2.87,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "offers_01",
+          "category": "offers",
+          "query": "What basic requirements must be met before a retention offer is allowed?",
+          "relevant_document_ids": [
+            "KB-00258",
+            "KB-00423",
+            "KB-00434",
+            "KB-00456",
+            "KB-00508",
+            "KB-00581",
+            "KB-00631",
+            "KB-00634",
+            "KB-00877"
+          ],
+          "retrieved_document_ids": [
+            "KB-00787",
+            "KB-00089",
+            "KB-00595",
+            "KB-00414",
+            "KB-00901"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 4.729,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "offers_02",
+          "category": "offers",
+          "query": "How long should we wait after a customer already received an incentive?",
+          "relevant_document_ids": [
+            "KB-00127",
+            "KB-00164",
+            "KB-00299",
+            "KB-00704",
+            "KB-00731",
+            "KB-00752",
+            "KB-00818",
+            "KB-00857",
+            "KB-00884",
+            "KB-00893",
+            "KB-00985"
+          ],
+          "retrieved_document_ids": [
+            "KB-00697",
+            "KB-00180",
+            "KB-00299",
+            "KB-00581",
+            "KB-00863"
+          ],
+          "first_relevant_rank": 3,
+          "reciprocal_rank": 0.333333,
+          "latency_ms": 4.464,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "offers_03",
+          "category": "offers",
+          "query": "Which conditions exclude a customer from receiving a promotional discount?",
+          "relevant_document_ids": [
+            "KB-00038",
+            "KB-00180",
+            "KB-00228",
+            "KB-00359",
+            "KB-00368",
+            "KB-00372",
+            "KB-00557",
+            "KB-00787",
+            "KB-00863",
+            "KB-00901"
+          ],
+          "retrieved_document_ids": [
+            "KB-00164",
+            "KB-00758",
+            "KB-00985",
+            "KB-00863",
+            "KB-00423"
+          ],
+          "first_relevant_rank": 4,
+          "reciprocal_rank": 0.25,
+          "latency_ms": 4.569,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "offers_04",
+          "category": "offers",
+          "query": "How frequently may promotional offers be sent to the same customer?",
+          "relevant_document_ids": [
+            "KB-00089",
+            "KB-00414",
+            "KB-00595",
+            "KB-00740"
+          ],
+          "retrieved_document_ids": [
+            "KB-00758",
+            "KB-00164",
+            "KB-00423",
+            "KB-00634",
+            "KB-00985"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 4.515,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "offers_05",
+          "category": "offers",
+          "query": "How do margin safeguards constrain customer incentive approval?",
+          "relevant_document_ids": [
+            "KB-00676",
+            "KB-00697",
+            "KB-00745",
+            "KB-00758",
+            "KB-00959"
+          ],
+          "retrieved_document_ids": [
+            "KB-00697",
+            "KB-00676",
+            "KB-00180",
+            "KB-00740",
+            "KB-00818"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.586,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "support_01",
+          "category": "support",
+          "query": "When should a delivery problem be escalated to customer support?",
+          "relevant_document_ids": [
+            "KB-00102",
+            "KB-00351",
+            "KB-00379",
+            "KB-00588",
+            "KB-00613",
+            "KB-00922"
+          ],
+          "retrieved_document_ids": [
+            "KB-00853",
+            "KB-00722",
+            "KB-00377",
+            "KB-00319",
+            "KB-00051"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 4.67,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "support_02",
+          "category": "support",
+          "query": "What is the escalation process when a customer reports damaged merchandise?",
+          "relevant_document_ids": [
+            "KB-00025",
+            "KB-00042",
+            "KB-00051",
+            "KB-00232",
+            "KB-00426",
+            "KB-00502",
+            "KB-00534",
+            "KB-00696"
+          ],
+          "retrieved_document_ids": [
+            "KB-00722",
+            "KB-00042",
+            "KB-00051",
+            "KB-00696",
+            "KB-00232"
+          ],
+          "first_relevant_rank": 2,
+          "reciprocal_rank": 0.5,
+          "latency_ms": 4.741,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "support_03",
+          "category": "support",
+          "query": "How should support handle a refund case that remains unresolved?",
+          "relevant_document_ids": [
+            "KB-00303",
+            "KB-00689"
+          ],
+          "retrieved_document_ids": [
+            "KB-00689",
+            "KB-00853",
+            "KB-00377",
+            "KB-00319",
+            "KB-00502"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 5.055,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "support_04",
+          "category": "support",
+          "query": "Which service failures require high-priority recovery review?",
+          "relevant_document_ids": [
+            "KB-00134",
+            "KB-00520",
+            "KB-00592",
+            "KB-00611",
+            "KB-00640",
+            "KB-00669",
+            "KB-00853"
+          ],
+          "retrieved_document_ids": [
+            "KB-00520",
+            "KB-00592",
+            "KB-00669",
+            "KB-00640",
+            "KB-00853"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.764,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "support_05",
+          "category": "support",
+          "query": "What details must accompany a retention-to-support handoff?",
+          "relevant_document_ids": [
+            "KB-00271",
+            "KB-00284",
+            "KB-00319",
+            "KB-00377",
+            "KB-00498",
+            "KB-00571",
+            "KB-00722",
+            "KB-00908"
+          ],
+          "retrieved_document_ids": [
+            "KB-00319",
+            "KB-00853",
+            "KB-00426",
+            "KB-00502",
+            "KB-00689"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 5.014,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "shipping_01",
+          "category": "shipping",
+          "query": "How late must an order be before it requires a delivery service review?",
+          "relevant_document_ids": [
+            "KB-00137",
+            "KB-00522",
+            "KB-00699"
+          ],
+          "retrieved_document_ids": [
+            "KB-00529",
+            "KB-00522",
+            "KB-00366",
+            "KB-00137",
+            "KB-00429"
+          ],
+          "first_relevant_rank": 2,
+          "reciprocal_rank": 0.5,
+          "latency_ms": 4.637,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "shipping_02",
+          "category": "shipping",
+          "query": "What should the team do when a carrier reports a delivery exception?",
+          "relevant_document_ids": [
+            "KB-00238",
+            "KB-00994"
+          ],
+          "retrieved_document_ids": [
+            "KB-00238",
+            "KB-00994",
+            "KB-00614",
+            "KB-00429",
+            "KB-00327"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.691,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "shipping_03",
+          "category": "shipping",
+          "query": "When is a replacement shipment allowed for a delivery problem?",
+          "relevant_document_ids": [
+            "KB-00021",
+            "KB-00219",
+            "KB-00270",
+            "KB-00297",
+            "KB-00316",
+            "KB-00410",
+            "KB-00477",
+            "KB-00614",
+            "KB-00743",
+            "KB-00982"
+          ],
+          "retrieved_document_ids": [
+            "KB-00982",
+            "KB-00021",
+            "KB-00477",
+            "KB-00614",
+            "KB-00155"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 3.223,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "shipping_04",
+          "category": "shipping",
+          "query": "How should customers be contacted about delayed shipments?",
+          "relevant_document_ids": [
+            "KB-00327",
+            "KB-00366",
+            "KB-00384",
+            "KB-00429",
+            "KB-00529",
+            "KB-00772"
+          ],
+          "retrieved_document_ids": [
+            "KB-00069",
+            "KB-00108",
+            "KB-00117",
+            "KB-00216",
+            "KB-00226"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 2.884,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "shipping_05",
+          "category": "shipping",
+          "query": "What recovery steps apply after a customer experiences repeated late deliveries?",
+          "relevant_document_ids": [
+            "KB-00155",
+            "KB-00395"
+          ],
+          "retrieved_document_ids": [
+            "KB-00529",
+            "KB-00522",
+            "KB-00155",
+            "KB-00395",
+            "KB-00366"
+          ],
+          "first_relevant_rank": 3,
+          "reciprocal_rank": 0.333333,
+          "latency_ms": 4.466,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "refunds_01",
+          "category": "refunds",
+          "query": "What conditions make a purchase eligible for a refund?",
+          "relevant_document_ids": [
+            "KB-00071",
+            "KB-00413",
+            "KB-00447",
+            "KB-00567",
+            "KB-00594",
+            "KB-00658",
+            "KB-00711",
+            "KB-00724",
+            "KB-00870"
+          ],
+          "retrieved_document_ids": [
+            "KB-00032",
+            "KB-00413",
+            "KB-00582",
+            "KB-00587",
+            "KB-00658"
+          ],
+          "first_relevant_rank": 2,
+          "reciprocal_rank": 0.5,
+          "latency_ms": 2.986,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "refunds_02",
+          "category": "refunds",
+          "query": "How long after delivery may a customer return an item?",
+          "relevant_document_ids": [
+            "KB-00001",
+            "KB-00340",
+            "KB-00354",
+            "KB-00473",
+            "KB-00475",
+            "KB-00525",
+            "KB-00754",
+            "KB-00798"
+          ],
+          "retrieved_document_ids": [
+            "KB-00354",
+            "KB-00447",
+            "KB-00587",
+            "KB-00653",
+            "KB-00673"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.569,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "refunds_03",
+          "category": "refunds",
+          "query": "What refund process applies when the delivered item is damaged?",
+          "relevant_document_ids": [
+            "KB-00382",
+            "KB-00441",
+            "KB-00459",
+            "KB-00510",
+            "KB-00653",
+            "KB-00673"
+          ],
+          "retrieved_document_ids": [
+            "KB-00382",
+            "KB-00441",
+            "KB-00459",
+            "KB-00510",
+            "KB-00413"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 3.281,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "refunds_04",
+          "category": "refunds",
+          "query": "Who must approve a refund that falls outside standard rules?",
+          "relevant_document_ids": [
+            "KB-00582",
+            "KB-00587",
+            "KB-00929"
+          ],
+          "retrieved_document_ids": [
+            "KB-00441",
+            "KB-00724",
+            "KB-00582",
+            "KB-00658",
+            "KB-00567"
+          ],
+          "first_relevant_rank": 3,
+          "reciprocal_rank": 0.333333,
+          "latency_ms": 5.129,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "refunds_05",
+          "category": "refunds",
+          "query": "Which purchases or conditions are excluded from refunds?",
+          "relevant_document_ids": [
+            "KB-00032"
+          ],
+          "retrieved_document_ids": [
+            "KB-00032",
+            "KB-00382",
+            "KB-00441",
+            "KB-00459",
+            "KB-00510"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 2.85,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "loyalty_01",
+          "category": "loyalty",
+          "query": "Which benefits are available to each loyalty program tier?",
+          "relevant_document_ids": [
+            "KB-00532",
+            "KB-00573",
+            "KB-00626",
+            "KB-00859",
+            "KB-00899"
+          ],
+          "retrieved_document_ids": [
+            "KB-00146",
+            "KB-00514",
+            "KB-00859",
+            "KB-00513",
+            "KB-00532"
+          ],
+          "first_relevant_rank": 3,
+          "reciprocal_rank": 0.333333,
+          "latency_ms": 4.716,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "loyalty_02",
+          "category": "loyalty",
+          "query": "What must a member do to keep their current loyalty tier?",
+          "relevant_document_ids": [
+            "KB-00082",
+            "KB-00759",
+            "KB-00846"
+          ],
+          "retrieved_document_ids": [
+            "KB-00146",
+            "KB-00513",
+            "KB-00983",
+            "KB-00162",
+            "KB-00859"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 4.882,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "loyalty_03",
+          "category": "loyalty",
+          "query": "When is a customer eligible for loyalty credit?",
+          "relevant_document_ids": [
+            "KB-00079",
+            "KB-00162",
+            "KB-00287",
+            "KB-00435",
+            "KB-00770"
+          ],
+          "retrieved_document_ids": [
+            "KB-00227",
+            "KB-00849",
+            "KB-00983",
+            "KB-00435",
+            "KB-00513"
+          ],
+          "first_relevant_rank": 4,
+          "reciprocal_rank": 0.25,
+          "latency_ms": 4.707,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "loyalty_04",
+          "category": "loyalty",
+          "query": "When do unused loyalty benefits expire?",
+          "relevant_document_ids": [
+            "KB-00222",
+            "KB-00227",
+            "KB-00328",
+            "KB-00443",
+            "KB-00484",
+            "KB-00514",
+            "KB-00805"
+          ],
+          "retrieved_document_ids": [
+            "KB-00146",
+            "KB-00513",
+            "KB-00859",
+            "KB-00983",
+            "KB-00162"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 2.866,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "loyalty_05",
+          "category": "loyalty",
+          "query": "How should exceptions to standard loyalty rules be reviewed?",
+          "relevant_document_ids": [
+            "KB-00146",
+            "KB-00513",
+            "KB-00849",
+            "KB-00983"
+          ],
+          "retrieved_document_ids": [
+            "KB-00983",
+            "KB-00849",
+            "KB-00513",
+            "KB-00227",
+            "KB-00146"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.906,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "campaigns_01",
+          "category": "campaigns",
+          "query": "How often may lifecycle marketing contact the same customer?",
+          "relevant_document_ids": [
+            "KB-00145",
+            "KB-00280",
+            "KB-00789",
+            "KB-00808",
+            "KB-00845",
+            "KB-00912"
+          ],
+          "retrieved_document_ids": [
+            "KB-00070",
+            "KB-00773",
+            "KB-00649",
+            "KB-00343",
+            "KB-00062"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 5.64,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "campaigns_02",
+          "category": "campaigns",
+          "query": "What makes a customer eligible for a win-back campaign?",
+          "relevant_document_ids": [
+            "KB-00085",
+            "KB-00343",
+            "KB-00515",
+            "KB-00617",
+            "KB-00709",
+            "KB-00773"
+          ],
+          "retrieved_document_ids": [
+            "KB-00709",
+            "KB-00194",
+            "KB-00808",
+            "KB-00090",
+            "KB-00515"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.782,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "campaigns_03",
+          "category": "campaigns",
+          "query": "When must a customer be suppressed from an outbound campaign?",
+          "relevant_document_ids": [
+            "KB-00062",
+            "KB-00090",
+            "KB-00888",
+            "KB-00937",
+            "KB-00945",
+            "KB-00999"
+          ],
+          "retrieved_document_ids": [
+            "KB-00194",
+            "KB-00515",
+            "KB-00888",
+            "KB-00945",
+            "KB-00709"
+          ],
+          "first_relevant_rank": 3,
+          "reciprocal_rank": 0.333333,
+          "latency_ms": 5.346,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "campaigns_04",
+          "category": "campaigns",
+          "query": "How should marketing choose the permitted channel for a campaign?",
+          "relevant_document_ids": [
+            "KB-00029",
+            "KB-00070",
+            "KB-00121",
+            "KB-00268",
+            "KB-00485",
+            "KB-00622",
+            "KB-00649"
+          ],
+          "retrieved_document_ids": [
+            "KB-00194",
+            "KB-00937",
+            "KB-00888",
+            "KB-00945",
+            "KB-00999"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 3.543,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "campaigns_05",
+          "category": "campaigns",
+          "query": "How does a recent marketing message affect the next campaign decision?",
+          "relevant_document_ids": [
+            "KB-00194",
+            "KB-00206",
+            "KB-00537"
+          ],
+          "retrieved_document_ids": [
+            "KB-00070",
+            "KB-00773",
+            "KB-00999",
+            "KB-00343",
+            "KB-00206"
+          ],
+          "first_relevant_rank": 5,
+          "reciprocal_rank": 0.2,
+          "latency_ms": 4.853,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "subscriptions_01",
+          "category": "subscriptions",
+          "query": "What steps should follow a customer subscription cancellation?",
+          "relevant_document_ids": [
+            "KB-00012",
+            "KB-00416"
+          ],
+          "retrieved_document_ids": [
+            "KB-00554",
+            "KB-00698",
+            "KB-00251",
+            "KB-00012",
+            "KB-00755"
+          ],
+          "first_relevant_rank": 4,
+          "reciprocal_rank": 0.25,
+          "latency_ms": 4.486,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "subscriptions_02",
+          "category": "subscriptions",
+          "query": "When may a customer pause a subscription instead of cancelling it?",
+          "relevant_document_ids": [
+            "KB-00114",
+            "KB-00251",
+            "KB-00388",
+            "KB-00856",
+            "KB-00883"
+          ],
+          "retrieved_document_ids": [
+            "KB-00114",
+            "KB-00856",
+            "KB-00251",
+            "KB-00883",
+            "KB-00388"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.58,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "subscriptions_03",
+          "category": "subscriptions",
+          "query": "How should the team investigate a problem during subscription renewal?",
+          "relevant_document_ids": [
+            "KB-00698",
+            "KB-00755"
+          ],
+          "retrieved_document_ids": [
+            "KB-00554",
+            "KB-00698",
+            "KB-00755",
+            "KB-00791",
+            "KB-00012"
+          ],
+          "first_relevant_rank": 2,
+          "reciprocal_rank": 0.5,
+          "latency_ms": 2.942,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "subscriptions_04",
+          "category": "subscriptions",
+          "query": "What follow-up is required after a subscription payment fails to renew?",
+          "relevant_document_ids": [
+            "KB-00124",
+            "KB-00152",
+            "KB-00554",
+            "KB-00575",
+            "KB-00692",
+            "KB-00791"
+          ],
+          "retrieved_document_ids": [
+            "KB-00554",
+            "KB-00791",
+            "KB-00124",
+            "KB-00575",
+            "KB-00055"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 3.273,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "subscriptions_05",
+          "category": "subscriptions",
+          "query": "How should an exception to the replenishment schedule be handled?",
+          "relevant_document_ids": [
+            "KB-00022",
+            "KB-00055"
+          ],
+          "retrieved_document_ids": [
+            "KB-00152",
+            "KB-00692",
+            "KB-00022",
+            "KB-00124",
+            "KB-00575"
+          ],
+          "first_relevant_rank": 3,
+          "reciprocal_rank": 0.333333,
+          "latency_ms": 4.607,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "consent_01",
+          "category": "consent",
+          "query": "May we send marketing email after the customer has opted out?",
+          "relevant_document_ids": [
+            "KB-00108",
+            "KB-00117",
+            "KB-00562",
+            "KB-00905",
+            "KB-00989"
+          ],
+          "retrieved_document_ids": [
+            "KB-00117",
+            "KB-00108",
+            "KB-00989",
+            "KB-00962",
+            "KB-00562"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.571,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "consent_02",
+          "category": "consent",
+          "query": "What restriction applies after a customer withdraws text-message consent?",
+          "relevant_document_ids": [
+            "KB-00962"
+          ],
+          "retrieved_document_ids": [
+            "KB-00062",
+            "KB-00070",
+            "KB-00773",
+            "KB-00206",
+            "KB-00649"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 4.688,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "consent_03",
+          "category": "consent",
+          "query": "What permission is required before sending a promotional push notification?",
+          "relevant_document_ids": [
+            "KB-00226"
+          ],
+          "retrieved_document_ids": [
+            "KB-00226",
+            "KB-00164",
+            "KB-00423",
+            "KB-00985",
+            "KB-00634"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 3.25,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "consent_04",
+          "category": "consent",
+          "query": "Which consent timestamp controls whether a planned message is permitted?",
+          "relevant_document_ids": [
+            "KB-00069",
+            "KB-00965"
+          ],
+          "retrieved_document_ids": [
+            "KB-00070",
+            "KB-00999",
+            "KB-00773",
+            "KB-00121",
+            "KB-00343"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 3.45,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "consent_05",
+          "category": "consent",
+          "query": "When must communication channels be suppressed because consent is absent?",
+          "relevant_document_ids": [
+            "KB-00216"
+          ],
+          "retrieved_document_ids": [
+            "KB-00069",
+            "KB-00965",
+            "KB-00216",
+            "KB-00108",
+            "KB-00226"
+          ],
+          "first_relevant_rank": 3,
+          "reciprocal_rank": 0.333333,
+          "latency_ms": 4.228,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "known_gap_01",
+          "category": "governance",
+          "query": "How much incremental retention will a discount cause for this customer?",
+          "relevant_document_ids": [
+            "GAP-001"
+          ],
+          "retrieved_document_ids": [
+            "KB-00089",
+            "KB-00740",
+            "KB-00595",
+            "KB-00414",
+            "KB-00372"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 4.565,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "known_gap_02",
+          "category": "governance",
+          "query": "What exact personalized discount percentage should this customer receive?",
+          "relevant_document_ids": [
+            "GAP-002"
+          ],
+          "retrieved_document_ids": [
+            "GAP-002",
+            "KB-00740",
+            "KB-00089",
+            "KB-00180",
+            "KB-00697"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.587,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "known_gap_03",
+          "category": "governance",
+          "query": "Can SignalDesk automatically send the recommended retention intervention?",
+          "relevant_document_ids": [
+            "GAP-003"
+          ],
+          "retrieved_document_ids": [
+            "KB-00267",
+            "KB-00897",
+            "KB-00396",
+            "KB-00717",
+            "KB-00779"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 4.426,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "known_gap_04",
+          "category": "governance",
+          "query": "May support grant compensation above the documented recovery limit?",
+          "relevant_document_ids": [
+            "GAP-004"
+          ],
+          "retrieved_document_ids": [
+            "GAP-004",
+            "KB-00853",
+            "KB-00498",
+            "KB-00571",
+            "KB-00051"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 4.942,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "cross_family_01",
+          "category": "cross_family",
+          "query": "Before sending a win-back message, which rules require campaign suppression when the customer has opted out?",
+          "relevant_document_ids": [
+            "KB-00062",
+            "KB-00090",
+            "KB-00216",
+            "KB-00888",
+            "KB-00937",
+            "KB-00945",
+            "KB-00999"
+          ],
+          "retrieved_document_ids": [
+            "KB-00709",
+            "KB-00808",
+            "KB-00773",
+            "KB-00343",
+            "KB-00515"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 4.699,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        }
+      ]
+    },
+    "vector": {
+      "retriever": "vector",
+      "cases": 50,
+      "metric_definition": "Recall@K is the percentage of queries with at least one curated relevant document in the top K document-level results.",
+      "recall_at_1_pct": 86.0,
+      "recall_at_3_pct": 92.0,
+      "recall_at_5_pct": 98.0,
+      "mrr": 0.9007,
+      "latency_ms": {
+        "mean": 35.48,
+        "p50": 34.154,
+        "p95": 40.47
+      },
+      "embedding_model": "text-embedding-3-small",
+      "embedding_dimensions": 1536,
+      "embedding_input_tokens": 561,
+      "embedding_batch_latency_ms": 1168.004,
+      "vector_search_latency_ms": {
+        "mean": 12.12,
+        "p50": 10.794,
+        "p95": 17.11
+      },
+      "index_metadata": {
+        "embedding_model": "text-embedding-3-small",
+        "embedding_dimensions": 1536,
+        "corpus_dir": "data/generated/knowledge",
+        "document_count": 1004,
+        "chunk_count": 1093,
+        "max_words": 220,
+        "overlap_words": 40,
+        "built_at": "2026-08-18T00:50:57.889143+00:00"
+      },
+      "case_reports": [
+        {
+          "case_id": "retention_01",
+          "category": "retention",
+          "query": "When should the team leave an at-risk customer alone instead of intervening?",
+          "relevant_document_ids": [
+            "KB-00183",
+            "KB-00405",
+            "KB-00705",
+            "KB-00779"
+          ],
+          "retrieved_document_ids": [
+            "KB-00705",
+            "KB-00405",
+            "KB-00491",
+            "KB-00764",
+            "KB-00908"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 55.642,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "retention_02",
+          "category": "retention",
+          "query": "What evidence should be reviewed before considering a customer save incentive?",
+          "relevant_document_ids": [
+            "KB-00050",
+            "KB-00293",
+            "KB-00381",
+            "KB-00396",
+            "KB-00439",
+            "KB-00479",
+            "KB-00632",
+            "KB-00643",
+            "KB-00843",
+            "KB-00930"
+          ],
+          "retrieved_document_ids": [
+            "KB-00180",
+            "KB-00581",
+            "KB-00877",
+            "KB-00697",
+            "KB-00863"
+          ],
+          "first_relevant_rank": null,
+          "reciprocal_rank": 0.0,
+          "latency_ms": 40.839,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": false
+        },
+        {
+          "case_id": "retention_03",
+          "category": "retention",
+          "query": "Should an unresolved service issue be handled before a retention incentive?",
+          "relevant_document_ids": [
+            "KB-00346",
+            "KB-00365",
+            "KB-00491",
+            "KB-00764",
+            "KB-00782",
+            "KB-00876",
+            "KB-00956"
+          ],
+          "retrieved_document_ids": [
+            "KB-00689",
+            "KB-00365",
+            "KB-00581",
+            "KB-00877",
+            "KB-00853"
+          ],
+          "first_relevant_rank": 2,
+          "reciprocal_rank": 0.5,
+          "latency_ms": 40.47,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "retention_04",
+          "category": "retention",
+          "query": "How should falling order frequency and reduced spending be investigated?",
+          "relevant_document_ids": [
+            "KB-00153",
+            "KB-00602",
+            "KB-00668",
+            "KB-00713",
+            "KB-00717",
+            "KB-00852",
+            "KB-00897"
+          ],
+          "retrieved_document_ids": [
+            "KB-00602",
+            "KB-00153",
+            "KB-00852",
+            "KB-00717",
+            "KB-00897"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 39.56,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "retention_05",
+          "category": "retention",
+          "query": "How should weakening email and website activity be interpreted?",
+          "relevant_document_ids": [
+            "KB-00033",
+            "KB-00057",
+            "KB-00212",
+            "KB-00267",
+            "KB-00506",
+            "KB-00600",
+            "KB-00774",
+            "KB-00817",
+            "KB-00837",
+            "KB-00924",
+            "KB-00960"
+          ],
+          "retrieved_document_ids": [
+            "KB-00960",
+            "KB-00506",
+            "KB-00057",
+            "KB-00837",
+            "KB-00924"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 39.761,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "offers_01",
+          "category": "offers",
+          "query": "What basic requirements must be met before a retention offer is allowed?",
+          "relevant_document_ids": [
+            "KB-00258",
+            "KB-00423",
+            "KB-00434",
+            "KB-00456",
+            "KB-00508",
+            "KB-00581",
+            "KB-00631",
+            "KB-00634",
+            "KB-00877"
+          ],
+          "retrieved_document_ids": [
+            "KB-00508",
+            "KB-00745",
+            "KB-00414",
+            "KB-00752",
+            "KB-00857"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 37.731,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "offers_02",
+          "category": "offers",
+          "query": "How long should we wait after a customer already received an incentive?",
+          "relevant_document_ids": [
+            "KB-00127",
+            "KB-00164",
+            "KB-00299",
+            "KB-00704",
+            "KB-00731",
+            "KB-00752",
+            "KB-00818",
+            "KB-00857",
+            "KB-00884",
+            "KB-00893",
+            "KB-00985"
+          ],
+          "retrieved_document_ids": [
+            "KB-00299",
+            "KB-00581",
+            "KB-00877",
+            "KB-00863",
+            "KB-00697"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 36.161,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "offers_03",
+          "category": "offers",
+          "query": "Which conditions exclude a customer from receiving a promotional discount?",
+          "relevant_document_ids": [
+            "KB-00038",
+            "KB-00180",
+            "KB-00228",
+            "KB-00359",
+            "KB-00368",
+            "KB-00372",
+            "KB-00557",
+            "KB-00787",
+            "KB-00863",
+            "KB-00901"
+          ],
+          "retrieved_document_ids": [
+            "KB-00038",
+            "KB-00863",
+            "KB-00180",
+            "KB-00740",
+            "KB-00434"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 36.757,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "offers_04",
+          "category": "offers",
+          "query": "How frequently may promotional offers be sent to the same customer?",
+          "relevant_document_ids": [
+            "KB-00089",
+            "KB-00414",
+            "KB-00595",
+            "KB-00740"
+          ],
+          "retrieved_document_ids": [
+            "KB-00884",
+            "KB-00893",
+            "KB-00985",
+            "KB-00595",
+            "KB-00089"
+          ],
+          "first_relevant_rank": 4,
+          "reciprocal_rank": 0.25,
+          "latency_ms": 37.767,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "offers_05",
+          "category": "offers",
+          "query": "How do margin safeguards constrain customer incentive approval?",
+          "relevant_document_ids": [
+            "KB-00676",
+            "KB-00697",
+            "KB-00745",
+            "KB-00758",
+            "KB-00959"
+          ],
+          "retrieved_document_ids": [
+            "KB-00697",
+            "KB-00676",
+            "KB-00758",
+            "KB-00959",
+            "KB-00877"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 36.022,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "support_01",
+          "category": "support",
+          "query": "When should a delivery problem be escalated to customer support?",
+          "relevant_document_ids": [
+            "KB-00102",
+            "KB-00351",
+            "KB-00379",
+            "KB-00588",
+            "KB-00613",
+            "KB-00922"
+          ],
+          "retrieved_document_ids": [
+            "KB-00327",
+            "KB-00772",
+            "KB-00429",
+            "KB-00042",
+            "KB-00588"
+          ],
+          "first_relevant_rank": 5,
+          "reciprocal_rank": 0.2,
+          "latency_ms": 35.788,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "support_02",
+          "category": "support",
+          "query": "What is the escalation process when a customer reports damaged merchandise?",
+          "relevant_document_ids": [
+            "KB-00025",
+            "KB-00042",
+            "KB-00051",
+            "KB-00232",
+            "KB-00426",
+            "KB-00502",
+            "KB-00534",
+            "KB-00696"
+          ],
+          "retrieved_document_ids": [
+            "KB-00042",
+            "KB-00696",
+            "KB-00534",
+            "KB-00459",
+            "KB-00232"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 35.803,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "support_03",
+          "category": "support",
+          "query": "How should support handle a refund case that remains unresolved?",
+          "relevant_document_ids": [
+            "KB-00303",
+            "KB-00689"
+          ],
+          "retrieved_document_ids": [
+            "KB-00303",
+            "KB-00689",
+            "KB-00382",
+            "KB-00870",
+            "KB-00510"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 35.367,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "support_04",
+          "category": "support",
+          "query": "Which service failures require high-priority recovery review?",
+          "relevant_document_ids": [
+            "KB-00134",
+            "KB-00520",
+            "KB-00592",
+            "KB-00611",
+            "KB-00640",
+            "KB-00669",
+            "KB-00853"
+          ],
+          "retrieved_document_ids": [
+            "KB-00669",
+            "KB-00520",
+            "KB-00592",
+            "KB-00611",
+            "KB-00134"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.566,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "support_05",
+          "category": "support",
+          "query": "What details must accompany a retention-to-support handoff?",
+          "relevant_document_ids": [
+            "KB-00271",
+            "KB-00284",
+            "KB-00319",
+            "KB-00377",
+            "KB-00498",
+            "KB-00571",
+            "KB-00722",
+            "KB-00908"
+          ],
+          "retrieved_document_ids": [
+            "KB-00319",
+            "KB-00284",
+            "KB-00640",
+            "KB-00502",
+            "KB-00853"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.743,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "shipping_01",
+          "category": "shipping",
+          "query": "How late must an order be before it requires a delivery service review?",
+          "relevant_document_ids": [
+            "KB-00137",
+            "KB-00522",
+            "KB-00699"
+          ],
+          "retrieved_document_ids": [
+            "KB-00137",
+            "KB-00522",
+            "KB-00529",
+            "KB-00366",
+            "KB-00772"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.236,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "shipping_02",
+          "category": "shipping",
+          "query": "What should the team do when a carrier reports a delivery exception?",
+          "relevant_document_ids": [
+            "KB-00238",
+            "KB-00994"
+          ],
+          "retrieved_document_ids": [
+            "KB-00994",
+            "KB-00238",
+            "KB-00327",
+            "KB-00429",
+            "KB-00772"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.343,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "shipping_03",
+          "category": "shipping",
+          "query": "When is a replacement shipment allowed for a delivery problem?",
+          "relevant_document_ids": [
+            "KB-00021",
+            "KB-00219",
+            "KB-00270",
+            "KB-00297",
+            "KB-00316",
+            "KB-00410",
+            "KB-00477",
+            "KB-00614",
+            "KB-00743",
+            "KB-00982"
+          ],
+          "retrieved_document_ids": [
+            "KB-00982",
+            "KB-00477",
+            "KB-00021",
+            "KB-00410",
+            "KB-00297"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.878,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "shipping_04",
+          "category": "shipping",
+          "query": "How should customers be contacted about delayed shipments?",
+          "relevant_document_ids": [
+            "KB-00327",
+            "KB-00366",
+            "KB-00384",
+            "KB-00429",
+            "KB-00529",
+            "KB-00772"
+          ],
+          "retrieved_document_ids": [
+            "KB-00384",
+            "KB-00366",
+            "KB-00529",
+            "KB-00522",
+            "KB-00137"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.832,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "shipping_05",
+          "category": "shipping",
+          "query": "What recovery steps apply after a customer experiences repeated late deliveries?",
+          "relevant_document_ids": [
+            "KB-00155",
+            "KB-00395"
+          ],
+          "retrieved_document_ids": [
+            "KB-00155",
+            "KB-00395",
+            "KB-00366",
+            "KB-00529",
+            "KB-00137"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.418,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "refunds_01",
+          "category": "refunds",
+          "query": "What conditions make a purchase eligible for a refund?",
+          "relevant_document_ids": [
+            "KB-00071",
+            "KB-00413",
+            "KB-00447",
+            "KB-00567",
+            "KB-00594",
+            "KB-00658",
+            "KB-00711",
+            "KB-00724",
+            "KB-00870"
+          ],
+          "retrieved_document_ids": [
+            "KB-00724",
+            "KB-00711",
+            "KB-00567",
+            "KB-00413",
+            "KB-00071"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.165,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "refunds_02",
+          "category": "refunds",
+          "query": "How long after delivery may a customer return an item?",
+          "relevant_document_ids": [
+            "KB-00001",
+            "KB-00340",
+            "KB-00354",
+            "KB-00473",
+            "KB-00475",
+            "KB-00525",
+            "KB-00754",
+            "KB-00798"
+          ],
+          "retrieved_document_ids": [
+            "KB-00798",
+            "KB-00340",
+            "KB-00473",
+            "KB-00525",
+            "KB-00354"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.862,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "refunds_03",
+          "category": "refunds",
+          "query": "What refund process applies when the delivered item is damaged?",
+          "relevant_document_ids": [
+            "KB-00382",
+            "KB-00441",
+            "KB-00459",
+            "KB-00510",
+            "KB-00653",
+            "KB-00673"
+          ],
+          "retrieved_document_ids": [
+            "KB-00673",
+            "KB-00459",
+            "KB-00382",
+            "KB-00441",
+            "KB-00510"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.784,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "refunds_04",
+          "category": "refunds",
+          "query": "Who must approve a refund that falls outside standard rules?",
+          "relevant_document_ids": [
+            "KB-00582",
+            "KB-00587",
+            "KB-00929"
+          ],
+          "retrieved_document_ids": [
+            "KB-00929",
+            "KB-00071",
+            "KB-00582",
+            "KB-00567",
+            "KB-00587"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.967,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "refunds_05",
+          "category": "refunds",
+          "query": "Which purchases or conditions are excluded from refunds?",
+          "relevant_document_ids": [
+            "KB-00032"
+          ],
+          "retrieved_document_ids": [
+            "KB-00567",
+            "KB-00071",
+            "KB-00441",
+            "KB-00032",
+            "KB-00653"
+          ],
+          "first_relevant_rank": 4,
+          "reciprocal_rank": 0.25,
+          "latency_ms": 33.479,
+          "recall_at_1": false,
+          "recall_at_3": false,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "loyalty_01",
+          "category": "loyalty",
+          "query": "Which benefits are available to each loyalty program tier?",
+          "relevant_document_ids": [
+            "KB-00532",
+            "KB-00573",
+            "KB-00626",
+            "KB-00859",
+            "KB-00899"
+          ],
+          "retrieved_document_ids": [
+            "KB-00573",
+            "KB-00532",
+            "KB-00513",
+            "KB-00514",
+            "KB-00146"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.797,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "loyalty_02",
+          "category": "loyalty",
+          "query": "What must a member do to keep their current loyalty tier?",
+          "relevant_document_ids": [
+            "KB-00082",
+            "KB-00759",
+            "KB-00846"
+          ],
+          "retrieved_document_ids": [
+            "KB-00759",
+            "KB-00846",
+            "KB-00532",
+            "KB-00573",
+            "KB-00899"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.782,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "loyalty_03",
+          "category": "loyalty",
+          "query": "When is a customer eligible for loyalty credit?",
+          "relevant_document_ids": [
+            "KB-00079",
+            "KB-00162",
+            "KB-00287",
+            "KB-00435",
+            "KB-00770"
+          ],
+          "retrieved_document_ids": [
+            "KB-00079",
+            "KB-00435",
+            "KB-00770",
+            "KB-00983",
+            "KB-00849"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.438,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "loyalty_04",
+          "category": "loyalty",
+          "query": "When do unused loyalty benefits expire?",
+          "relevant_document_ids": [
+            "KB-00222",
+            "KB-00227",
+            "KB-00328",
+            "KB-00443",
+            "KB-00484",
+            "KB-00514",
+            "KB-00805"
+          ],
+          "retrieved_document_ids": [
+            "KB-00222",
+            "KB-00227",
+            "KB-00514",
+            "KB-00805",
+            "KB-00443"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.731,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "loyalty_05",
+          "category": "loyalty",
+          "query": "How should exceptions to standard loyalty rules be reviewed?",
+          "relevant_document_ids": [
+            "KB-00146",
+            "KB-00513",
+            "KB-00849",
+            "KB-00983"
+          ],
+          "retrieved_document_ids": [
+            "KB-00983",
+            "KB-00849",
+            "KB-00513",
+            "KB-00146",
+            "KB-00805"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.309,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "campaigns_01",
+          "category": "campaigns",
+          "query": "How often may lifecycle marketing contact the same customer?",
+          "relevant_document_ids": [
+            "KB-00145",
+            "KB-00280",
+            "KB-00789",
+            "KB-00808",
+            "KB-00845",
+            "KB-00912"
+          ],
+          "retrieved_document_ids": [
+            "KB-00789",
+            "KB-00845",
+            "KB-00912",
+            "KB-00145",
+            "KB-00280"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.78,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "campaigns_02",
+          "category": "campaigns",
+          "query": "What makes a customer eligible for a win-back campaign?",
+          "relevant_document_ids": [
+            "KB-00085",
+            "KB-00343",
+            "KB-00515",
+            "KB-00617",
+            "KB-00709",
+            "KB-00773"
+          ],
+          "retrieved_document_ids": [
+            "KB-00343",
+            "KB-00773",
+            "KB-00617",
+            "KB-00085",
+            "KB-00515"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.839,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "campaigns_03",
+          "category": "campaigns",
+          "query": "When must a customer be suppressed from an outbound campaign?",
+          "relevant_document_ids": [
+            "KB-00062",
+            "KB-00090",
+            "KB-00888",
+            "KB-00937",
+            "KB-00945",
+            "KB-00999"
+          ],
+          "retrieved_document_ids": [
+            "KB-00062",
+            "KB-00888",
+            "KB-00937",
+            "KB-00945",
+            "KB-00999"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.94,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "campaigns_04",
+          "category": "campaigns",
+          "query": "How should marketing choose the permitted channel for a campaign?",
+          "relevant_document_ids": [
+            "KB-00029",
+            "KB-00070",
+            "KB-00121",
+            "KB-00268",
+            "KB-00485",
+            "KB-00622",
+            "KB-00649"
+          ],
+          "retrieved_document_ids": [
+            "KB-00029",
+            "KB-00121",
+            "KB-00485",
+            "KB-00268",
+            "KB-00622"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.019,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "campaigns_05",
+          "category": "campaigns",
+          "query": "How does a recent marketing message affect the next campaign decision?",
+          "relevant_document_ids": [
+            "KB-00194",
+            "KB-00206",
+            "KB-00537"
+          ],
+          "retrieved_document_ids": [
+            "KB-00206",
+            "KB-00194",
+            "KB-00537",
+            "KB-00062",
+            "KB-00268"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.623,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "subscriptions_01",
+          "category": "subscriptions",
+          "query": "What steps should follow a customer subscription cancellation?",
+          "relevant_document_ids": [
+            "KB-00012",
+            "KB-00416"
+          ],
+          "retrieved_document_ids": [
+            "KB-00012",
+            "KB-00698",
+            "KB-00755",
+            "KB-00554",
+            "KB-00416"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.805,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "subscriptions_02",
+          "category": "subscriptions",
+          "query": "When may a customer pause a subscription instead of cancelling it?",
+          "relevant_document_ids": [
+            "KB-00114",
+            "KB-00251",
+            "KB-00388",
+            "KB-00856",
+            "KB-00883"
+          ],
+          "retrieved_document_ids": [
+            "KB-00388",
+            "KB-00251",
+            "KB-00883",
+            "KB-00856",
+            "KB-00114"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.347,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "subscriptions_03",
+          "category": "subscriptions",
+          "query": "How should the team investigate a problem during subscription renewal?",
+          "relevant_document_ids": [
+            "KB-00698",
+            "KB-00755"
+          ],
+          "retrieved_document_ids": [
+            "KB-00791",
+            "KB-00698",
+            "KB-00152",
+            "KB-00755",
+            "KB-00124"
+          ],
+          "first_relevant_rank": 2,
+          "reciprocal_rank": 0.5,
+          "latency_ms": 33.692,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "subscriptions_04",
+          "category": "subscriptions",
+          "query": "What follow-up is required after a subscription payment fails to renew?",
+          "relevant_document_ids": [
+            "KB-00124",
+            "KB-00152",
+            "KB-00554",
+            "KB-00575",
+            "KB-00692",
+            "KB-00791"
+          ],
+          "retrieved_document_ids": [
+            "KB-00124",
+            "KB-00791",
+            "KB-00152",
+            "KB-00575",
+            "KB-00554"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.684,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "subscriptions_05",
+          "category": "subscriptions",
+          "query": "How should an exception to the replenishment schedule be handled?",
+          "relevant_document_ids": [
+            "KB-00022",
+            "KB-00055"
+          ],
+          "retrieved_document_ids": [
+            "KB-00124",
+            "KB-00152",
+            "KB-00022",
+            "KB-00692",
+            "KB-00575"
+          ],
+          "first_relevant_rank": 3,
+          "reciprocal_rank": 0.333333,
+          "latency_ms": 33.318,
+          "recall_at_1": false,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "consent_01",
+          "category": "consent",
+          "query": "May we send marketing email after the customer has opted out?",
+          "relevant_document_ids": [
+            "KB-00108",
+            "KB-00117",
+            "KB-00562",
+            "KB-00905",
+            "KB-00989"
+          ],
+          "retrieved_document_ids": [
+            "KB-00562",
+            "KB-00108",
+            "KB-00117",
+            "KB-00989",
+            "KB-00905"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.626,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "consent_02",
+          "category": "consent",
+          "query": "What restriction applies after a customer withdraws text-message consent?",
+          "relevant_document_ids": [
+            "KB-00962"
+          ],
+          "retrieved_document_ids": [
+            "KB-00962",
+            "KB-00965",
+            "KB-00108",
+            "KB-00069",
+            "KB-00216"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.897,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "consent_03",
+          "category": "consent",
+          "query": "What permission is required before sending a promotional push notification?",
+          "relevant_document_ids": [
+            "KB-00226"
+          ],
+          "retrieved_document_ids": [
+            "KB-00226",
+            "KB-00962",
+            "KB-00740",
+            "KB-00789",
+            "KB-00562"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.143,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "consent_04",
+          "category": "consent",
+          "query": "Which consent timestamp controls whether a planned message is permitted?",
+          "relevant_document_ids": [
+            "KB-00069",
+            "KB-00965"
+          ],
+          "retrieved_document_ids": [
+            "KB-00069",
+            "KB-00965",
+            "KB-00226",
+            "KB-00962",
+            "KB-00108"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 35.689,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "consent_05",
+          "category": "consent",
+          "query": "When must communication channels be suppressed because consent is absent?",
+          "relevant_document_ids": [
+            "KB-00216"
+          ],
+          "retrieved_document_ids": [
+            "KB-00216",
+            "KB-00069",
+            "KB-00965",
+            "KB-00226",
+            "KB-00937"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 35.957,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "known_gap_01",
+          "category": "governance",
+          "query": "How much incremental retention will a discount cause for this customer?",
+          "relevant_document_ids": [
+            "GAP-001"
+          ],
+          "retrieved_document_ids": [
+            "GAP-001",
+            "KB-00863",
+            "KB-00740",
+            "KB-00901",
+            "KB-00180"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 37.8,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "known_gap_02",
+          "category": "governance",
+          "query": "What exact personalized discount percentage should this customer receive?",
+          "relevant_document_ids": [
+            "GAP-002"
+          ],
+          "retrieved_document_ids": [
+            "GAP-002",
+            "KB-00863",
+            "KB-00038",
+            "KB-00180",
+            "KB-00676"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.096,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "known_gap_03",
+          "category": "governance",
+          "query": "Can SignalDesk automatically send the recommended retention intervention?",
+          "relevant_document_ids": [
+            "GAP-003"
+          ],
+          "retrieved_document_ids": [
+            "GAP-003",
+            "KB-00365",
+            "KB-00396",
+            "KB-00267",
+            "KB-00897"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 34.103,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "known_gap_04",
+          "category": "governance",
+          "query": "May support grant compensation above the documented recovery limit?",
+          "relevant_document_ids": [
+            "GAP-004"
+          ],
+          "retrieved_document_ids": [
+            "GAP-004",
+            "KB-00669",
+            "KB-00592",
+            "KB-00520",
+            "KB-00232"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 33.857,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        },
+        {
+          "case_id": "cross_family_01",
+          "category": "cross_family",
+          "query": "Before sending a win-back message, which rules require campaign suppression when the customer has opted out?",
+          "relevant_document_ids": [
+            "KB-00062",
+            "KB-00090",
+            "KB-00216",
+            "KB-00888",
+            "KB-00937",
+            "KB-00945",
+            "KB-00999"
+          ],
+          "retrieved_document_ids": [
+            "KB-00090",
+            "KB-00085",
+            "KB-00515",
+            "KB-00709",
+            "KB-00617"
+          ],
+          "first_relevant_rank": 1,
+          "reciprocal_rank": 1.0,
+          "latency_ms": 36.774,
+          "recall_at_1": true,
+          "recall_at_3": true,
+          "recall_at_5": true
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "vector_minus_lexical_recall_at_1_pct": 50.0,
+    "vector_minus_lexical_recall_at_3_pct": 34.0,
+    "vector_minus_lexical_recall_at_5_pct": 30.0,
+    "vector_minus_lexical_mrr": 0.431
+  }
+}
