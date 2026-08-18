@@ -3486,3 +3486,169 @@ model without exposing the warehouse directly. Commit 10 can introduce the
 first bounded agent and measure whether the model chooses the right tool,
 constructs valid arguments, and stops correctly. Automatic customer action
 remains out of scope.
+
+---
+
+## Commit 10 - Single-Agent Customer Investigator
+
+### Objective
+
+Commit 10 asks whether one model can control a bounded investigation loop over
+the deterministic Commit 09 tools:
+
+> Can the model select the right read-only capabilities, construct valid
+> arguments, use returned evidence, and stop with a grounded answer without
+> receiving database access or execution authority?
+
+This is the first agent in SignalDesk. It is implemented directly with the
+Responses API so the primitive loop remains visible:
+
+```text
+question
+  -> model selects a tool
+  -> application validates subject and arguments
+  -> deterministic tool executes
+  -> result returns to the model
+  -> model calls another tool or returns a typed answer
+```
+
+The model receives six read-only tools. The recommendation-draft tool is not
+exposed, and no capability can contact a customer, execute a campaign, persist
+a recommendation, or modify the warehouse.
+
+### Application ownership did not change
+
+The model chooses intent. Application code still owns the tool allowlist,
+customer subject binding, argument validation, deterministic execution, round
+and call limits, retries, and final schema validation.
+
+Calls for a customer other than the task subject fail before tool execution.
+Tool outputs are untrusted data. The transcript uses `store=False`, and the
+application explicitly carries tool calls and outputs between model rounds.
+
+### Frozen evaluation
+
+The 50-task suite uses 50 distinct customers from the clean Commit 05 cohort:
+
+| Task type | Cases | Required tools |
+|---|---:|---|
+| Multi-signal investigation | 10 | Metrics, purchases, events |
+| Purchase investigation | 10 | Metrics, purchases |
+| Behavior investigation | 10 | Metrics, events |
+| Support-policy investigation | 10 | Metrics, support knowledge |
+| Profile lookup | 5 | Profile |
+| Campaign readiness | 5 | Eligibility, campaign policy, consent policy |
+
+The model and reasoning boundary remained fixed:
+
+```text
+model     = gpt-5.6-luna
+reasoning = none
+```
+
+Correct tool selection, argument validity, unnecessary calls, conclusion,
+summary completion, scalar grounding, required evidence, policy retrieval,
+policy citation evidence, policy-family coverage, and task completion are
+measured separately. Efficiency is not hidden inside correctness.
+
+### Prompt versions were hypotheses
+
+V1 established the primitive loop in a six-case pilot and exposed an evaluator
+bug: precise dotted evidence paths were being flattened incorrectly.
+
+V2 corrected canonical paths, decomposed multi-family policy search, and
+bounded summaries. Its full run selected correct tools and arguments and
+reached correct conclusions on every task, but required evidence reached 86%
+and completion reached 80% under the historical rubric.
+
+Trace review found four causes:
+
+```text
+7 answers filled all 10 evidence slots and omitted the decisive flag
+6 answers treated a successful bounded event sample as an incomplete task
+2 support tasks made an unnecessary profile lookup
+policy citations proved retrieval membership, not evidence use
+```
+
+V3 prioritized conclusion-defining flags, clarified bounded truncation,
+restricted profile lookups to profile questions, and required cited policy IDs
+plus exact excerpts. It completed 20 of 25 diagnostic cases. All remaining
+failures were campaign tasks where channel details consumed the evidence
+budget.
+
+V4 changed only that allocation. Campaign answers reserve five slots for the
+overall status and one ID/excerpt pair from each required policy family. At most
+two channel details may follow. The five campaign cases passed before the
+accepted prompt was run over all 50 tasks.
+
+### Final measured result
+
+V2 was regraded in memory with the stricter V4 evaluator so both prompt
+versions use the same completion definition:
+
+| Metric | V2 regraded | V4 full |
+|---|---:|---:|
+| API success | 100% | 100% |
+| Correct tools | 100% | 100% |
+| Correct arguments | 100% | 100% |
+| Unnecessary-tools empty | 96% | 98% |
+| Correct conclusion | 100% | 100% |
+| Required evidence present | 86% | 100% |
+| Policy citations evidenced | 70% | 100% |
+| Policy-task completion | 0% | 100% |
+| Overall task completion | 50% | 100% |
+
+The original V2 report remains preserved at 80% completion because its
+evaluator did not yet require exact citation evidence. Preserving both numbers
+makes the metric change visible.
+
+V4 operational measurements:
+
+```text
+mean / p50 / p95 latency = 6.0616 / 5.4742 / 9.2174 seconds
+tool calls                = 111 total, 2.22 mean/task
+API requests              = 106
+retry attempts            = 0
+input / output tokens     = 302,870 / 22,966
+estimated cost            = $0.236846 total, $0.00473691/task
+```
+
+Compared with V2, V4 reduced mean latency by 12%, p95 latency by 31%, output
+tokens by 17%, and estimated cost by 8%. Input tokens increased by 24% because
+the accepted prompt carries more explicit constraints.
+
+One purchase task repeated `calculate_customer_metrics` with identical
+arguments. The evaluator exposed the only efficiency miss. It did not affect
+correctness, and another prompt version for one probabilistic duplicate would
+overfit the frozen suite.
+
+### What the result does not prove
+
+Exact policy citation evidence proves that IDs and excerpts came from
+retrieved, current, approved documents in the required families. It does not
+prove that the excerpt is the most semantically specific support. Seventeen of
+20 cited excerpts used the same generic uncertainty and escalation passage.
+
+The frozen cases also became the development regression suite for V3 and V4.
+The 100% completion result proves conformance to that contract, not 100%
+accuracy on unseen questions. There is no holdout, repeated stochastic run,
+write-capable tool, human approval workflow, or production action in this
+commit.
+
+### Commit 10 conclusion
+
+The first bounded agent can select deterministic CDP tools, respect subject and
+argument boundaries, collect evidence, and terminate with a typed grounded
+answer over the frozen suite. The important lesson is not the 100% headline.
+It is that aggregate correctness hid evidence allocation, completion semantics,
+citation grounding, and unnecessary calls until those behaviors were measured
+independently.
+
+V4 is accepted. Commit 11 can introduce explicit workflow state and framework
+orchestration without changing the underlying rule:
+
+```text
+model proposes
+application validates and executes
+evaluation decides whether behavior earned adoption
+```

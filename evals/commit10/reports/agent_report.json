@@ -1,0 +1,276 @@
+{
+  "cases": 50,
+  "successful_agent_runs": 50,
+  "api_success_rate_pct": 100.0,
+  "correct_tools_selected_rate_pct": 100.0,
+  "correct_tool_arguments_rate_pct": 100.0,
+  "unnecessary_tools_empty_rate_pct": 96.0,
+  "conclusion_correct_rate_pct": 100.0,
+  "summary_complete_rate_pct": 100.0,
+  "all_evidence_grounded_rate_pct": 100.0,
+  "required_evidence_present_rate_pct": 86.0,
+  "all_policy_citations_retrieved_rate_pct": 100.0,
+  "required_policy_families_cited_rate_pct": 100.0,
+  "task_completed_rate_pct": 80.0,
+  "model": [
+    "gpt-5.6-luna"
+  ],
+  "prompt_version": [
+    "commit10_v2_paths_decomposition_and_concise_answer"
+  ],
+  "reasoning_effort": [
+    "none"
+  ],
+  "latency_seconds": {
+    "mean": 6.8883,
+    "p50": 5.8568,
+    "p95": 13.3903
+  },
+  "tool_calls_per_task": {
+    "mean": 2.24,
+    "p95": 3.0,
+    "total": 112
+  },
+  "api_execution": {
+    "requests_total": 100,
+    "retry_attempts_total": 0,
+    "runs_without_retry_rate_pct": 100.0
+  },
+  "tokens": {
+    "input_total": 245214,
+    "output_total": 27520
+  },
+  "estimated_cost_usd": {
+    "total": 0.258616,
+    "mean_per_task": 0.00517231
+  },
+  "by_task_type": {
+    "behavior_investigation": {
+      "cases": 10,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 50.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 30.0
+    },
+    "campaign_readiness": {
+      "cases": 5,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "multi_signal_investigation": {
+      "cases": 10,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 80.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 70.0
+    },
+    "profile_lookup": {
+      "cases": 5,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "purchase_investigation": {
+      "cases": 10,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    },
+    "support_policy_investigation": {
+      "cases": 10,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 80.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    }
+  },
+  "failures": [
+    {
+      "case_id": "agent_multiple_warning_signals_04",
+      "task_type": "multi_signal_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_purchase_history",
+        "get_customer_events"
+      ]
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_05",
+      "task_type": "multi_signal_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "required_evidence_present",
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_purchase_history",
+        "get_customer_events"
+      ]
+    },
+    {
+      "case_id": "agent_multiple_warning_signals_08",
+      "task_type": "multi_signal_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "required_evidence_present",
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_purchase_history",
+        "get_customer_events"
+      ]
+    },
+    {
+      "case_id": "agent_engagement_decline_only_01",
+      "task_type": "behavior_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_customer_events"
+      ]
+    },
+    {
+      "case_id": "agent_engagement_decline_only_03",
+      "task_type": "behavior_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "required_evidence_present",
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_customer_events"
+      ]
+    },
+    {
+      "case_id": "agent_engagement_decline_only_04",
+      "task_type": "behavior_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "required_evidence_present",
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_customer_events"
+      ]
+    },
+    {
+      "case_id": "agent_engagement_decline_only_05",
+      "task_type": "behavior_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "required_evidence_present",
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_customer_events"
+      ]
+    },
+    {
+      "case_id": "agent_engagement_decline_only_06",
+      "task_type": "behavior_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "required_evidence_present",
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_customer_events"
+      ]
+    },
+    {
+      "case_id": "agent_engagement_decline_only_07",
+      "task_type": "behavior_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_customer_events"
+      ]
+    },
+    {
+      "case_id": "agent_engagement_decline_only_08",
+      "task_type": "behavior_investigation",
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "required_evidence_present",
+        "task_completed"
+      ],
+      "called_tools": [
+        "calculate_customer_metrics",
+        "get_customer_events"
+      ]
+    }
+  ],
+  "run_config": {
+    "cases_file": "evals/commit10/cases.jsonl",
+    "cases_sha256": "577b9886be71ac3ae0d71718d3f7112d117f258762768fade4197f99ba2cd08e",
+    "model": "gpt-5.6-luna",
+    "prompt_version": "commit10_v2_paths_decomposition_and_concise_answer",
+    "reasoning_effort": "none"
+  }
+}
