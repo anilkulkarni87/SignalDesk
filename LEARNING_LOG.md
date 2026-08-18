@@ -3154,3 +3154,158 @@ observable.
 It does not prove universal policy correctness, semantic entailment of every
 sentence, production-scale reliability, or intervention effectiveness. It does
 not add an agent or automatic execution. Those boundaries remain explicit.
+
+---
+
+## Commit 08 - Retrieval Experiments
+
+### Learning objective
+
+Commit 07 proved that the selected policy documents could support a grounded
+answer. Commit 08 isolates the search system so that two failure classes remain
+distinguishable:
+
+```text
+retrieval failure = required policy did not reach the model
+generation failure = required policy arrived, but the model used it incorrectly
+```
+
+Changing a prompt cannot reliably repair the first failure class.
+
+### Frozen experiment contract
+
+The 50 Commit 06 retrieval cases and the generated knowledge corpus are pinned
+by SHA-256 in `evals/commit08/experiment_contract.json`. The runner validates
+both fingerprints before connecting to the embedding API or database.
+
+The experiment changes one retrieval boundary at a time:
+
+```text
+metadata filtering
+120/20, 220/0, 220/40, and 400/60 chunking
+vector-only search
+lexical reference
+reciprocal-rank hybrid retrieval
+lexical reranking of vector candidates
+top K measured at 1, 3, 5, and 10
+```
+
+The four chunk configurations use isolated pgvector tables. The adopted Commit
+07 index is not overwritten.
+
+### Metric correction
+
+Commit 06 defined `Recall@K` as the percentage of queries with at least one
+relevant document in the first K results. That historical number is retained,
+but Commit 08 names it `hit rate@K` because it is not the fraction of all
+relevant documents recovered.
+
+Commit 08 adds complete family/topic selector coverage. This matters for the
+cross-family query: finding either campaign suppression or consent suppression
+is an any-hit success, while the task requires both selectors.
+
+### First local checkpoint
+
+Frozen-input validation passes. The lexical-only reference requires no API and
+reproduces the Commit 06 ranking result:
+
+```text
+hit rate@1  = 36%
+hit rate@3  = 58%
+hit rate@5  = 68%
+hit rate@10 = 82%
+MRR         = 0.4974
+```
+
+Complete selector coverage at rank 10 is 80%, two points below the any-hit
+rate. The difference is the partial cross-family result, confirming that the
+stronger metric detects a real retrieval omission.
+
+### Full matrix result
+
+| Experiment | Hit@5 | Selectors@5 | MRR | p95 ms | Decision |
+|---|---:|---:|---:|---:|---|
+| lexical reference | 68% | 68% | 0.4974 | 7.920 | reject: 15 regressions |
+| vector unfiltered | 68% | 96% | 0.3908 | 33.407 | reject: governance |
+| vector baseline | 98% | 96% | 0.9032 | 24.050 | retain |
+| small chunks | 96% | 94% | 0.8944 | 24.625 | reject: one regression |
+| no overlap | 98% | 96% | 0.9032 | 21.579 | equivalent treatment |
+| large chunks | 96% | 94% | 0.8957 | 28.856 | reject: one regression |
+| hybrid RRF | 88% | 86% | 0.7482 | 26.971 | reject: six regressions |
+| lexical rerank | 94% | 92% | 0.9007 | 26.661 | reject: two regressions |
+
+No distinct treatment strictly improved the baseline without introducing a
+governance failure or a rank-five selector regression.
+
+### Metadata is part of correctness
+
+The unfiltered vector experiment had 96% selector coverage at rank five, but
+only 26.4% of those results were both current and approved. Draft, superseded,
+and reference documents deliberately share topics with authoritative policies.
+The retrieval score cannot decide source authority; metadata filtering is a
+hard correctness boundary.
+
+### Empty treatment and avoidable cost
+
+The `220/0` and `220/40` configurations produced byte-identical chunks and
+embedding inputs:
+
+```text
+chunk count            = 1,093
+embedding input tokens = 300,972
+retrieval metrics      = identical
+```
+
+The corpus sections fit within the chunk budget, so overlap never executed.
+The observed 2.471 ms p95 difference is run noise. Treatment fingerprints now
+exclude this equivalent configuration from candidate selection.
+
+This mistake consumed 300,972 duplicate embedding tokens. The broader lesson
+is to compare effective model inputs before paying to run two nominally
+different configurations.
+
+Across all four index builds, the experiment used 1,228,865 embedding input
+tokens and 64.066 seconds of build time. The query batch used 561 input tokens.
+
+### Why global hybrid retrieval failed
+
+Hybrid RRF improved `retention_02`: the relevant retention policy moved from
+vector rank eight to fused rank four. But the same global rule caused six other
+rank-five selector regressions. A local improvement does not justify a global
+retriever change.
+
+The lexical reranker caused two regressions and did not fix either persistent
+baseline failure. Small and large chunks each caused one regression. These are
+measured negative results, not configurations to tune until they appear better.
+
+### Persistent failure classification
+
+`retention_02` is a ranking ambiguity. The relevant policy is present at vector
+rank eight, but semantically similar offer policies occupy the first five
+positions.
+
+`cross_family_01` is a query-decomposition failure. Every tested strategy covers
+only one of two required policy selectors, even at rank ten. Increasing K,
+changing chunks, or globally mixing rankings cannot recover an underrepresented
+intent reliably.
+
+The next retrieval hypothesis is explicit multi-intent decomposition. It must
+be tested on a newly frozen multi-intent dataset rather than tuned against one
+known failure. Commit 07 already uses deterministic policy-intent decomposition
+for its bounded Customer 360 workflow and passed its 100-question retrieval
+gate, so this remains a generalization backlog rather than a regression in the
+adopted workflow.
+
+### Commit 08 conclusion
+
+The `vector_baseline` remains adopted. No new treatment earned an end-to-end
+generation gate. Rerunning 100 LLM calls would test the existing pipeline again,
+not a new retrieval hypothesis, so those calls were not spent.
+
+The central learning is:
+
+```text
+retrieval experiments can correctly conclude "do not change the system"
+```
+
+Commit 08 is complete without adding agents or automatic execution.

@@ -1,0 +1,85 @@
+{
+  "experiment_version": "commit08_retrieval_experiments_v1",
+  "cases_file": "evals/commit06/retrieval_cases.jsonl",
+  "cases_sha256": "b1024f1a2429d29832a0c14f68f90c8cbe29e0234540f61f1a2c7f1fbb8ff659",
+  "corpus_dir": "data/generated/knowledge",
+  "corpus_sha256": "f5cc6746ea8b176e5656283b1d2ededc42ea8cdc3bdb5e076a85aa23dc86b639",
+  "embedding_model": "text-embedding-3-small",
+  "embedding_dimensions": 1536,
+  "ranks": [1, 3, 5, 10],
+  "candidate_pool": 20,
+  "rrf_rank_constant": 60,
+  "baseline_experiment_id": "vector_baseline",
+  "experiments": [
+    {
+      "experiment_id": "lexical_reference",
+      "strategy": "lexical",
+      "filter_current_approved": true,
+      "hypothesis": "A lexical reference identifies cases where exact policy terminology is stronger than embedding similarity."
+    },
+    {
+      "experiment_id": "vector_unfiltered",
+      "strategy": "vector",
+      "index_table": "commit08_chunks_220_40",
+      "max_words": 220,
+      "overlap_words": 40,
+      "filter_current_approved": false,
+      "hypothesis": "Removing status and authority filters will expose how often semantically similar but non-authoritative documents displace usable policy."
+    },
+    {
+      "experiment_id": "vector_baseline",
+      "strategy": "vector",
+      "index_table": "commit08_chunks_220_40",
+      "max_words": 220,
+      "overlap_words": 40,
+      "filter_current_approved": true,
+      "hypothesis": "The frozen Commit 07 configuration provides the incumbent quality, latency, and governance baseline."
+    },
+    {
+      "experiment_id": "vector_small_chunks",
+      "strategy": "vector",
+      "index_table": "commit08_chunks_120_20",
+      "max_words": 120,
+      "overlap_words": 20,
+      "filter_current_approved": true,
+      "hypothesis": "Smaller chunks will improve topic focus and early-rank quality, at the cost of a larger index."
+    },
+    {
+      "experiment_id": "vector_no_overlap",
+      "strategy": "vector",
+      "index_table": "commit08_chunks_220_0",
+      "max_words": 220,
+      "overlap_words": 0,
+      "filter_current_approved": true,
+      "hypothesis": "Removing overlap will reduce duplicate indexed text without lowering selector coverage."
+    },
+    {
+      "experiment_id": "vector_large_chunks",
+      "strategy": "vector",
+      "index_table": "commit08_chunks_400_60",
+      "max_words": 400,
+      "overlap_words": 60,
+      "filter_current_approved": true,
+      "hypothesis": "Larger chunks will reduce index size but may dilute topic-specific similarity and ranking quality."
+    },
+    {
+      "experiment_id": "hybrid_rrf",
+      "strategy": "hybrid_rrf",
+      "index_table": "commit08_chunks_220_40",
+      "max_words": 220,
+      "overlap_words": 40,
+      "filter_current_approved": true,
+      "hypothesis": "Reciprocal-rank fusion will recover lexical and semantic strengths without requiring score calibration."
+    },
+    {
+      "experiment_id": "vector_lexical_rerank",
+      "strategy": "vector_lexical_rerank",
+      "index_table": "commit08_chunks_220_40",
+      "max_words": 220,
+      "overlap_words": 40,
+      "filter_current_approved": true,
+      "vector_weight": 0.65,
+      "hypothesis": "Lexical reranking of vector candidates will improve first-relevant rank while preserving semantic candidate recall."
+    }
+  ]
+}
