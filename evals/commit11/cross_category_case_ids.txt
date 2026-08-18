@@ -1,0 +1,7 @@
+# One frozen Commit 10 case from each task category.
+agent_multiple_warning_signals_01
+agent_purchase_decline_only_01
+agent_engagement_decline_only_01
+agent_support_attention_only_01
+agent_profile_01
+agent_campaign_06

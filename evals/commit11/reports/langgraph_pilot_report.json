@@ -1,0 +1,87 @@
+{
+  "cases": 5,
+  "successful_agent_runs": 5,
+  "api_success_rate_pct": 100.0,
+  "correct_tools_selected_rate_pct": 100.0,
+  "correct_tool_arguments_rate_pct": 100.0,
+  "unnecessary_tools_empty_rate_pct": 100.0,
+  "conclusion_correct_rate_pct": 100.0,
+  "summary_complete_rate_pct": 100.0,
+  "all_evidence_grounded_rate_pct": 100.0,
+  "required_evidence_present_rate_pct": 100.0,
+  "all_policy_citations_retrieved_rate_pct": 100.0,
+  "all_policy_citations_evidenced_rate_pct": 100.0,
+  "required_policy_families_cited_rate_pct": 100.0,
+  "task_completed_rate_pct": 100.0,
+  "model": [
+    "gpt-5.6-luna"
+  ],
+  "prompt_version": [
+    "commit10_v4_campaign_evidence_budget"
+  ],
+  "reasoning_effort": [
+    "none"
+  ],
+  "latency_seconds": {
+    "mean": 5.6967,
+    "p50": 5.7668,
+    "p95": 6.0368
+  },
+  "tool_calls_per_task": {
+    "mean": 3,
+    "p95": 3.0,
+    "total": 15
+  },
+  "api_execution": {
+    "requests_total": 10,
+    "retry_attempts_total": 0,
+    "runs_without_retry_rate_pct": 100.0
+  },
+  "tokens": {
+    "input_total": 32487,
+    "output_total": 2340
+  },
+  "estimated_cost_usd": {
+    "total": 0.02951,
+    "mean_per_task": 0.00590196
+  },
+  "by_task_type": {
+    "multi_signal_investigation": {
+      "cases": 5,
+      "correct_tools_selected_rate_pct": 100.0,
+      "correct_tool_arguments_rate_pct": 100.0,
+      "unnecessary_tools_empty_rate_pct": 100.0,
+      "conclusion_correct_rate_pct": 100.0,
+      "summary_complete_rate_pct": 100.0,
+      "all_evidence_grounded_rate_pct": 100.0,
+      "required_evidence_present_rate_pct": 100.0,
+      "all_policy_citations_retrieved_rate_pct": 100.0,
+      "all_policy_citations_evidenced_rate_pct": 100.0,
+      "required_policy_families_cited_rate_pct": 100.0,
+      "task_completed_rate_pct": 100.0
+    }
+  },
+  "policy_tasks": {
+    "cases": 0,
+    "all_policy_citations_retrieved_rate_pct": 0.0,
+    "all_policy_citations_evidenced_rate_pct": 0.0,
+    "required_policy_families_cited_rate_pct": 0.0,
+    "task_completed_rate_pct": 0.0
+  },
+  "failures": [],
+  "workflow": {
+    "workflow_version": "commit11_v1_explicit_stateful_investigation",
+    "completion_rate_pct": 100.0,
+    "checkpoint_count_total": 90,
+    "approval_required_count": 0,
+    "actions_executed_count": 0
+  },
+  "run_config": {
+    "cases_file": "evals/commit10/cases.jsonl",
+    "cases_sha256": "577b9886be71ac3ae0d71718d3f7112d117f258762768fade4197f99ba2cd08e",
+    "model": "gpt-5.6-luna",
+    "prompt_version": "commit10_v4_campaign_evidence_budget",
+    "workflow_version": "commit11_v1_explicit_stateful_investigation",
+    "reasoning_effort": "none"
+  }
+}
