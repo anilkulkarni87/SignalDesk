@@ -1,0 +1,5312 @@
+{
+  "cases": 100,
+  "passed": 100,
+  "pass_rate_pct": 100.0,
+  "embedding_model": "text-embedding-3-small",
+  "embedding_requests": 4,
+  "embedding_input_tokens": 49,
+  "latency_ms": {
+    "mean": 79.483,
+    "p50": 41.615,
+    "p95": 70.484
+  },
+  "failures": [],
+  "case_reports": [
+    {
+      "case_id": "multiple_warning_signals_01__risk_investigation",
+      "customer_id": "C0046145",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 2196.867,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_01__policy_guardrails",
+      "customer_id": "C0046145",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 54.693,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_02__risk_investigation",
+      "customer_id": "C0053211",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 36.613,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_02__policy_guardrails",
+      "customer_id": "C0053211",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 42.945,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_03__risk_investigation",
+      "customer_id": "C0074902",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00554",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14351,
+      "context_quote_count": 73,
+      "latency_ms": 962.986,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_03__policy_guardrails",
+      "customer_id": "C0074902",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00554",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14351,
+      "context_quote_count": 73,
+      "latency_ms": 57.626,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_04__risk_investigation",
+      "customer_id": "C0073320",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00012",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00216"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14800,
+      "context_quote_count": 76,
+      "latency_ms": 57.597,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_04__policy_guardrails",
+      "customer_id": "C0073320",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00012",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00216"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14800,
+      "context_quote_count": 76,
+      "latency_ms": 63.006,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_05__risk_investigation",
+      "customer_id": "C0045860",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 47.722,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_05__policy_guardrails",
+      "customer_id": "C0045860",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 49.668,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_06__risk_investigation",
+      "customer_id": "C0035993",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00554",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14351,
+      "context_quote_count": 73,
+      "latency_ms": 43.548,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_06__policy_guardrails",
+      "customer_id": "C0035993",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00554",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14351,
+      "context_quote_count": 73,
+      "latency_ms": 44.36,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_07__risk_investigation",
+      "customer_id": "C0070263",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 44.803,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_07__policy_guardrails",
+      "customer_id": "C0070263",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 50.855,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_08__risk_investigation",
+      "customer_id": "C0035671",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 32.394,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_08__policy_guardrails",
+      "customer_id": "C0035671",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 34.561,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_09__risk_investigation",
+      "customer_id": "C0014677",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 44.675,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_09__policy_guardrails",
+      "customer_id": "C0014677",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 44.155,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_10__risk_investigation",
+      "customer_id": "C0038658",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00554",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14351,
+      "context_quote_count": 73,
+      "latency_ms": 45.997,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_10__policy_guardrails",
+      "customer_id": "C0038658",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00554",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00416",
+        "KB-00704",
+        "KB-00897",
+        "KB-00012"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention",
+        "subscriptions"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14351,
+      "context_quote_count": 73,
+      "latency_ms": 47.943,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_01__risk_investigation",
+      "customer_id": "C0086300",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 42.86,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_01__policy_guardrails",
+      "customer_id": "C0086300",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 48.801,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_02__risk_investigation",
+      "customer_id": "C0075208",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 37.38,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_02__policy_guardrails",
+      "customer_id": "C0075208",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 34.011,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_03__risk_investigation",
+      "customer_id": "C0033605",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 52.362,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_03__policy_guardrails",
+      "customer_id": "C0033605",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 70.484,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_04__risk_investigation",
+      "customer_id": "C0055539",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 51.995,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_04__policy_guardrails",
+      "customer_id": "C0055539",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 48.058,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_05__risk_investigation",
+      "customer_id": "C0025695",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 46.601,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_05__policy_guardrails",
+      "customer_id": "C0025695",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 47.525,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_06__risk_investigation",
+      "customer_id": "C0050443",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 39.293,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_06__policy_guardrails",
+      "customer_id": "C0050443",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 33.398,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_07__risk_investigation",
+      "customer_id": "C0039006",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 44.83,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_07__policy_guardrails",
+      "customer_id": "C0039006",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 42.851,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_08__risk_investigation",
+      "customer_id": "C0034217",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 47.189,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_08__policy_guardrails",
+      "customer_id": "C0034217",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 45.747,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_09__risk_investigation",
+      "customer_id": "C0035867",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 43.949,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_09__policy_guardrails",
+      "customer_id": "C0035867",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 43.473,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_10__risk_investigation",
+      "customer_id": "C0089943",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 44.03,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_10__policy_guardrails",
+      "customer_id": "C0089943",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 43.266,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_01__risk_investigation",
+      "customer_id": "C0091123",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 45.062,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_01__policy_guardrails",
+      "customer_id": "C0091123",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 43.643,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_02__risk_investigation",
+      "customer_id": "C0016709",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 43.038,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_02__policy_guardrails",
+      "customer_id": "C0016709",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 42.117,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_03__risk_investigation",
+      "customer_id": "C0064913",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 31.343,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_03__policy_guardrails",
+      "customer_id": "C0064913",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 32.019,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_04__risk_investigation",
+      "customer_id": "C0043752",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 32.59,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_04__policy_guardrails",
+      "customer_id": "C0043752",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 31.741,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_05__risk_investigation",
+      "customer_id": "C0017789",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 51.233,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_05__policy_guardrails",
+      "customer_id": "C0017789",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 50.595,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_06__risk_investigation",
+      "customer_id": "C0054973",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 44.122,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_06__policy_guardrails",
+      "customer_id": "C0054973",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 58.484,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_07__risk_investigation",
+      "customer_id": "C0081720",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 39.841,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_07__policy_guardrails",
+      "customer_id": "C0081720",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00852",
+        "KB-00704",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857"
+      ],
+      "retrieved_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14423,
+      "context_quote_count": 75,
+      "latency_ms": 32.056,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_08__risk_investigation",
+      "customer_id": "C0074454",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 82.485,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_08__policy_guardrails",
+      "customer_id": "C0074454",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 49.208,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_09__risk_investigation",
+      "customer_id": "C0017855",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 45.299,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_09__policy_guardrails",
+      "customer_id": "C0017855",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 47.875,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_10__risk_investigation",
+      "customer_id": "C0091250",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 47.918,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_10__policy_guardrails",
+      "customer_id": "C0091250",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897",
+        "KB-00901",
+        "KB-00857",
+        "KB-00717",
+        "KB-00905",
+        "KB-00228"
+      ],
+      "context_document_ids": [
+        "GAP-001",
+        "KB-00752",
+        "KB-00108",
+        "KB-00852",
+        "KB-00704",
+        "KB-00216",
+        "KB-00897"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "expected_document_ids": [
+        "GAP-001"
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14850,
+      "context_quote_count": 77,
+      "latency_ms": 43.357,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_01__risk_investigation",
+      "customer_id": "C0073168",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 538.589,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_01__policy_guardrails",
+      "customer_id": "C0073168",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 35.985,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_02__risk_investigation",
+      "customer_id": "C0077523",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "support"
+      ],
+      "context_families": [
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 5054,
+      "context_quote_count": 25,
+      "latency_ms": 12.409,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_02__policy_guardrails",
+      "customer_id": "C0077523",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "support"
+      ],
+      "context_families": [
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 5054,
+      "context_quote_count": 25,
+      "latency_ms": 11.908,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_03__risk_investigation",
+      "customer_id": "C0009213",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 23.586,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_03__policy_guardrails",
+      "customer_id": "C0009213",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 24.555,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_04__risk_investigation",
+      "customer_id": "C0037169",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 28.777,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_04__policy_guardrails",
+      "customer_id": "C0037169",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 40.599,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_05__risk_investigation",
+      "customer_id": "C0072722",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 35.653,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_05__policy_guardrails",
+      "customer_id": "C0072722",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 39.556,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_06__risk_investigation",
+      "customer_id": "C0058031",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "support"
+      ],
+      "context_families": [
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 5054,
+      "context_quote_count": 25,
+      "latency_ms": 24.658,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_06__policy_guardrails",
+      "customer_id": "C0058031",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "support"
+      ],
+      "context_families": [
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 5054,
+      "context_quote_count": 25,
+      "latency_ms": 25.518,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_07__risk_investigation",
+      "customer_id": "C0003982",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "support"
+      ],
+      "context_families": [
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 5054,
+      "context_quote_count": 25,
+      "latency_ms": 26.956,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_07__policy_guardrails",
+      "customer_id": "C0003982",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00722",
+        "KB-00377",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "support"
+      ],
+      "context_families": [
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 5054,
+      "context_quote_count": 25,
+      "latency_ms": 24.313,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_08__risk_investigation",
+      "customer_id": "C0079937",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 37.391,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_08__policy_guardrails",
+      "customer_id": "C0079937",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 31.6,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_09__risk_investigation",
+      "customer_id": "C0071547",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 28.145,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_09__policy_guardrails",
+      "customer_id": "C0071547",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 32.422,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_10__risk_investigation",
+      "customer_id": "C0045859",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 33.298,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_10__policy_guardrails",
+      "customer_id": "C0045859",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00722",
+        "KB-00216",
+        "KB-00377",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "context_families": [
+        "consent",
+        "support"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 11899,
+      "context_quote_count": 63,
+      "latency_ms": 39.244,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_01__risk_investigation",
+      "customer_id": "C0035947",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "retention"
+      ],
+      "context_families": [
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 7580,
+      "context_quote_count": 39,
+      "latency_ms": 474.575,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_01__policy_guardrails",
+      "customer_id": "C0035947",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "retention"
+      ],
+      "context_families": [
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 7580,
+      "context_quote_count": 39,
+      "latency_ms": 29.037,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_02__risk_investigation",
+      "customer_id": "C0085403",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 37.493,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_02__policy_guardrails",
+      "customer_id": "C0085403",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 35.088,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_03__risk_investigation",
+      "customer_id": "C0012445",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 27.2,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_03__policy_guardrails",
+      "customer_id": "C0012445",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 41.741,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_04__risk_investigation",
+      "customer_id": "C0033269",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "retention"
+      ],
+      "context_families": [
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 7580,
+      "context_quote_count": 39,
+      "latency_ms": 17.24,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_04__policy_guardrails",
+      "customer_id": "C0033269",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "retention"
+      ],
+      "context_families": [
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 7580,
+      "context_quote_count": 39,
+      "latency_ms": 24.65,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_05__risk_investigation",
+      "customer_id": "C0020218",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "retention"
+      ],
+      "context_families": [
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 7580,
+      "context_quote_count": 39,
+      "latency_ms": 11.305,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_05__policy_guardrails",
+      "customer_id": "C0020218",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "retention"
+      ],
+      "context_families": [
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 7580,
+      "context_quote_count": 39,
+      "latency_ms": 27.027,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_06__risk_investigation",
+      "customer_id": "C0050206",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 41.49,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_06__policy_guardrails",
+      "customer_id": "C0050206",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 34.365,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_07__risk_investigation",
+      "customer_id": "C0021476",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 36.229,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_07__policy_guardrails",
+      "customer_id": "C0021476",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 27.005,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_08__risk_investigation",
+      "customer_id": "C0037301",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 34.723,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_08__policy_guardrails",
+      "customer_id": "C0037301",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 27.977,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_09__risk_investigation",
+      "customer_id": "C0070288",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 35.09,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_09__policy_guardrails",
+      "customer_id": "C0070288",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00108",
+        "KB-00779",
+        "KB-00216",
+        "KB-00405",
+        "KB-00905",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "consent",
+        "retention"
+      ],
+      "context_families": [
+        "consent",
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "consent",
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 14425,
+      "context_quote_count": 77,
+      "latency_ms": 38.595,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_10__risk_investigation",
+      "customer_id": "C0062395",
+      "question_type": "risk_investigation",
+      "retrieved_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "retention"
+      ],
+      "context_families": [
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 7580,
+      "context_quote_count": 39,
+      "latency_ms": 22.769,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_10__policy_guardrails",
+      "customer_id": "C0062395",
+      "question_type": "policy_guardrails",
+      "retrieved_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "context_document_ids": [
+        "KB-00779",
+        "KB-00405",
+        "KB-00705"
+      ],
+      "retrieved_families": [
+        "retention"
+      ],
+      "context_families": [
+        "retention"
+      ],
+      "expected_document_ids": [],
+      "expected_families": [
+        "retention"
+      ],
+      "planner_matches_frozen_input": true,
+      "expected_documents_retrieved": true,
+      "expected_families_retrieved": true,
+      "expected_documents_in_context": true,
+      "expected_families_in_context": true,
+      "sources_current": true,
+      "sources_approved": true,
+      "content_present": true,
+      "context_characters": 7580,
+      "context_quote_count": 39,
+      "latency_ms": 24.363,
+      "passed": true
+    }
+  ]
+}

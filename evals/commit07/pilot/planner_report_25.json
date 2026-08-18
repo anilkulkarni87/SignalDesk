@@ -1,0 +1,1279 @@
+{
+  "cases": 25,
+  "passed": 25,
+  "pass_rate_pct": 100.0,
+  "case_reports": [
+    {
+      "case_id": "engagement_decline_only_01",
+      "customer_id": "C0091123",
+      "source_case_type": "engagement_decline_only",
+      "planned_query_count": 3,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00989",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_02",
+      "customer_id": "C0016709",
+      "source_case_type": "engagement_decline_only",
+      "planned_query_count": 3,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00989",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_03",
+      "customer_id": "C0064913",
+      "source_case_type": "engagement_decline_only",
+      "planned_query_count": 2,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_04",
+      "customer_id": "C0043752",
+      "source_case_type": "engagement_decline_only",
+      "planned_query_count": 2,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "engagement_decline_only_05",
+      "customer_id": "C0017789",
+      "source_case_type": "engagement_decline_only",
+      "planned_query_count": 3,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00989",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_01",
+      "customer_id": "C0046145",
+      "source_case_type": "multiple_warning_signals",
+      "planned_query_count": 3,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00989",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_02",
+      "customer_id": "C0053211",
+      "source_case_type": "multiple_warning_signals",
+      "planned_query_count": 2,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_03",
+      "customer_id": "C0074902",
+      "source_case_type": "multiple_warning_signals",
+      "planned_query_count": 3,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "recent_subscription_cancellation_flag is true",
+          "query": "subscription cancellation recovery handling",
+          "expected_families": [
+            "subscriptions"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "governance",
+        "offers",
+        "subscriptions"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "governance",
+        "loyalty",
+        "offers",
+        "subscriptions"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00704",
+        "KB-00595",
+        "KB-00012",
+        "KB-00416",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_04",
+      "customer_id": "C0073320",
+      "source_case_type": "multiple_warning_signals",
+      "planned_query_count": 4,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "recent_subscription_cancellation_flag is true",
+          "query": "subscription cancellation recovery handling",
+          "expected_families": [
+            "subscriptions"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers",
+        "subscriptions"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "loyalty",
+        "offers",
+        "subscriptions"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00989",
+        "KB-00704",
+        "KB-00595",
+        "KB-00012",
+        "KB-00416",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "multiple_warning_signals_05",
+      "customer_id": "C0045860",
+      "source_case_type": "multiple_warning_signals",
+      "planned_query_count": 3,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00989",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_01",
+      "customer_id": "C0035947",
+      "source_case_type": "no_warning_signals",
+      "planned_query_count": 1,
+      "planned_queries": [
+        {
+          "reason": "no warning signals; retrieve general retention review guidance",
+          "query": "retention investigation no action appropriate review guidance",
+          "expected_families": [
+            "retention"
+          ],
+          "expected_doc_ids": []
+        }
+      ],
+      "expected_families": [
+        "retention"
+      ],
+      "expected_doc_ids": [],
+      "retrieved_families": [
+        "retention"
+      ],
+      "retrieved_doc_ids": [
+        "KB-00779",
+        "KB-00405"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_02",
+      "customer_id": "C0085403",
+      "source_case_type": "no_warning_signals",
+      "planned_query_count": 1,
+      "planned_queries": [
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        }
+      ],
+      "expected_families": [
+        "consent"
+      ],
+      "expected_doc_ids": [],
+      "retrieved_families": [
+        "consent"
+      ],
+      "retrieved_doc_ids": [
+        "KB-00108",
+        "KB-00989"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_03",
+      "customer_id": "C0012445",
+      "source_case_type": "no_warning_signals",
+      "planned_query_count": 1,
+      "planned_queries": [
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        }
+      ],
+      "expected_families": [
+        "consent"
+      ],
+      "expected_doc_ids": [],
+      "retrieved_families": [
+        "consent"
+      ],
+      "retrieved_doc_ids": [
+        "KB-00108",
+        "KB-00989"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_04",
+      "customer_id": "C0033269",
+      "source_case_type": "no_warning_signals",
+      "planned_query_count": 1,
+      "planned_queries": [
+        {
+          "reason": "no warning signals; retrieve general retention review guidance",
+          "query": "retention investigation no action appropriate review guidance",
+          "expected_families": [
+            "retention"
+          ],
+          "expected_doc_ids": []
+        }
+      ],
+      "expected_families": [
+        "retention"
+      ],
+      "expected_doc_ids": [],
+      "retrieved_families": [
+        "retention"
+      ],
+      "retrieved_doc_ids": [
+        "KB-00779",
+        "KB-00405"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "no_warning_signals_05",
+      "customer_id": "C0020218",
+      "source_case_type": "no_warning_signals",
+      "planned_query_count": 1,
+      "planned_queries": [
+        {
+          "reason": "no warning signals; retrieve general retention review guidance",
+          "query": "retention investigation no action appropriate review guidance",
+          "expected_families": [
+            "retention"
+          ],
+          "expected_doc_ids": []
+        }
+      ],
+      "expected_families": [
+        "retention"
+      ],
+      "expected_doc_ids": [],
+      "retrieved_families": [
+        "retention"
+      ],
+      "retrieved_doc_ids": [
+        "KB-00779",
+        "KB-00405"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_01",
+      "customer_id": "C0086300",
+      "source_case_type": "purchase_decline_only",
+      "planned_query_count": 3,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00989",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_02",
+      "customer_id": "C0075208",
+      "source_case_type": "purchase_decline_only",
+      "planned_query_count": 2,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_03",
+      "customer_id": "C0033605",
+      "source_case_type": "purchase_decline_only",
+      "planned_query_count": 3,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00989",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_04",
+      "customer_id": "C0055539",
+      "source_case_type": "purchase_decline_only",
+      "planned_query_count": 3,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00989",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "purchase_decline_only_05",
+      "customer_id": "C0025695",
+      "source_case_type": "purchase_decline_only",
+      "planned_query_count": 3,
+      "planned_queries": [
+        {
+          "reason": "purchase or engagement decline may require retention guidance",
+          "query": "retention offer eligibility cooling period discount",
+          "expected_families": [
+            "offers"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "retention analysis must not infer causal discount uplift",
+          "query": "exact causal uplift from retention discounts",
+          "expected_families": [
+            "governance"
+          ],
+          "expected_doc_ids": [
+            "GAP-001"
+          ]
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "governance",
+        "offers"
+      ],
+      "expected_doc_ids": [
+        "GAP-001"
+      ],
+      "retrieved_families": [
+        "consent",
+        "governance",
+        "loyalty",
+        "offers"
+      ],
+      "retrieved_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00989",
+        "KB-00704",
+        "KB-00595",
+        "KB-00328"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_01",
+      "customer_id": "C0073168",
+      "source_case_type": "support_attention_only",
+      "planned_query_count": 2,
+      "planned_queries": [
+        {
+          "reason": "support_attention_flag is true",
+          "query": "open support case support escalation handoff",
+          "expected_families": [
+            "support"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "expected_doc_ids": [],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "retrieved_doc_ids": [
+        "KB-00108",
+        "KB-00989",
+        "KB-00853",
+        "KB-00319"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_02",
+      "customer_id": "C0077523",
+      "source_case_type": "support_attention_only",
+      "planned_query_count": 1,
+      "planned_queries": [
+        {
+          "reason": "support_attention_flag is true",
+          "query": "open support case support escalation handoff",
+          "expected_families": [
+            "support"
+          ],
+          "expected_doc_ids": []
+        }
+      ],
+      "expected_families": [
+        "support"
+      ],
+      "expected_doc_ids": [],
+      "retrieved_families": [
+        "support"
+      ],
+      "retrieved_doc_ids": [
+        "KB-00853",
+        "KB-00319"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_03",
+      "customer_id": "C0009213",
+      "source_case_type": "support_attention_only",
+      "planned_query_count": 2,
+      "planned_queries": [
+        {
+          "reason": "support_attention_flag is true",
+          "query": "open support case support escalation handoff",
+          "expected_families": [
+            "support"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "expected_doc_ids": [],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "retrieved_doc_ids": [
+        "KB-00108",
+        "KB-00989",
+        "KB-00853",
+        "KB-00319"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_04",
+      "customer_id": "C0037169",
+      "source_case_type": "support_attention_only",
+      "planned_query_count": 2,
+      "planned_queries": [
+        {
+          "reason": "support_attention_flag is true",
+          "query": "open support case support escalation handoff",
+          "expected_families": [
+            "support"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "expected_doc_ids": [],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "retrieved_doc_ids": [
+        "KB-00108",
+        "KB-00989",
+        "KB-00853",
+        "KB-00319"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    },
+    {
+      "case_id": "support_attention_only_05",
+      "customer_id": "C0072722",
+      "source_case_type": "support_attention_only",
+      "planned_query_count": 2,
+      "planned_queries": [
+        {
+          "reason": "support_attention_flag is true",
+          "query": "open support case support escalation handoff",
+          "expected_families": [
+            "support"
+          ],
+          "expected_doc_ids": []
+        },
+        {
+          "reason": "one or more outbound channels are opted out",
+          "query": "customer communication consent email opt out suppression",
+          "expected_families": [
+            "consent"
+          ],
+          "expected_doc_ids": []
+        }
+      ],
+      "expected_families": [
+        "consent",
+        "support"
+      ],
+      "expected_doc_ids": [],
+      "retrieved_families": [
+        "consent",
+        "support"
+      ],
+      "retrieved_doc_ids": [
+        "KB-00108",
+        "KB-00989",
+        "KB-00853",
+        "KB-00319"
+      ],
+      "expected_families_retrieved": true,
+      "expected_doc_ids_retrieved": true,
+      "statuses_current": true,
+      "authority_approved": true,
+      "excerpts_present": true,
+      "passed": true
+    }
+  ]
+}

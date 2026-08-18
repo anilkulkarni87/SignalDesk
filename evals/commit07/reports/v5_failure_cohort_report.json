@@ -1,0 +1,110 @@
+{
+  "cases": 10,
+  "successful_api_calls": 10,
+  "api_success_rate_pct": 100.0,
+  "first_attempt_successful_api_calls": 10,
+  "first_attempt_api_success_rate_pct": 100.0,
+  "api_retry_attempts_total": 0,
+  "schema_valid_rate_pct": 100.0,
+  "schema_valid_given_api_success_rate_pct": 100.0,
+  "citation_resolution_valid_rate_pct": 100.0,
+  "risk_correct_rate_pct": 100.0,
+  "required_evidence_all_present_rate_pct": 100.0,
+  "required_evidence_any_present_rate_pct": 100.0,
+  "answer_correct_rate_pct": 100.0,
+  "expected_policy_docs_retrieved_rate_pct": 100.0,
+  "expected_policy_families_retrieved_rate_pct": 100.0,
+  "all_citations_retrieved_rate_pct": 100.0,
+  "all_citation_excerpts_grounded_rate_pct": 100.0,
+  "expected_policy_docs_cited_rate_pct": 100.0,
+  "expected_policy_families_cited_rate_pct": 100.0,
+  "unsupported_policy_claims_empty_rate_pct": 90.0,
+  "citation_precision_pct": 100.0,
+  "reasoning_tokens_total": 0,
+  "latency_seconds": {
+    "retrieval": {
+      "mean": 0.2393,
+      "p50": 0.0731,
+      "p95": 0.8361
+    },
+    "generation": {
+      "mean": 5.6351,
+      "p50": 5.2316,
+      "p95": 7.6975
+    },
+    "total": {
+      "mean": 5.9394,
+      "p50": 5.5337,
+      "p95": 8.6206
+    }
+  },
+  "tokens": {
+    "input_total": 45521,
+    "cached_input_total": 8997,
+    "output_total": 6172,
+    "total": 51693
+  },
+  "estimated_generation_cost_usd": 0.074456,
+  "by_question_type": {
+    "policy_guardrails": {
+      "cases": 5,
+      "citation_resolution_valid_rate_pct": 100.0,
+      "risk_correct_rate_pct": 100.0,
+      "required_evidence_all_present_rate_pct": 100.0,
+      "required_evidence_any_present_rate_pct": 100.0,
+      "answer_correct_rate_pct": 100.0,
+      "expected_policy_docs_retrieved_rate_pct": 100.0,
+      "expected_policy_families_retrieved_rate_pct": 100.0,
+      "all_citations_retrieved_rate_pct": 100.0,
+      "all_citation_excerpts_grounded_rate_pct": 100.0,
+      "expected_policy_docs_cited_rate_pct": 100.0,
+      "expected_policy_families_cited_rate_pct": 100.0,
+      "unsupported_policy_claims_empty_rate_pct": 100.0
+    },
+    "risk_investigation": {
+      "cases": 5,
+      "citation_resolution_valid_rate_pct": 100.0,
+      "risk_correct_rate_pct": 100.0,
+      "required_evidence_all_present_rate_pct": 100.0,
+      "required_evidence_any_present_rate_pct": 100.0,
+      "answer_correct_rate_pct": 100.0,
+      "expected_policy_docs_retrieved_rate_pct": 100.0,
+      "expected_policy_families_retrieved_rate_pct": 100.0,
+      "all_citations_retrieved_rate_pct": 100.0,
+      "all_citation_excerpts_grounded_rate_pct": 100.0,
+      "expected_policy_docs_cited_rate_pct": 100.0,
+      "expected_policy_families_cited_rate_pct": 100.0,
+      "unsupported_policy_claims_empty_rate_pct": 80.0
+    }
+  },
+  "failures": [
+    {
+      "case_id": "multiple_warning_signals_04__risk_investigation",
+      "customer_id": "C0073320",
+      "question_type": "risk_investigation",
+      "api_success": true,
+      "error_type": null,
+      "error": null,
+      "failed_metrics": [
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00416",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00897"
+      ],
+      "cited_policy_doc_ids": [
+        "KB-00852",
+        "KB-00752",
+        "KB-00216",
+        "KB-00416",
+        "GAP-001"
+      ]
+    }
+  ]
+}

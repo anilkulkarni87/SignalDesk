@@ -1,0 +1,270 @@
+{
+  "cases": 10,
+  "successful_api_calls": 4,
+  "api_success_rate_pct": 40.0,
+  "first_attempt_successful_api_calls": 2,
+  "first_attempt_api_success_rate_pct": 20.0,
+  "api_retry_attempts_total": 15,
+  "schema_valid_rate_pct": 40.0,
+  "schema_valid_given_api_success_rate_pct": 100.0,
+  "citation_resolution_valid_rate_pct": 100.0,
+  "risk_correct_rate_pct": 100.0,
+  "required_evidence_all_present_rate_pct": 100.0,
+  "required_evidence_any_present_rate_pct": 100.0,
+  "answer_correct_rate_pct": 100.0,
+  "expected_policy_docs_retrieved_rate_pct": 100.0,
+  "expected_policy_families_retrieved_rate_pct": 100.0,
+  "all_citations_retrieved_rate_pct": 100.0,
+  "all_citation_excerpts_grounded_rate_pct": 100.0,
+  "expected_policy_docs_cited_rate_pct": 100.0,
+  "expected_policy_families_cited_rate_pct": 100.0,
+  "unsupported_policy_claims_empty_rate_pct": 100.0,
+  "citation_precision_pct": 100.0,
+  "reasoning_tokens_total": 0,
+  "latency_seconds": {
+    "retrieval": {
+      "mean": 0.0413,
+      "p50": 0.0425,
+      "p95": 0.0505
+    },
+    "generation": {
+      "mean": 9.8484,
+      "p50": 7.7918,
+      "p95": 18.9877
+    },
+    "total": {
+      "mean": 9.9515,
+      "p50": 7.8951,
+      "p95": 19.098
+    }
+  },
+  "tokens": {
+    "input_total": 18460,
+    "cached_input_total": 13123,
+    "output_total": 3056,
+    "total": 21516
+  },
+  "estimated_generation_cost_usd": 0.024985,
+  "by_question_type": {
+    "policy_guardrails": {
+      "cases": 2,
+      "citation_resolution_valid_rate_pct": 100.0,
+      "risk_correct_rate_pct": 100.0,
+      "required_evidence_all_present_rate_pct": 100.0,
+      "required_evidence_any_present_rate_pct": 100.0,
+      "answer_correct_rate_pct": 100.0,
+      "expected_policy_docs_retrieved_rate_pct": 100.0,
+      "expected_policy_families_retrieved_rate_pct": 100.0,
+      "all_citations_retrieved_rate_pct": 100.0,
+      "all_citation_excerpts_grounded_rate_pct": 100.0,
+      "expected_policy_docs_cited_rate_pct": 100.0,
+      "expected_policy_families_cited_rate_pct": 100.0,
+      "unsupported_policy_claims_empty_rate_pct": 100.0
+    },
+    "risk_investigation": {
+      "cases": 2,
+      "citation_resolution_valid_rate_pct": 100.0,
+      "risk_correct_rate_pct": 100.0,
+      "required_evidence_all_present_rate_pct": 100.0,
+      "required_evidence_any_present_rate_pct": 100.0,
+      "answer_correct_rate_pct": 100.0,
+      "expected_policy_docs_retrieved_rate_pct": 100.0,
+      "expected_policy_families_retrieved_rate_pct": 100.0,
+      "all_citations_retrieved_rate_pct": 100.0,
+      "all_citation_excerpts_grounded_rate_pct": 100.0,
+      "expected_policy_docs_cited_rate_pct": 100.0,
+      "expected_policy_families_cited_rate_pct": 100.0,
+      "unsupported_policy_claims_empty_rate_pct": 100.0
+    }
+  },
+  "failures": [
+    {
+      "case_id": "multiple_warning_signals_01__policy_guardrails",
+      "customer_id": "C0046145",
+      "question_type": "policy_guardrails",
+      "api_success": false,
+      "error_type": "IncompleteResponseError",
+      "error": "OpenAI response status was incomplete: {'reason': 'max_output_tokens'}",
+      "failed_metrics": [
+        "citation_resolution_valid",
+        "risk_correct",
+        "required_evidence_all_present",
+        "required_evidence_any_present",
+        "answer_correct",
+        "expected_policy_docs_retrieved",
+        "expected_policy_families_retrieved",
+        "all_citations_retrieved",
+        "all_citation_excerpts_grounded",
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited",
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852",
+        "KB-00897"
+      ],
+      "cited_policy_doc_ids": []
+    },
+    {
+      "case_id": "multiple_warning_signals_04__risk_investigation",
+      "customer_id": "C0073320",
+      "question_type": "risk_investigation",
+      "api_success": false,
+      "error_type": "IncompleteResponseError",
+      "error": "OpenAI response status was incomplete: {'reason': 'max_output_tokens'}",
+      "failed_metrics": [
+        "citation_resolution_valid",
+        "risk_correct",
+        "required_evidence_all_present",
+        "required_evidence_any_present",
+        "answer_correct",
+        "expected_policy_docs_retrieved",
+        "expected_policy_families_retrieved",
+        "all_citations_retrieved",
+        "all_citation_excerpts_grounded",
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited",
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [
+        "GAP-001",
+        "KB-00108",
+        "KB-00216",
+        "KB-00416",
+        "KB-00704",
+        "KB-00752",
+        "KB-00852"
+      ],
+      "cited_policy_doc_ids": []
+    },
+    {
+      "case_id": "support_attention_only_01__risk_investigation",
+      "customer_id": "C0073168",
+      "question_type": "risk_investigation",
+      "api_success": false,
+      "error_type": "IncompleteResponseError",
+      "error": "OpenAI response status was incomplete: {'reason': 'max_output_tokens'}",
+      "failed_metrics": [
+        "citation_resolution_valid",
+        "risk_correct",
+        "required_evidence_all_present",
+        "required_evidence_any_present",
+        "answer_correct",
+        "expected_policy_docs_retrieved",
+        "expected_policy_families_retrieved",
+        "all_citations_retrieved",
+        "all_citation_excerpts_grounded",
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited",
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": []
+    },
+    {
+      "case_id": "support_attention_only_01__policy_guardrails",
+      "customer_id": "C0073168",
+      "question_type": "policy_guardrails",
+      "api_success": false,
+      "error_type": "IncompleteResponseError",
+      "error": "OpenAI response status was incomplete: {'reason': 'max_output_tokens'}",
+      "failed_metrics": [
+        "citation_resolution_valid",
+        "risk_correct",
+        "required_evidence_all_present",
+        "required_evidence_any_present",
+        "answer_correct",
+        "expected_policy_docs_retrieved",
+        "expected_policy_families_retrieved",
+        "all_citations_retrieved",
+        "all_citation_excerpts_grounded",
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited",
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00377",
+        "KB-00722",
+        "KB-00905",
+        "KB-00922"
+      ],
+      "cited_policy_doc_ids": []
+    },
+    {
+      "case_id": "no_warning_signals_02__risk_investigation",
+      "customer_id": "C0085403",
+      "question_type": "risk_investigation",
+      "api_success": false,
+      "error_type": "IncompleteResponseError",
+      "error": "OpenAI response status was incomplete: {'reason': 'max_output_tokens'}",
+      "failed_metrics": [
+        "citation_resolution_valid",
+        "risk_correct",
+        "required_evidence_all_present",
+        "required_evidence_any_present",
+        "answer_correct",
+        "expected_policy_docs_retrieved",
+        "expected_policy_families_retrieved",
+        "all_citations_retrieved",
+        "all_citation_excerpts_grounded",
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited",
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00405",
+        "KB-00705",
+        "KB-00779",
+        "KB-00905"
+      ],
+      "cited_policy_doc_ids": []
+    },
+    {
+      "case_id": "no_warning_signals_03__policy_guardrails",
+      "customer_id": "C0012445",
+      "question_type": "policy_guardrails",
+      "api_success": false,
+      "error_type": "IncompleteResponseError",
+      "error": "OpenAI response status was incomplete: {'reason': 'max_output_tokens'}",
+      "failed_metrics": [
+        "citation_resolution_valid",
+        "risk_correct",
+        "required_evidence_all_present",
+        "required_evidence_any_present",
+        "answer_correct",
+        "expected_policy_docs_retrieved",
+        "expected_policy_families_retrieved",
+        "all_citations_retrieved",
+        "all_citation_excerpts_grounded",
+        "expected_policy_docs_cited",
+        "expected_policy_families_cited",
+        "unsupported_policy_claims_empty"
+      ],
+      "retrieved_policy_doc_ids": [
+        "KB-00108",
+        "KB-00216",
+        "KB-00405",
+        "KB-00705",
+        "KB-00779",
+        "KB-00905"
+      ],
+      "cited_policy_doc_ids": []
+    }
+  ]
+}

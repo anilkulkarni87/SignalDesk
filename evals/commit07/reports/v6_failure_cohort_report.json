@@ -1,0 +1,81 @@
+{
+  "cases": 10,
+  "successful_api_calls": 10,
+  "api_success_rate_pct": 100.0,
+  "first_attempt_successful_api_calls": 10,
+  "first_attempt_api_success_rate_pct": 100.0,
+  "api_retry_attempts_total": 0,
+  "schema_valid_rate_pct": 100.0,
+  "schema_valid_given_api_success_rate_pct": 100.0,
+  "citation_resolution_valid_rate_pct": 100.0,
+  "risk_correct_rate_pct": 100.0,
+  "required_evidence_all_present_rate_pct": 100.0,
+  "required_evidence_any_present_rate_pct": 100.0,
+  "answer_correct_rate_pct": 100.0,
+  "expected_policy_docs_retrieved_rate_pct": 100.0,
+  "expected_policy_families_retrieved_rate_pct": 100.0,
+  "all_citations_retrieved_rate_pct": 100.0,
+  "all_citation_excerpts_grounded_rate_pct": 100.0,
+  "expected_policy_docs_cited_rate_pct": 100.0,
+  "expected_policy_families_cited_rate_pct": 100.0,
+  "unsupported_policy_claims_empty_rate_pct": 100.0,
+  "citation_precision_pct": 100.0,
+  "reasoning_tokens_total": 0,
+  "latency_seconds": {
+    "retrieval": {
+      "mean": 0.2169,
+      "p50": 0.0704,
+      "p95": 0.8653
+    },
+    "generation": {
+      "mean": 5.0841,
+      "p50": 5.1761,
+      "p95": 6.1988
+    },
+    "total": {
+      "mean": 5.3652,
+      "p50": 5.2895,
+      "p95": 6.8113
+    }
+  },
+  "tokens": {
+    "input_total": 46491,
+    "cached_input_total": 9482,
+    "output_total": 5466,
+    "total": 51957
+  },
+  "estimated_generation_cost_usd": 0.070753,
+  "by_question_type": {
+    "policy_guardrails": {
+      "cases": 5,
+      "citation_resolution_valid_rate_pct": 100.0,
+      "risk_correct_rate_pct": 100.0,
+      "required_evidence_all_present_rate_pct": 100.0,
+      "required_evidence_any_present_rate_pct": 100.0,
+      "answer_correct_rate_pct": 100.0,
+      "expected_policy_docs_retrieved_rate_pct": 100.0,
+      "expected_policy_families_retrieved_rate_pct": 100.0,
+      "all_citations_retrieved_rate_pct": 100.0,
+      "all_citation_excerpts_grounded_rate_pct": 100.0,
+      "expected_policy_docs_cited_rate_pct": 100.0,
+      "expected_policy_families_cited_rate_pct": 100.0,
+      "unsupported_policy_claims_empty_rate_pct": 100.0
+    },
+    "risk_investigation": {
+      "cases": 5,
+      "citation_resolution_valid_rate_pct": 100.0,
+      "risk_correct_rate_pct": 100.0,
+      "required_evidence_all_present_rate_pct": 100.0,
+      "required_evidence_any_present_rate_pct": 100.0,
+      "answer_correct_rate_pct": 100.0,
+      "expected_policy_docs_retrieved_rate_pct": 100.0,
+      "expected_policy_families_retrieved_rate_pct": 100.0,
+      "all_citations_retrieved_rate_pct": 100.0,
+      "all_citation_excerpts_grounded_rate_pct": 100.0,
+      "expected_policy_docs_cited_rate_pct": 100.0,
+      "expected_policy_families_cited_rate_pct": 100.0,
+      "unsupported_policy_claims_empty_rate_pct": 100.0
+    }
+  },
+  "failures": []
+}
