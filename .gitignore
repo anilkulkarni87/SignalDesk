@@ -1,6 +1,7 @@
 /data/generated/scale
 /data/warehouse
 /data/generated/incremental
+/data/runtime
 .DS_Store
 .env.example
 __pycache__/

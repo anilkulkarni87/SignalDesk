@@ -3830,3 +3830,101 @@ The framework earned adoption for orchestration and observability, not for an
 unmeasured claim of greater intelligence. Commit 12 can now introduce a real
 human approval boundary and consequential action tools on top of a measured,
 read-only state machine.
+
+## Commit 12 - Human Approval and Consequential Synthetic Actions
+
+Commit 12 asks whether SignalDesk can add write-capable synthetic actions
+without giving the model direct execution authority.
+
+The application supports five typed proposals:
+
+```text
+issue coupon
+enroll campaign
+create support case
+flag account
+send retention offer
+```
+
+The model-facing investigation remains `gpt-5.6-luna` with reasoning set to
+`none`. The authorization experiment makes no model calls. It freezes action
+proposals so the treatment measures permission and recovery mechanics rather
+than recommendation quality.
+
+### Recommendation is not authorization
+
+The workflow separates four stages:
+
+```text
+investigate -> recommend -> human decision -> execute exact payload
+```
+
+Every proposal has an immutable action ID derived from its customer, typed
+payload, recommendation, reason, expected impact, source case, and proposer.
+Changing any reviewed field invalidates the ID. A decision for another action
+is rejected, and a completed thread cannot receive a second decision.
+
+### Durable interruption
+
+The graph records the proposal and approval request, then pauses with a
+LangGraph `interrupt`. Its SQLite checkpointer survives closing and reopening
+the workflow. Resume requires the same thread ID and a typed approve or reject
+decision.
+
+Checkpoint state and action history are stored separately:
+
+```text
+checkpoints.sqlite3   where graph execution should resume
+actions.sqlite3       proposal, decision, audit, synthetic CDP event
+```
+
+The source customer warehouse remains read-only.
+
+### Why execution is idempotent
+
+An approved event may commit immediately before the process fails. The graph's
+last checkpoint then says to execute again. The action ID is therefore a unique
+key in the synthetic event ledger, and audit rows are unique by action and
+event type. A retry returns the existing event instead of writing a duplicate.
+
+### Frozen experiment
+
+All 50 accepted Commit 10 customer cases are reused. Each has one approved and
+one rejected proposal, producing 100 cases. The five action types have 20 cases
+each. Twenty-five approved paths inject a failure after the event commits and
+then recover using a fresh workflow instance.
+
+Measured result:
+
+```text
+approval gated                         100%
+correct approve/reject outcome         100%
+fully audited                          100%
+post-commit recovery                    100% (25/25)
+approved actions executed once         100%
+rejected actions not executed          100%
+duplicate-action rate                    0%
+```
+
+### What this does not prove
+
+This is a local learning system. Reviewer identity is not authenticated,
+SQLite is not a managed authorization service, audit rows are not tamper-proof,
+and actions write only synthetic events. There are no real coupon, campaign,
+support, account, or messaging integrations.
+
+The benchmark also does not evaluate whether each action is the best business
+recommendation for its customer. A separate recommendation-quality experiment
+would need curated expected actions, holdout cases, and repeated model runs.
+
+### Commit 12 conclusion
+
+Commit 12 V1 is accepted.
+
+> The durable workflow enforced approval before every consequential synthetic
+> action, preserved a complete decision audit, recovered after interruption,
+> and produced no duplicate events across the frozen 100-case benchmark.
+
+The key lesson is that permission is an application concern. The model may
+propose; only a validated human decision can grant authority to execute the
+exact reviewed payload.

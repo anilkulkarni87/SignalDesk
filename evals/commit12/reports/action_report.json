@@ -1,0 +1,30 @@
+{
+  "cases": 100,
+  "approved_cases": 50,
+  "rejected_cases": 50,
+  "action_type_counts": {
+    "CREATE_SUPPORT_CASE": 20,
+    "ENROLL_CAMPAIGN": 20,
+    "FLAG_ACCOUNT": 20,
+    "ISSUE_COUPON": 20,
+    "SEND_RETENTION_OFFER": 20
+  },
+  "approval_gated_rate_pct": 100.0,
+  "correct_outcome_rate_pct": 100.0,
+  "actions_audited_rate_pct": 100.0,
+  "state_recovery_rate_pct": 100.0,
+  "injected_post_commit_failures": 25,
+  "approved_action_execution_rate_pct": 100.0,
+  "rejected_action_non_execution_rate_pct": 100.0,
+  "duplicate_action_rate_pct": 0.0,
+  "workflow_version": "commit12_v1_durable_human_approval",
+  "investigation_model": "gpt-5.6-luna",
+  "investigation_reasoning_effort": "none",
+  "model_calls_in_authorization_benchmark": 0,
+  "experiment_design": "Fifty accepted Commit 10 customer cases, each paired with one approve and one reject decision. This deterministic benchmark measures authorization, persistence, auditability, recovery, and idempotency; it does not measure action recommendation quality.",
+  "failures": [],
+  "run_config": {
+    "cases_file": "evals/commit12/cases.jsonl",
+    "cases_sha256": "ceaa25575c5143bcbd724de7a3318a912fbfef51c032e0ec1b107a8c38371d62"
+  }
+}
