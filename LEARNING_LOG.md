@@ -3309,3 +3309,180 @@ retrieval experiments can correctly conclude "do not change the system"
 ```
 
 Commit 08 is complete without adding agents or automatic execution.
+
+---
+
+## Commit 09 - CDP Tool Layer
+
+### Objective
+
+Commit 09 asks a narrower question than "can an agent use the CDP?":
+
+> Can application capabilities be exposed as strict, deterministic APIs before
+> a model is allowed to choose among them?
+
+The order matters. A model can only call a tool safely when application code
+owns validation, data access, error behavior, output shape, and side effects.
+This commit therefore contains no model call and no agent loop.
+
+### The seven contracts
+
+The tool layer exposes seven normal Python functions through a registry:
+
+| Tool | Deterministic responsibility |
+|---|---|
+| `get_customer_profile` | Return a bounded, PII-safe Customer 360 profile |
+| `get_customer_events` | Return identity-resolved events within a validated lookback |
+| `get_purchase_history` | Return bounded orders with product-line evidence |
+| `search_knowledge_base` | Search current, approved knowledge documents |
+| `calculate_customer_metrics` | Return existing semantic-layer metrics by domain |
+| `get_campaign_eligibility` | Identify hard blocks or require further review |
+| `create_retention_recommendation` | Construct a non-persisted draft with evidence |
+
+Each contract has strict Pydantic input and output schemas. Unknown fields are
+rejected. Identifiers, enums, limits, date windows, evidence counts, and
+rationale length are validated before execution. Tool definitions expose their
+JSON schemas and explicitly declare `side_effects = none`.
+
+### Data boundaries are part of the contract
+
+The tools do not expose arbitrary SQL or an unbounded data browser. Each one
+owns a specific read path:
+
+```text
+customer profile     -> customer_360 without raw PII
+event history        -> identity-resolved stg_events, 1-90 days, <=100 rows
+purchase history     -> orders and lines, 1-730 days, <=50 orders
+customer metrics     -> existing Customer 360 features, not a new score
+knowledge search     -> current and approved documents only, <=10 results
+campaign readiness   -> consent and status checks, no final eligibility claim
+recommendation draft -> verified evidence values, no persistence or execution
+```
+
+Time windows use the semantic `customer_360.as_of_ts` rather than the machine
+clock. That keeps repeated calls reproducible against a fixed warehouse.
+
+The profile contract excludes raw email, phone, address, birth date, and
+identity values. The model-facing layer receives only the attributes needed for
+the bounded workflow.
+
+### Honest names and outputs
+
+The warehouse cannot prove final campaign eligibility. It does not contain the
+specific campaign definition, audience rule, offer terms, or complete policy
+interpretation. `get_campaign_eligibility` therefore returns only:
+
+```text
+BLOCKED
+REVIEW_REQUIRED
+```
+
+It never returns `ELIGIBLE`. A contactable channel is permission to continue
+reviewing, not permission to execute a campaign.
+
+Likewise, `create_retention_recommendation` does not create a production
+record. It returns a deterministic draft with:
+
+```text
+requires_human_approval = true
+execution_allowed       = false
+persisted               = false
+```
+
+Application code attaches the real Customer 360 evidence values and verifies
+that referenced policy documents are current and approved. Authority checking
+does not prove semantic entailment, so the output states that limitation.
+
+### Search contract versus search implementation
+
+The knowledge tool currently uses the deterministic local
+`lexical_current_approved` adapter. This does not reverse the Commit 08 vector
+retrieval decision. Commit 09 measures the API contract and execution behavior,
+not retrieval quality. A vector implementation can replace the adapter behind
+the same contract only after a retrieval and tool-level comparison.
+
+This separation is important:
+
+```text
+tool interface       = stable application capability
+retrieval algorithm  = replaceable implementation treatment
+```
+
+### Structured failure behavior
+
+The registry turns execution outcomes into a stable envelope. Expected failures
+do not leak stack traces or database details:
+
+| Error | Meaning |
+|---|---|
+| `VALIDATION_ERROR` | Input violates the typed contract |
+| `NOT_FOUND` | Customer or authoritative policy does not exist |
+| `CONFLICT` | Request crosses a hard business boundary |
+| `UNKNOWN_TOOL` | Requested tool is not registered |
+| `INTERNAL_ERROR` | Unexpected execution failure |
+
+SQL values are parameterized. Malformed IDs, excessive limits, unknown enum
+values, extra arguments, unknown records, and conflicting recommendation
+requests are all frozen evaluation cases.
+
+### Frozen evaluation
+
+The evaluation contains 105 cases:
+
+```text
+7 tools x 10 valid cases   = 70 valid cases
+7 tools x 5 invalid cases  = 35 invalid cases
+5 measured repetitions     = 525 executions
+```
+
+Every case is warmed once before measurement. Timings include validation,
+bounded execution, output validation, and result-envelope construction. They
+exclude one-time DuckDB connection and lexical-index construction.
+
+| Tool | Valid success | Invalid behavior | p95 latency |
+|---|---:|---:|---:|
+| `calculate_customer_metrics` | 100% | 100% | 44.260 ms |
+| `create_retention_recommendation` | 100% | 100% | 43.943 ms |
+| `get_campaign_eligibility` | 100% | 100% | 44.134 ms |
+| `get_customer_events` | 100% | 100% | 58.199 ms |
+| `get_customer_profile` | 100% | 100% | 43.654 ms |
+| `get_purchase_history` | 100% | 100% | 53.953 ms |
+| `search_knowledge_base` | 100% | 100% | 4.596 ms |
+
+Overall results:
+
+```text
+valid input success rate    = 100%
+invalid input behavior rate = 100%
+failed frozen cases         = 0
+line/branch coverage         = 96.05%
+coverage target              > 80%
+```
+
+The benchmark proves that the frozen calls satisfy their declared contracts
+and that invalid inputs fail as expected. It does not prove that the tools are
+complete for every business workflow, that lexical retrieval is best, or that
+a model will select the correct tool and arguments.
+
+### Lessons
+
+1. A tool is an API endpoint whose caller may be probabilistic. That makes the
+   deterministic contract more important, not less important.
+2. The model should choose intent; application code must own authority,
+   validation, bounded access, and side effects.
+3. Useful refusal states such as `REVIEW_REQUIRED` are more honest than false
+   precision.
+4. A function named `create` is dangerous unless persistence and execution are
+   explicit contract fields.
+5. Valid-path tests are insufficient. An agent-facing API needs measured
+   invalid-input behavior because malformed calls are normal operating events.
+6. Tool quality and model tool-selection quality are separate evaluation
+   problems.
+
+### Commit 09 conclusion
+
+The CDP now has a typed, read-only capability layer that can be offered to a
+model without exposing the warehouse directly. Commit 10 can introduce the
+first bounded agent and measure whether the model chooses the right tool,
+constructs valid arguments, and stops correctly. Automatic customer action
+remains out of scope.

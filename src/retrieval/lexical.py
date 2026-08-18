@@ -158,12 +158,15 @@ class LexicalIndex:
         *,
         statuses: set[str] | None = None,
         authority: set[str] | None = None,
+        families: set[str] | None = None,
     ) -> "LexicalIndex":
         documents = load_documents(corpus_dir)
         if statuses is not None:
             documents = [doc for doc in documents if doc.status in statuses]
         if authority is not None:
             documents = [doc for doc in documents if doc.authority in authority]
+        if families is not None:
+            documents = [doc for doc in documents if doc.family in families]
         return cls(documents)
 
     def search(
@@ -173,12 +176,15 @@ class LexicalIndex:
         top_k: int = 3,
         statuses: set[str] | None = None,
         authority: set[str] | None = None,
+        families: set[str] | None = None,
     ) -> list[RetrievalResult]:
         documents = self.documents
         if statuses is not None:
             documents = [doc for doc in documents if doc.status in statuses]
         if authority is not None:
             documents = [doc for doc in documents if doc.authority in authority]
+        if families is not None:
+            documents = [doc for doc in documents if doc.family in families]
 
         query_terms = expand_query_terms(tokenize(query))
         if len(documents) == len(self.documents):
@@ -226,10 +232,12 @@ def search(
     top_k: int = 3,
     statuses: set[str] | None = None,
     authority: set[str] | None = None,
+    families: set[str] | None = None,
 ) -> list[RetrievalResult]:
     return LexicalIndex.from_corpus(corpus_dir).search(
         query,
         top_k=top_k,
         statuses=statuses,
         authority=authority,
+        families=families,
     )
