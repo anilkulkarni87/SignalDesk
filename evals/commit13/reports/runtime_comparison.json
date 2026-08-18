@@ -1,0 +1,84 @@
+{
+  "comparison_cases": 20,
+  "runtime_executions": 40,
+  "external_model_api_calls": 0,
+  "deterministic_model_replay_calls": 40,
+  "runtimes": {
+    "langgraph": {
+      "cases": 20,
+      "approval_gated_rate_pct": 100.0,
+      "correct_outcome_rate_pct": 100.0,
+      "actions_audited_rate_pct": 100.0,
+      "state_recovery_rate_pct": 100.0,
+      "duplicate_action_rate_pct": 0.0,
+      "latency_ms": {
+        "mean": 26.6771,
+        "p50": 25.315,
+        "p95": 35.2724
+      },
+      "pending_state_bytes": {
+        "mean": 28672.0,
+        "min": 28672,
+        "max": 28672
+      },
+      "workflow_version": "commit12_v1_durable_human_approval",
+      "framework_version": "1.2.9",
+      "implementation_source_lines": 224
+    },
+    "openai_agents_sdk": {
+      "cases": 20,
+      "approval_gated_rate_pct": 100.0,
+      "correct_outcome_rate_pct": 100.0,
+      "actions_audited_rate_pct": 100.0,
+      "state_recovery_rate_pct": 100.0,
+      "duplicate_action_rate_pct": 0.0,
+      "latency_ms": {
+        "mean": 19.4219,
+        "p50": 15.0977,
+        "p95": 26.69
+      },
+      "pending_state_bytes": {
+        "mean": 8285.0,
+        "min": 8260,
+        "max": 8294
+      },
+      "workflow_version": "commit13_v1_agents_sdk_coupon_approval",
+      "framework_version": "0.18.3",
+      "openai_client_version": "2.54.0",
+      "implementation_source_lines": 270
+    }
+  },
+  "behavioral_parity": true,
+  "qualitative_comparison": {
+    "state": {
+      "langgraph": "Typed graph state with automatic SQLite checkpoints.",
+      "openai_agents_sdk": "Serializable RunState; the application chooses and manages storage."
+    },
+    "routing": {
+      "langgraph": "Explicit named nodes and conditional edges.",
+      "openai_agents_sdk": "Implicit model/tool runner loop."
+    },
+    "tool_calls": {
+      "langgraph": "Application-owned action node.",
+      "openai_agents_sdk": "SDK-native function tool selected by model output."
+    },
+    "human_approval": {
+      "langgraph": "Application-defined interrupt payload and Command resume.",
+      "openai_agents_sdk": "Tool needs_approval, interruption, RunState approve/reject."
+    },
+    "tracing": {
+      "langgraph": "State history and explicit transition list.",
+      "openai_agents_sdk": "Built-in trace spans; export disabled in deterministic benchmark."
+    },
+    "testability": {
+      "langgraph": "Node methods and checkpoint snapshots are directly testable.",
+      "openai_agents_sdk": "Custom Model enables deterministic Runner and approval tests."
+    }
+  },
+  "experiment_design": "Twenty frozen Commit 12 ISSUE_COUPON cases run through both runtimes. A deterministic model replay isolates orchestration and makes no API calls.",
+  "failures": [],
+  "run_config": {
+    "cases_file": "evals/commit13/cases.jsonl",
+    "cases_sha256": "007a26ccc6d8ef85f9650bb4ba6178dba1188500744f630aa25d82d84044c78e"
+  }
+}

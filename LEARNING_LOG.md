@@ -3928,3 +3928,105 @@ Commit 12 V1 is accepted.
 The key lesson is that permission is an application concern. The model may
 propose; only a validated human decision can grant authority to execute the
 exact reviewed payload.
+
+## Commit 13 - Comparing LangGraph and the OpenAI Agents SDK
+
+Commit 13 asks whether the approval architecture learned in Commit 12 can be
+implemented in another runtime without weakening its behavior.
+
+The experiment freezes one small workflow:
+
+```text
+model proposes ISSUE_COUPON
+-> human approval interruption
+-> approve or reject
+-> synthetic event or no event
+-> audit and recovery
+```
+
+Twenty frozen Commit 12 coupon cases contain ten approvals, ten rejections, and
+five approved paths with a failure after the event commits.
+
+### Runtime A: LangGraph
+
+LangGraph represents the process as typed state, named nodes, conditional
+edges, SQLite checkpoints, `interrupt`, and `Command` resume. The application
+owns the action node.
+
+### Runtime B: OpenAI Agents SDK
+
+The SDK represents the process as an agent loop with an `issue_coupon` function
+tool marked `needs_approval=True`. A model tool call produces an interruption.
+The application serializes `RunState`, reconstructs it after restart, records
+the decision, approves or rejects the specific tool call, and resumes the
+runner.
+
+The SDK owns approval state for the tool call. The application still owns exact
+payload validation, the reviewer audit, and idempotent execution.
+
+### Controlled model replay
+
+The candidate defaults to `gpt-5.6-luna` with reasoning `none`, but the measured
+comparison replaces the network model with a deterministic SDK `Model`. It
+emits the frozen tool call and final answer through the real runner.
+
+This produced 40 runtime executions and 40 deterministic replay calls with no
+external model API calls. The claim is orchestration parity, not new model
+quality.
+
+### Result
+
+```text
+                                      LangGraph   Agents SDK
+approval gated                          100%         100%
+correct outcome                         100%         100%
+fully audited                           100%         100%
+recovery                                100%         100%
+duplicate-action rate                     0%           0%
+mean local runtime                    26.6771ms     19.4219ms
+p95 local runtime                     35.2724ms     26.6900ms
+mean pending-state artifact          28,672B        8,285B
+```
+
+Both runtimes satisfy the frozen behavior contract. An adversarial test changes
+the model-proposed discount from 10% to 50%; the SDK adapter rejects it before
+review or execution.
+
+### Interpretation limits
+
+The local latency excludes network model time and is not a production
+performance result. State size compares SQLite file allocation with JSON
+payload length. Source size also reflects different integration choices and is
+not a quality score.
+
+Behavioral parity is the defensible conclusion.
+
+### Dependency finding
+
+`openai-agents==0.18.3` requires `openai>=2.45,<3`. Installation resolved the
+OpenAI client from `3.2.0` to `2.54.0`. All SignalDesk tests passed under the
+resolved environment, but a framework changing a shared foundational
+dependency is architecture evidence, not installation trivia.
+
+### Framework decision
+
+SignalDesk retains LangGraph.
+
+Its workflow is an explicit long-running business state machine with visible
+investigation routes, approval, execution, and recovery boundaries. Named
+nodes and checkpoint snapshots fit that shape.
+
+The OpenAI Agents SDK is a viable alternative and passed the same permission
+contract. It fits naturally when the central abstraction is a model/tool loop
+and native approvals, sessions, handoffs, and tracing matter more than explicit
+domain graph transitions.
+
+### Commit 13 conclusion
+
+> Framework selection should follow workflow shape, persistence ownership,
+> operational constraints, and customer environment rather than framework
+> popularity.
+
+Commit 13 proves that the safety architecture is portable across runtimes. The
+decision to retain LangGraph is contextual, not an expression of framework
+loyalty.
