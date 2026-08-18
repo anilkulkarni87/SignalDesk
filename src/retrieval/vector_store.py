@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import re
 from dataclasses import asdict, dataclass
 from typing import Any, Iterable
 
@@ -10,6 +11,7 @@ from .chunking import KnowledgeChunk
 
 
 DEFAULT_PG_DSN = "postgresql://signaldesk:signaldesk@localhost:5432/signaldesk"
+SQL_IDENTIFIER_RE = re.compile(r"^[a-z][a-z0-9_]{0,62}$")
 
 
 @dataclass(frozen=True)
@@ -43,9 +45,32 @@ def vector_literal(vector: Iterable[float]) -> str:
     return "[" + ",".join(format(value, ".9g") for value in values) + "]"
 
 
+def validate_sql_identifier(value: str) -> str:
+    if not SQL_IDENTIFIER_RE.fullmatch(value):
+        raise ValueError(
+            "SQL identifiers must start with a lowercase letter, contain only "
+            "lowercase letters, numbers, and underscores, and be at most 63 characters"
+        )
+    return value
+
+
 class PgVectorStore:
-    def __init__(self, dsn: str | None = None) -> None:
+    def __init__(
+        self,
+        dsn: str | None = None,
+        *,
+        table_name: str = "knowledge_chunks",
+        metadata_table_name: str | None = None,
+    ) -> None:
         self.dsn = resolve_dsn(dsn)
+        self.table_name = validate_sql_identifier(table_name)
+        if metadata_table_name is None:
+            metadata_table_name = (
+                "knowledge_index_metadata"
+                if table_name == "knowledge_chunks"
+                else f"{table_name}_metadata"
+            )
+        self.metadata_table_name = validate_sql_identifier(metadata_table_name)
 
     @staticmethod
     def _connect(dsn: str):
@@ -65,9 +90,9 @@ class PgVectorStore:
             with connection.cursor() as cursor:
                 cursor.execute("CREATE EXTENSION IF NOT EXISTS vector")
                 if recreate:
-                    cursor.execute("DROP TABLE IF EXISTS knowledge_chunks")
+                    cursor.execute(f"DROP TABLE IF EXISTS {self.table_name}")
                 cursor.execute(f"""
-                    CREATE TABLE IF NOT EXISTS knowledge_chunks (
+                    CREATE TABLE IF NOT EXISTS {self.table_name} (
                         chunk_id TEXT PRIMARY KEY,
                         document_id TEXT NOT NULL,
                         title TEXT NOT NULL,
@@ -83,15 +108,15 @@ class PgVectorStore:
                         embedding vector({dimension}) NOT NULL
                     )
                 """)
-                cursor.execute("""
-                    CREATE TABLE IF NOT EXISTS knowledge_index_metadata (
+                cursor.execute(f"""
+                    CREATE TABLE IF NOT EXISTS {self.metadata_table_name} (
                         key TEXT PRIMARY KEY,
                         value JSONB NOT NULL
                     )
                 """)
-                cursor.execute("""
-                    CREATE INDEX IF NOT EXISTS knowledge_chunks_filter_idx
-                    ON knowledge_chunks (status, authority, family)
+                cursor.execute(f"""
+                    CREATE INDEX IF NOT EXISTS {self.table_name}_filter_idx
+                    ON {self.table_name} (status, authority, family)
                 """)
 
     def check_connection(self) -> None:
@@ -110,8 +135,8 @@ class PgVectorStore:
         if batch_size <= 0:
             raise ValueError("batch_size must be positive")
 
-        sql = """
-            INSERT INTO knowledge_chunks (
+        sql = f"""
+            INSERT INTO {self.table_name} (
                 chunk_id, document_id, title, family, document_type,
                 status, authority, topic, position, content, source_path,
                 metadata, embedding
@@ -166,14 +191,14 @@ class PgVectorStore:
     def create_hnsw_index(self) -> None:
         with self._connect(self.dsn) as connection:
             with connection.cursor() as cursor:
-                cursor.execute("""
-                    CREATE INDEX IF NOT EXISTS knowledge_chunks_embedding_hnsw_idx
-                    ON knowledge_chunks USING hnsw (embedding vector_cosine_ops)
+                cursor.execute(f"""
+                    CREATE INDEX IF NOT EXISTS {self.table_name}_embedding_hnsw_idx
+                    ON {self.table_name} USING hnsw (embedding vector_cosine_ops)
                 """)
 
     def set_metadata(self, metadata: dict[str, Any]) -> None:
-        sql = """
-            INSERT INTO knowledge_index_metadata (key, value)
+        sql = f"""
+            INSERT INTO {self.metadata_table_name} (key, value)
             VALUES (%s, %s::jsonb)
             ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value
         """
@@ -187,7 +212,12 @@ class PgVectorStore:
     def get_metadata(self) -> dict[str, Any]:
         with self._connect(self.dsn) as connection:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT key, value FROM knowledge_index_metadata")
+                cursor.execute("SELECT to_regclass(%s)", (self.metadata_table_name,))
+                if cursor.fetchone()[0] is None:
+                    return {}
+                cursor.execute(
+                    f"SELECT key, value FROM {self.metadata_table_name}"
+                )
                 return {key: value for key, value in cursor.fetchall()}
 
     def search(
@@ -230,7 +260,7 @@ class PgVectorStore:
                     chunk_id, document_id, title, family, document_type,
                     status, authority, topic, content, source_path,
                     embedding <=> %s::vector AS distance
-                FROM knowledge_chunks
+                FROM {self.table_name}
                 {filter_sql}
                 ORDER BY embedding <=> %s::vector
                 LIMIT %s

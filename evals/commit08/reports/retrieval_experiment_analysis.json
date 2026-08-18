@@ -1,0 +1,252 @@
+{
+  "experiment_version": "commit08_retrieval_experiments_v1",
+  "source_matrix": "evals/commit08/reports/retrieval_experiment_matrix.json",
+  "source_matrix_sha256": "118ff0544aa6593571522e14bfb162ae2ce5928425680ec87201d8c285a3f7af",
+  "corrected_selection": {
+    "quality_order": [
+      "vector_baseline",
+      "vector_large_chunks",
+      "vector_small_chunks",
+      "vector_lexical_rerank",
+      "hybrid_rrf",
+      "lexical_reference",
+      "vector_unfiltered",
+      "vector_no_overlap"
+    ],
+    "generation_gate_candidates": [
+      "vector_baseline"
+    ],
+    "equivalent_treatment_groups": [
+      [
+        "vector_baseline",
+        "vector_no_overlap"
+      ]
+    ]
+  },
+  "decision": {
+    "adopted_retriever": "vector_baseline",
+    "new_generation_gate_required": false,
+    "reason": "No distinct retrieval treatment strictly improved the baseline without governance failures or rank-five selector regressions. The Commit 07 baseline remains adopted, so rerunning 100 LLM calls would not test a new retrieval hypothesis."
+  },
+  "experiment_classifications": {
+    "lexical_reference": {
+      "decision": "reject_retrieval_regressions",
+      "reason": "Introduced 15 complete-selector regression(s) at rank five.",
+      "hit_rate_at_5_pct": 68.0,
+      "all_selector_coverage_at_5_pct": 68.0,
+      "mrr": 0.4974,
+      "p95_latency_ms": 7.92,
+      "current_approved_result_rate_at_5_pct": 100.0,
+      "equivalent_to_baseline": false,
+      "regressed_cases_at_5": [
+        "campaigns_01",
+        "campaigns_04",
+        "consent_02",
+        "consent_04",
+        "known_gap_01",
+        "known_gap_03",
+        "loyalty_02",
+        "loyalty_04",
+        "offers_01",
+        "offers_04",
+        "retention_03",
+        "retention_04",
+        "retention_05",
+        "shipping_04",
+        "support_01"
+      ],
+      "improved_cases_at_5": [
+        "retention_02"
+      ]
+    },
+    "vector_unfiltered": {
+      "decision": "reject_governance_failure",
+      "reason": "Top-five results are not entirely current and approved.",
+      "hit_rate_at_5_pct": 68.0,
+      "all_selector_coverage_at_5_pct": 96.0,
+      "mrr": 0.3908,
+      "p95_latency_ms": 33.407,
+      "current_approved_result_rate_at_5_pct": 26.4,
+      "equivalent_to_baseline": false,
+      "regressed_cases_at_5": [],
+      "improved_cases_at_5": []
+    },
+    "vector_baseline": {
+      "decision": "retain_baseline",
+      "reason": "Incumbent treatment; no tested alternative produced a strict improvement.",
+      "hit_rate_at_5_pct": 98.0,
+      "all_selector_coverage_at_5_pct": 96.0,
+      "mrr": 0.9032,
+      "p95_latency_ms": 24.05,
+      "current_approved_result_rate_at_5_pct": 100.0,
+      "equivalent_to_baseline": false,
+      "regressed_cases_at_5": [],
+      "improved_cases_at_5": []
+    },
+    "vector_small_chunks": {
+      "decision": "reject_retrieval_regressions",
+      "reason": "Introduced 1 complete-selector regression(s) at rank five.",
+      "hit_rate_at_5_pct": 96.0,
+      "all_selector_coverage_at_5_pct": 94.0,
+      "mrr": 0.8944,
+      "p95_latency_ms": 24.625,
+      "current_approved_result_rate_at_5_pct": 100.0,
+      "equivalent_to_baseline": false,
+      "regressed_cases_at_5": [
+        "refunds_05"
+      ],
+      "improved_cases_at_5": []
+    },
+    "vector_no_overlap": {
+      "decision": "not_a_distinct_treatment",
+      "reason": "Chunk content, retrieval strategy, filters, and ranking parameters are identical to the baseline; latency differences are run noise.",
+      "hit_rate_at_5_pct": 98.0,
+      "all_selector_coverage_at_5_pct": 96.0,
+      "mrr": 0.9032,
+      "p95_latency_ms": 21.579,
+      "current_approved_result_rate_at_5_pct": 100.0,
+      "equivalent_to_baseline": true,
+      "regressed_cases_at_5": [],
+      "improved_cases_at_5": []
+    },
+    "vector_large_chunks": {
+      "decision": "reject_retrieval_regressions",
+      "reason": "Introduced 1 complete-selector regression(s) at rank five.",
+      "hit_rate_at_5_pct": 96.0,
+      "all_selector_coverage_at_5_pct": 94.0,
+      "mrr": 0.8957,
+      "p95_latency_ms": 28.856,
+      "current_approved_result_rate_at_5_pct": 100.0,
+      "equivalent_to_baseline": false,
+      "regressed_cases_at_5": [
+        "retention_03"
+      ],
+      "improved_cases_at_5": []
+    },
+    "hybrid_rrf": {
+      "decision": "reject_retrieval_regressions",
+      "reason": "Introduced 6 complete-selector regression(s) at rank five.",
+      "hit_rate_at_5_pct": 88.0,
+      "all_selector_coverage_at_5_pct": 86.0,
+      "mrr": 0.7482,
+      "p95_latency_ms": 26.971,
+      "current_approved_result_rate_at_5_pct": 100.0,
+      "equivalent_to_baseline": false,
+      "regressed_cases_at_5": [
+        "consent_02",
+        "known_gap_01",
+        "known_gap_03",
+        "offers_04",
+        "retention_03",
+        "retention_04"
+      ],
+      "improved_cases_at_5": [
+        "retention_02"
+      ]
+    },
+    "vector_lexical_rerank": {
+      "decision": "reject_retrieval_regressions",
+      "reason": "Introduced 2 complete-selector regression(s) at rank five.",
+      "hit_rate_at_5_pct": 94.0,
+      "all_selector_coverage_at_5_pct": 92.0,
+      "mrr": 0.9007,
+      "p95_latency_ms": 26.661,
+      "current_approved_result_rate_at_5_pct": 100.0,
+      "equivalent_to_baseline": false,
+      "regressed_cases_at_5": [
+        "offers_04",
+        "support_01"
+      ],
+      "improved_cases_at_5": []
+    }
+  },
+  "index_build_analysis": {
+    "total_embedding_input_tokens": 1228865,
+    "query_embedding_input_tokens": 561,
+    "total_build_latency_ms": 64066.239,
+    "duplicate_no_overlap_embedding_tokens": 300972,
+    "lesson": "The 220/0 and 220/40 chunk outputs are byte-identical. A treatment fingerprint should be checked before paying to embed both variants."
+  },
+  "persistent_failure_analysis": {
+    "retention_02": {
+      "classification": "ranking_ambiguity",
+      "result_by_experiment": {
+        "lexical_reference": {
+          "first_relevant_rank": 5,
+          "all_selectors_at_5": true
+        },
+        "vector_unfiltered": {
+          "first_relevant_rank": null,
+          "all_selectors_at_5": false
+        },
+        "vector_baseline": {
+          "first_relevant_rank": 8,
+          "all_selectors_at_5": false
+        },
+        "vector_small_chunks": {
+          "first_relevant_rank": 8,
+          "all_selectors_at_5": false
+        },
+        "vector_no_overlap": {
+          "first_relevant_rank": 8,
+          "all_selectors_at_5": false
+        },
+        "vector_large_chunks": {
+          "first_relevant_rank": 8,
+          "all_selectors_at_5": false
+        },
+        "hybrid_rrf": {
+          "first_relevant_rank": 4,
+          "all_selectors_at_5": true
+        },
+        "vector_lexical_rerank": {
+          "first_relevant_rank": 7,
+          "all_selectors_at_5": false
+        }
+      },
+      "finding": "The vector baseline retrieves the right retention topic at rank eight. Lexical and hybrid move it into the top five, but their global configurations introduce broader regressions."
+    },
+    "cross_family_01": {
+      "classification": "query_decomposition_failure",
+      "result_by_experiment": {
+        "lexical_reference": {
+          "selector_recall_at_5": 0.0,
+          "selector_recall_at_10": 0.5
+        },
+        "vector_unfiltered": {
+          "selector_recall_at_5": 0.5,
+          "selector_recall_at_10": 0.5
+        },
+        "vector_baseline": {
+          "selector_recall_at_5": 0.5,
+          "selector_recall_at_10": 0.5
+        },
+        "vector_small_chunks": {
+          "selector_recall_at_5": 0.5,
+          "selector_recall_at_10": 0.5
+        },
+        "vector_no_overlap": {
+          "selector_recall_at_5": 0.5,
+          "selector_recall_at_10": 0.5
+        },
+        "vector_large_chunks": {
+          "selector_recall_at_5": 0.5,
+          "selector_recall_at_10": 0.5
+        },
+        "hybrid_rrf": {
+          "selector_recall_at_5": 0.5,
+          "selector_recall_at_10": 0.5
+        },
+        "vector_lexical_rerank": {
+          "selector_recall_at_5": 0.5,
+          "selector_recall_at_10": 0.5
+        }
+      },
+      "finding": "Every strategy covers only one of two required policy selectors, including at rank ten. Increasing K or globally fusing rankings does not solve the missing intent."
+    }
+  },
+  "next_hypothesis": {
+    "statement": "Explicitly decomposing multi-intent policy questions before retrieval should recover each required family without weakening strong single-intent vector rankings.",
+    "boundary": "Test on a newly frozen multi-intent retrieval set before changing the adopted Commit 07 pipeline; do not tune against the single existing cross-family case."
+  }
+}
