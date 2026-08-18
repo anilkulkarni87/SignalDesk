@@ -1,0 +1,14 @@
+{
+  "embedding_model": "text-embedding-3-small",
+  "embedding_dimensions": 1536,
+  "corpus_dir": "data/generated/knowledge",
+  "document_count": 1004,
+  "chunk_count": 1093,
+  "max_words": 220,
+  "overlap_words": 40,
+  "built_at": "2026-08-18T00:50:57.889143+00:00",
+  "inserted_chunks": 1093,
+  "embedding_input_tokens": 300972,
+  "embedding_latency_ms": 15149.68,
+  "total_latency_ms": 18305.35
+}
