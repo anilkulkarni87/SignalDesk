@@ -17,6 +17,7 @@ from src.api import APIConfig, SignalDeskService, create_app
 from src.api.logging import JsonLogFormatter
 from src.api.resilience import IdempotencyInProgress, IdempotencyStore
 from src.llm.retry import with_exponential_backoff
+from src.warehouse import SEMANTIC_TIMEZONE, configure_semantic_timezone
 from tests.commit15.test_api import (
     ACCESS_CODE,
     CUSTOMER_ID,
@@ -101,6 +102,21 @@ class Commit17HardeningTests(unittest.TestCase):
             headers=headers,
             json={"customer_id": CUSTOMER_ID, "question": question},
         )
+
+    def test_duckdb_connections_use_explicit_semantic_timezone(self):
+        import duckdb
+
+        connection = duckdb.connect()
+        try:
+            connection.execute("SET TimeZone = 'UTC'")
+            configure_semantic_timezone(connection)
+            configured = connection.execute(
+                "SELECT current_setting('TimeZone')"
+            ).fetchone()[0]
+        finally:
+            connection.close()
+
+        self.assertEqual(configured, SEMANTIC_TIMEZONE)
 
     def test_liveness_stays_up_while_readiness_reports_dependency_failure(self):
         ready = self.client.get("/api/v1/health/ready")

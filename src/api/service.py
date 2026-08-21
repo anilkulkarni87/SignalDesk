@@ -27,6 +27,7 @@ from src.observability import (
 )
 from src.tools import CDPTools, ToolRegistry
 from src.tools.schemas import ToolCallResult
+from src.warehouse import configure_semantic_timezone
 from src.workflow import LangGraphCustomerInvestigator
 from src.workflow.schemas import WorkflowRun
 
@@ -79,6 +80,7 @@ class CustomerRepository:
         except ImportError as exc:
             raise RuntimeError("Install DuckDB from requirements-commit16.txt") from exc
         self._connection = duckdb.connect(str(database), read_only=True)
+        configure_semantic_timezone(self._connection)
         self._lock = threading.RLock()
 
     def close(self) -> None:

@@ -21,6 +21,7 @@ TABLES = [
     "subscriptions",
     "consent_preferences",
 ]
+SEMANTIC_TIMEZONE = "America/Los_Angeles"
 
 
 def parse_args():
@@ -67,6 +68,7 @@ def main():
     args.output.parent.mkdir(parents=True, exist_ok=True)
 
     con = duckdb.connect(str(args.database))
+    con.execute("SET TimeZone = ?", [SEMANTIC_TIMEZONE])
 
     for table in TABLES:
         path = find_source(args.input_dir, table)

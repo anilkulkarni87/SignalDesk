@@ -7,6 +7,7 @@ from typing import Any
 
 from src.retrieval.documents import load_documents
 from src.retrieval.lexical import LexicalIndex
+from src.warehouse import configure_semantic_timezone
 
 from .errors import ToolConflictError, ToolNotFoundError
 from .schemas import (
@@ -126,6 +127,7 @@ class CDPTools:
             raise RuntimeError("Install DuckDB from requirements-commit09.txt") from exc
 
         self._connection = duckdb.connect(str(database), read_only=True)
+        configure_semantic_timezone(self._connection)
         documents = load_documents(corpus_dir)
         self._policy_documents = {
             document.document_id: document
