@@ -1,14 +1,16 @@
 # SignalDesk
 
 SignalDesk is a synthetic customer-intelligence learning system built one
-measured milestone at a time. Commit 17 hardens the observable API and analyst
-workspace with bounded failure behavior, deployment artifacts, and CI gates.
+measured milestone at a time. Commit 18 packages the customer hypothesis,
+architecture, evidence, controls, operations, economics, limitations, and next
+validation decision into an FDE delivery pack.
 
-Start with [README_COMMIT17.md](README_COMMIT17.md) for installation, run
-commands, architecture, verification, and the roadmap metric.
+Start with [README_COMMIT18.md](README_COMMIT18.md), then follow the
+[FDE delivery pack](docs/fde/README.md) or the
+[ten-minute demo](docs/fde/demo.md).
 
 The Commit 04 historical guide remains below, and later milestone guides are in
-`README_COMMIT05.md` through `README_COMMIT16.md`. The cumulative engineering
+`README_COMMIT05.md` through `README_COMMIT17.md`. The cumulative engineering
 record is in `LEARNING_LOG.md`, and the accompanying articles are under
 `docs/blog`.
 
@@ -31,6 +33,7 @@ Next.js analyst workspace
   -> durable exact-payload human approval
   -> scoped run observability and human evaluation
   -> bounded retries, rate limits, idempotency, readiness, and deployment
+  -> evidence-labeled FDE delivery and validation roadmap
 ```
 
 The system is intentionally local and synthetic. It is designed to teach and

@@ -4435,14 +4435,18 @@ production npm audit.
 
 CI rebuilds deterministic synthetic data, checks Python lint, runs all tests,
 enforces 80% API-boundary coverage, verifies the frontend, and builds both
-images. Local syntax and build verification passed; the first GitHub-hosted CI
-run remains external evidence after push.
+images. The first GitHub-hosted run found two assumptions masked locally:
+`pytz` was available transitively on the developer machine but undeclared, and
+DuckDB inherited the host timezone when evaluating Customer 360 date
+expressions. Declaring the runtime dependency and setting an explicit semantic
+timezone made the build reproducible. The corrected backend, frontend, and
+container jobs all passed in run `32453609629`.
 
 ### Verification
 
 ```text
-Commit 17 focused tests          13 passed
-full repository tests           147 passed
+Commit 17 focused tests          14 passed
+full repository tests           148 passed
 OpenAPI paths                    13
 API boundary coverage           92%
 failure scenarios                8 / 8 passed
@@ -4456,6 +4460,10 @@ API image user / runtime         signaldesk / passed
 web image user / runtime         node / passed
 external model calls             0
 ```
+
+The failure-injection JSON remains the original 147-test experiment snapshot.
+The final count includes the later timezone regression test; preserving both
+numbers keeps the sequence of evidence auditable.
 
 The final API container load smoke measured 100/100 liveness requests, zero
 unhandled exceptions, 8.847 ms p50, 48.749 ms p95, and 770.58 requests/second
@@ -4474,3 +4482,100 @@ manager integration, alerting system, or real provider outage drill.
 > Production hardening means deciding which failures are retryable, which work
 > must be deduplicated, when an instance must stop receiving traffic, and how
 > every failure remains observable.
+
+The CI incident added one more lesson: a green local environment can conceal
+undeclared dependencies and ambient configuration. Reproducibility requires
+making those assumptions explicit, then testing from a clean environment.
+
+## Commit 18 - FDE Delivery Pack
+
+### Learning objective
+
+Commit 18 changes the unit of work from a technical feature to a defensible
+delivery decision:
+
+> Can the complete SignalDesk journey be explained to customer, engineering,
+> security, and operations stakeholders without turning synthetic evidence into
+> a production or business claim?
+
+SignalDesk remains a fictional, synthetic learning system. No real customer
+interviews, production data, analyst time study, or business outcome occurred.
+
+### What was delivered
+
+The `docs/fde/` pack contains discovery, requirements, architecture, security,
+evaluation, deployment, runbook, ROI, known limitations, validation roadmap,
+and a ten-minute demo.
+
+The pack uses four evidence labels:
+
+```text
+measured       checked-in report, test, benchmark, or CI result
+demonstrated   observed in the local workflow
+inferred       engineering conclusion supported by measurements
+hypothesis     requires representative users or real data
+```
+
+This prevents a chain of invalid substitutions such as "100% on curated cases"
+becoming "production accuracy" or a fictional time target becoming "hours
+saved."
+
+### Evidence that must remain visible
+
+```text
+vector Recall@5 experiment        98%
+lexical Recall@5 experiment       68%
+accepted serving retrieval        lexical_current_approved
+Commit 10 task completion         50 / 50
+Commit 10 p95 latency             9.2174 seconds
+latency target                    below 8 seconds, not met
+Commit 17 failure scenarios       8 / 8 passed
+Commit 17 repository tests        148 passed
+Commit 18 repository tests        152 passed
+human investigation time          not measured
+business impact                   not measured
+```
+
+Commit 05's original V1/V2 comparison remains repeatability evidence. The
+placeholder prompts were behaviorally identical, and review found ambiguous
+selectors in the first case set. It must not be presented as a prompt-quality
+win.
+
+### Architecture lesson
+
+Experiments are not automatically serving dependencies. Vector retrieval and
+the Agents SDK remain historical comparisons; the accepted product uses lexical
+current-approved retrieval and LangGraph. Security, runbooks, and failure tests
+must follow the path that actually runs.
+
+### ROI lesson
+
+The fictional 25-minute midpoint and three-minute target imply a theoretical
+22-minute reduction. At 300 weekly investigations, that is at most 110 hours of
+capacity. The number is not realized value. Adoption, rework, escalation,
+operating cost, and the ability to redeploy capacity must be measured.
+
+### Verification
+
+```text
+Commit 18 delivery-pack tests     4 passed
+full repository tests             152 passed
+external model calls              0
+```
+
+The checks enforce required files, synthetic-scope declarations, frozen
+behavioral configuration, and valid local evidence links. They verify package
+consistency, not the truth of a customer outcome.
+
+### Next evidence
+
+The next useful milestone is not another prompt or framework. It is real
+discovery, an independently labeled offline set, and a read-only shadow pilot
+with stop conditions for cross-customer access, unsupported policy advice,
+unauthorized action, or missing audit evidence.
+
+### Commit 18 conclusion
+
+> FDE delivery is the discipline of connecting a customer hypothesis to an
+> explicit architecture, bounded authority, reproducible evidence, operational
+> limits, transparent economics, and the next reversible decision.
