@@ -73,7 +73,9 @@ class ActionProposal(StrictModel):
     reason: str = Field(min_length=10, max_length=1000)
     expected_impact: str = Field(min_length=10, max_length=500)
     source_case_id: str = Field(min_length=3, max_length=200)
-    proposed_by: Literal["signaldesk_agent"] = "signaldesk_agent"
+    proposed_by: Literal["signaldesk_agent", "signaldesk_workspace"] = (
+        "signaldesk_agent"
+    )
 
     @classmethod
     def build(
@@ -85,6 +87,9 @@ class ActionProposal(StrictModel):
         reason: str,
         expected_impact: str,
         source_case_id: str,
+        proposed_by: Literal["signaldesk_agent", "signaldesk_workspace"] = (
+            "signaldesk_agent"
+        ),
     ) -> "ActionProposal":
         identity = {
             "customer_id": customer_id,
@@ -93,7 +98,7 @@ class ActionProposal(StrictModel):
             "reason": reason,
             "expected_impact": expected_impact,
             "source_case_id": source_case_id,
-            "proposed_by": "signaldesk_agent",
+            "proposed_by": proposed_by,
         }
         digest = hashlib.sha256(
             json.dumps(identity, sort_keys=True, separators=(",", ":")).encode()

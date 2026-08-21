@@ -4157,3 +4157,104 @@ are deterministic and independent of model quality.
 
 Commit 14 converts trusted internal CDP capabilities into a narrow integration
 product without duplicating or expanding their authority.
+
+## Commit 15 - Production API and UI
+
+Commit 15 asks whether the accepted SignalDesk components can support the
+original analyst journey through a coherent product boundary.
+
+### Starting point
+
+The repository already had Customer 360, evaluated generation and retrieval,
+typed tools, a bounded agent, LangGraph orchestration, durable human approval,
+and an MCP integration. Those components were accessible through Python entry
+points and JSON reports rather than an analyst workspace.
+
+### Product surface
+
+The milestone adds a FastAPI service and Next.js workspace with:
+
+```text
+authenticated local session
+warning-first customer search
+PII-safe Customer 360
+investigation conversation
+grounded evidence
+retrieved policy sources
+executed tool summaries
+LangGraph timeline
+exact-payload approval prompt
+```
+
+The product layer reuses the existing `ToolRegistry`, accepted
+`LangGraphCustomerInvestigator`, and `HumanApprovalWorkflow`. It does not create
+a second implementation of customer metrics, retrieval, or approval semantics.
+
+### Boundary decisions
+
+The browser receives explicit Pydantic API views rather than internal model SDK
+or graph state. Signed HttpOnly cookies authenticate sessions, CSRF tokens
+protect writes, CORS is allow-listed, and SQLite records are scoped to the
+signed user ID.
+
+This is a local authentication pattern for learning. It is not production SSO,
+tenant authorization, session revocation, TLS, or managed secrets.
+
+### Action semantics
+
+The workspace can draft a synthetic support-case follow-up after an
+investigation. Its provenance is `signaldesk_workspace`, not
+`signaldesk_agent`. The analyst reviews the exact payload before Commit 12's
+durable workflow can execute one synthetic event.
+
+This avoids an unsupported claim that the agent learned action selection.
+
+### Verification
+
+```text
+Commit 15 API tests                    18 passed
+full repository tests                 127 passed
+Python lint                            passed
+OpenAPI paths                          8
+frontend type-check                    passed
+frontend lint                          passed
+frontend production build             passed
+desktop browser workflow              passed
+390px mobile layout                    passed
+model                                  gpt-5.6-luna
+reasoning effort                       none
+accepted prompt                        commit10_v4_campaign_evidence_budget
+human workflow target                  not measured yet
+```
+
+The backend tests cover authentication, signed-session integrity, expiry,
+CSRF, customer search, PII exclusion, investigation shaping and ownership,
+approval, rejection, and duplicate-decision conflict behavior.
+
+Browser verification used the real API for authentication, search, Customer
+360, and clean investigation failure handling. The frozen test investigator
+then exercised the full evidence, source, tool, timeline, and exact-payload
+approval views without an external model call. Desktop and 390px mobile checks
+had no document overflow; the approval payload wrapped without horizontal
+scrolling. One approved synthetic action reached `EXECUTED`.
+
+### Metric discipline
+
+The roadmap target is 20-30 minutes to less than three minutes per customer.
+Agent latency cannot establish it. A timed user study must start when an analyst
+opens a customer and stop after evidence review and decision. Median, p95, and
+the percentage under three minutes should be reported separately from API
+latency.
+
+### Scope boundary
+
+Commit 15 stores only enough local state to reload owned investigations and tie
+approvals to them. Complete request tracing, evaluation joins, cost dashboards,
+and error telemetry remain Commit 16. Deployment and reliability remain Commit
+17.
+
+### Commit 15 conclusion
+
+> Productization means arranging trusted capabilities around a user's decision,
+> enforcing the browser/API boundary, and measuring the human workflow rather
+> than merely wrapping a model call in a screen.

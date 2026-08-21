@@ -1,4 +1,42 @@
-# Commit 04 — LLM API Playground
+# SignalDesk
+
+SignalDesk is a synthetic customer-intelligence learning system built one
+measured milestone at a time. Commit 15 adds the first integrated analyst
+product: a FastAPI backend and Next.js workspace over the accepted Customer 360,
+retrieval, agent, workflow, and approval contracts.
+
+Start with [README_COMMIT15.md](README_COMMIT15.md) for installation, run
+commands, architecture, verification, and the roadmap metric.
+
+The Commit 04 historical guide remains below, and later milestone guides are in
+`README_COMMIT05.md` through `README_COMMIT14.md`. The cumulative engineering
+record is in `LEARNING_LOG.md`, and the accompanying articles are under
+`docs/blog`.
+
+## Accepted model configuration
+
+```text
+model             gpt-5.6-luna
+reasoning effort  none
+prompt             commit10_v4_campaign_evidence_budget
+```
+
+## Current product
+
+```text
+Next.js analyst workspace
+  -> authenticated FastAPI API
+  -> read-only synthetic CDP
+  -> bounded LangGraph investigation
+  -> grounded evidence and policy sources
+  -> durable exact-payload human approval
+```
+
+The system is intentionally local and synthetic. It is designed to teach and
+measure architecture decisions, not to claim production readiness or real
+customer impact.
+
+## Commit 04 historical guide
 
 This commit introduces the first probabilistic component in SignalDesk.
 
