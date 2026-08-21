@@ -35,7 +35,7 @@ jobs:
             --input-dir data/generated/scale/000100000_customers \
             --database data/warehouse/signaldesk.duckdb \
             --output data/warehouse/customer_360.parquet
-      - run: python -m ruff check src tests evals run_api.py
+      - run: python -m ruff check src tests evals course scripts/build_site.py run_api.py run_course.py
       - name: Test and enforce API boundary coverage
         run: |
           python -m coverage run --source=src/api -m pytest -q

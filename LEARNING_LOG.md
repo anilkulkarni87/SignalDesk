@@ -4579,3 +4579,153 @@ unauthorized action, or missing audit evidence.
 > FDE delivery is the discipline of connecting a customer hypothesis to an
 > explicit architecture, bounded authority, reproducible evidence, operational
 > limits, transparent economics, and the next reversible decision.
+
+## SignalDesk Learning Edition MVP - Increment 1
+
+### Learning objective
+
+The product roadmap is complete, but the repository still presents a finished
+system more easily than it presents a learnable sequence. This increment asks:
+
+> Can another engineer navigate the SignalDesk journey, verify its evidence
+> without paying for model calls, and record what they understood?
+
+### Curriculum contract
+
+The Learning Edition maps all 18 milestones into six phases and exposes six
+anchor lessons for the first pilot:
+
+```text
+01  problem-first FDE discovery
+02  synthetic customer data
+04  structured LLM evaluation
+06  retrieval from first principles
+10  bounded agent loops
+18  FDE evidence and delivery capstone
+```
+
+Each guide follows one repeatable loop:
+
+```text
+problem -> first principles -> build -> measure -> break -> explain -> ship
+```
+
+The remaining twelve lessons are explicitly marked `planned`. Showing them as
+available before their guides and checks exist would reproduce the same
+packaging problem the course is intended to solve.
+
+### Learner contract
+
+`run_course.py` provides `doctor`, `audit`, `list`, `start`, `check`, `complete`,
+and `next`. Progress is stored in an ignored, human-readable `LEARNING.md`.
+
+Automated verification and human understanding remain separate:
+
+```text
+check       validates frozen artifacts and local deterministic tests
+complete    requires a learner-written reflection after verification
+```
+
+This prevents a passing repository test from being treated as evidence that a
+learner can explain the decision.
+
+### Adoption boundaries
+
+Course checks make no external model calls. The early lessons read frozen
+evidence, while retrieval, agent, and capstone lessons run their existing local
+test suites. The optional data lab uses 1,000 customers and writes to ignored
+`.course-data/`; the 100,000-customer path remains scale evidence rather than an
+onboarding requirement.
+
+### Verification
+
+```text
+curriculum map                 18 lessons
+available pilot lessons         6
+course-focused tests             7 passed
+full repository tests          159 passed
+course audit                    passed
+small-data generation          passed
+retrieval lesson check           4 passed
+agent lesson check              13 passed
+capstone lesson check            4 passed
+external model calls             0
+```
+
+### Remaining course work
+
+- Test the six-lesson path with a small learner cohort.
+- Convert Lessons 03, 05, 07-09, and 11-17 from `planned` to `available` based
+  on observed learner friction.
+- Define reviewed start and completion tags for build-from-history exercises.
+- Add an explicit repository license and contributor policy before inviting
+  outside contributions.
+- Generate a reading website only after the lesson contract proves useful.
+
+### Learning Edition conclusion
+
+> A codebase becomes a course when setup, sequence, evidence, reflection, and
+> progress are designed as deliberately as the software itself.
+
+## Distribution Pivot - Website and LinkedIn
+
+### Learning objective
+
+The runnable course pilot is useful for deep practice, but it asks a new learner
+to clone a large repository before they understand why the journey matters. This
+increment tests a smaller adoption step:
+
+> Can the existing evidence become a public reading path first, while keeping
+> runnable labs available for readers who want to go deeper?
+
+### What changed
+
+The 18 existing blog posts are now the canonical article sources for a static
+GitHub Pages site. A catalog adds sequence, phase, summary, and URL metadata
+without copying article prose into a second content system. The generated site
+adds:
+
+```text
+home        project promise and measured boundaries
+journey     six phases across all 18 milestones
+evidence    accepted results, misses, and limitations
+labs        six optional zero-model-call pilot lessons
+capstone    the evidence-based FDE demonstration
+```
+
+The site uses the real SignalDesk observability screen as its primary visual.
+It labels the system as synthetic and educational, distinguishes demonstrated
+capability from unmeasured customer impact, and preserves inconvenient results
+such as the missed agent latency target.
+
+Six LinkedIn drafts introduce the same story in a narrower sequence: problem
+framing, structured evaluation, retrieval, bounded agents, failure testing, and
+FDE delivery. Each post points back to a specific site chapter rather than
+trying to reproduce the full lesson on a social platform.
+
+### Why this is a pivot, not a second product
+
+The repository remains the source of truth. The website is generated from
+`docs/blog`, and Guided Labs link back to the existing course runner. This keeps
+three adoption depths without maintaining three independent curricula:
+
+```text
+LinkedIn summary -> website explanation -> repository verification
+```
+
+The course is retained as a beta for hands-on learners. Expansion from six to
+18 runnable lessons should follow observed learner demand rather than precede
+it.
+
+### Claim boundaries
+
+- GitHub Pages deployment automation is implemented but is not evidence that
+  the public URL is live before the workflow runs on the default branch.
+- LinkedIn posts are drafts; reach and engagement are not yet measured.
+- Browser checks establish local layout and navigation behavior, not broad
+  accessibility or cross-browser certification.
+- The screenshots, data, evaluations, and business scenario remain synthetic.
+
+### Distribution conclusion
+
+> Reduce the cost of understanding before increasing the depth of practice.
