@@ -1,0 +1,68 @@
+name: SignalDesk CI
+
+on:
+  push:
+    branches: [main, "codex/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: signaldesk-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements-commit17-dev.txt
+      - run: python -m pip install -r requirements-commit17-dev.txt
+      - name: Build deterministic synthetic warehouse
+        run: |
+          python data/generator/generate_synthetic_cdp_v5.py \
+            --customers 100000 \
+            --products 1000 \
+            --output-format parquet \
+            --output-dir data/generated/scale/000100000_customers
+          python transform/build_customer_360.py \
+            --input-dir data/generated/scale/000100000_customers \
+            --database data/warehouse/signaldesk.duckdb \
+            --output data/warehouse/customer_360.parquet
+      - run: python -m ruff check src tests evals run_api.py
+      - name: Test and enforce API boundary coverage
+        run: |
+          python -m coverage run --source=src/api -m pytest -q
+          python -m coverage report --fail-under=80
+
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+
+  containers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build -f Dockerfile.api -t signaldesk-api:ci .
+      - run: docker build -t signaldesk-web:ci web

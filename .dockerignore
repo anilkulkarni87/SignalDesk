@@ -1,0 +1,12 @@
+.git
+.github
+.DS_Store
+__pycache__
+*.pyc
+data/generated/scale
+data/generated/incremental
+data/runtime
+data/warehouse
+web/.next
+web/node_modules
+web/tsconfig.tsbuildinfo

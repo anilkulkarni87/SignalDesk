@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import hashlib
+import json
+import logging
 import threading
 import time
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Callable
@@ -9,7 +13,7 @@ from uuid import uuid4
 
 from src.actions import ActionProposal, ApprovalDecision, HumanApprovalWorkflow
 from src.actions.schemas import SupportCaseAction
-from src.agent.investigator import AgentConfig
+from src.agent.investigator import AgentConfig, AgentLimitError
 from src.agent.prompts import PROMPT_VERSION
 from src.observability import (
     EvaluationUpdate,
@@ -23,10 +27,12 @@ from src.observability import (
 )
 from src.tools import CDPTools, ToolRegistry
 from src.tools.schemas import ToolCallResult
+from src.warehouse import configure_semantic_timezone
 from src.workflow import LangGraphCustomerInvestigator
 from src.workflow.schemas import WorkflowRun
 
 from .config import APIConfig
+from .resilience import IdempotencyReservation, IdempotencyStore
 from .schemas import (
     ActionPackageView,
     Customer360View,
@@ -50,6 +56,23 @@ class InvestigationUnavailable(RuntimeError):
     pass
 
 
+class InvestigationTimedOut(InvestigationUnavailable):
+    pass
+
+
+class InvestigationLimitReached(InvestigationUnavailable):
+    pass
+
+
+@dataclass(frozen=True)
+class InvestigationOutcome:
+    view: InvestigationView
+    replayed: bool
+
+
+logger = logging.getLogger("signaldesk.api.service")
+
+
 class CustomerRepository:
     def __init__(self, database: str | Path) -> None:
         try:
@@ -57,10 +80,15 @@ class CustomerRepository:
         except ImportError as exc:
             raise RuntimeError("Install DuckDB from requirements-commit16.txt") from exc
         self._connection = duckdb.connect(str(database), read_only=True)
+        configure_semantic_timezone(self._connection)
         self._lock = threading.RLock()
 
     def close(self) -> None:
         self._connection.close()
+
+    def ping(self) -> None:
+        with self._lock:
+            self._connection.execute("SELECT 1").fetchone()
 
     def search(self, query: str, limit: int) -> CustomerSearchView:
         normalized = query.strip()
@@ -125,6 +153,10 @@ class SignalDeskService:
         self._observability = ObservabilityStore(
             config.runtime_dir / "observability.sqlite3"
         )
+        self._idempotency = IdempotencyStore(
+            config.runtime_dir / "idempotency.sqlite3",
+            pending_ttl_seconds=config.idempotency_pending_ttl_seconds,
+        )
         self._actions = HumanApprovalWorkflow(config.runtime_dir / "actions")
         self._investigator_factory = investigator_factory or self._default_investigator
         self._investigator: Any | None = None
@@ -132,15 +164,25 @@ class SignalDeskService:
         self._tool_lock = threading.RLock()
         self._action_lock = threading.RLock()
 
-    @staticmethod
-    def _default_investigator(registry: ToolRegistry) -> LangGraphCustomerInvestigator:
+    def _default_investigator(
+        self,
+        registry: ToolRegistry,
+    ) -> LangGraphCustomerInvestigator:
         return LangGraphCustomerInvestigator(
             registry,
-            config=AgentConfig(model="gpt-5.6-luna", reasoning_effort="none"),
+            config=AgentConfig(
+                model="gpt-5.6-luna",
+                reasoning_effort="none",
+                timeout_seconds=self.config.llm_timeout_seconds,
+                max_attempts=self.config.llm_max_attempts,
+                max_model_rounds=self.config.max_model_rounds,
+                max_tool_calls=self.config.max_tool_calls,
+            ),
         )
 
     def close(self) -> None:
         self._actions.close()
+        self._idempotency.close()
         self._observability.close()
         self._investigation_store.close()
         self._cdp_tools.close()
@@ -194,6 +236,45 @@ class SignalDeskService:
         user_id: str,
         request: InvestigationCreateRequest,
         request_id: str,
+        idempotency_key: str | None = None,
+    ) -> InvestigationOutcome:
+        reservation: IdempotencyReservation | None = None
+        if idempotency_key:
+            reservation = self._idempotency.begin(
+                user_id,
+                idempotency_key,
+                self._request_sha256(request),
+                request_id,
+            )
+            if reservation.action == "REPLAY":
+                if reservation.investigation_id is None:
+                    raise RuntimeError("Completed idempotency record has no result")
+                return InvestigationOutcome(
+                    view=self._investigation_store.get(
+                        user_id,
+                        reservation.investigation_id,
+                    ),
+                    replayed=True,
+                )
+        try:
+            view = self._run_investigation(user_id, request, request_id)
+            if idempotency_key:
+                self._idempotency.complete(
+                    user_id,
+                    idempotency_key,
+                    view.investigation_id,
+                )
+            return InvestigationOutcome(view=view, replayed=False)
+        except Exception:
+            if idempotency_key:
+                self._idempotency.fail(user_id, idempotency_key)
+            raise
+
+    def _run_investigation(
+        self,
+        user_id: str,
+        request: InvestigationCreateRequest,
+        request_id: str,
     ) -> InvestigationView:
         started_at = datetime.now(UTC)
         started = time.perf_counter()
@@ -214,7 +295,7 @@ class SignalDeskService:
                     )
                     raise InvestigationUnavailable(
                         "Live investigation is unavailable. Confirm OPENAI_API_KEY and "
-                        "the Commit 16 dependencies."
+                        "the Commit 17 dependencies."
                     ) from exc
             stage = "agent_investigation"
             try:
@@ -232,9 +313,7 @@ class SignalDeskService:
                     started_at,
                     started,
                 )
-                raise InvestigationUnavailable(
-                    "The investigation workflow did not complete."
-                ) from exc
+                raise self._classified_investigation_error(exc) from exc
         view = self._to_investigation_view(run, request_id)
         self._observability.record(
             self._to_run_observation(
@@ -247,6 +326,55 @@ class SignalDeskService:
         )
         self._investigation_store.save(user_id, view)
         return view
+
+    @staticmethod
+    def _request_sha256(request: InvestigationCreateRequest) -> str:
+        payload = json.dumps(
+            request.model_dump(mode="json"),
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        return hashlib.sha256(payload.encode()).hexdigest()
+
+    @staticmethod
+    def _classified_investigation_error(error: Exception) -> InvestigationUnavailable:
+        if (
+            isinstance(error, TimeoutError)
+            or error.__class__.__name__ == "APITimeoutError"
+        ):
+            return InvestigationTimedOut("The model dependency timed out.")
+        if isinstance(error, AgentLimitError):
+            return InvestigationLimitReached(
+                "The investigation stopped at its configured safety limit."
+            )
+        return InvestigationUnavailable("The investigation workflow did not complete.")
+
+    def readiness(self) -> dict[str, str]:
+        checks: dict[str, str] = {}
+        probes = {
+            "customer_warehouse": self._customers.ping,
+            "investigation_store": self._investigation_store.ping,
+            "observability_store": self._observability.ping,
+            "idempotency_store": self._idempotency.ping,
+            "action_store": self._actions.store.ping,
+        }
+        for name, probe in probes.items():
+            try:
+                probe()
+                checks[name] = "ready"
+            except Exception:
+                checks[name] = "unavailable"
+        try:
+            tool_checks = self._cdp_tools.readiness()
+        except Exception:
+            tool_checks = {"tool_warehouse": False, "approved_knowledge": False}
+        checks.update(
+            {
+                name: "ready" if available else "unavailable"
+                for name, available in tool_checks.items()
+            }
+        )
+        return checks
 
     def get_investigation(
         self,
@@ -397,7 +525,15 @@ class SignalDeskService:
         started_at: datetime,
         started: float,
     ) -> None:
-        message = str(error).strip() or error.__class__.__name__
+        logger.warning(
+            "investigation_failed",
+            extra={
+                "event": "investigation_failed",
+                "request_id": request_id,
+                "error_type": error.__class__.__name__,
+            },
+        )
+        message = self._safe_failure_message(error)
         self._observability.record(
             RunObservation(
                 request_id=request_id,
@@ -434,6 +570,17 @@ class SignalDeskService:
                 completed_at=datetime.now(UTC).isoformat(),
             )
         )
+
+    @staticmethod
+    def _safe_failure_message(error: Exception) -> str:
+        if (
+            isinstance(error, TimeoutError)
+            or error.__class__.__name__ == "APITimeoutError"
+        ):
+            return "The model dependency timed out."
+        if isinstance(error, AgentLimitError):
+            return "The agent reached a configured execution limit."
+        return "The investigation dependency failed."
 
     def observability_summary(self, user_id: str) -> ObservabilitySummary:
         return self._observability.summary_for_user(user_id)

@@ -7,8 +7,6 @@ import json
 import time
 from pathlib import Path
 
-from pydantic import ValidationError
-
 from src.llm.client import SignalDeskLLMClient
 from src.llm.customer_store import CustomerStore
 

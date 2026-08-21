@@ -3,6 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from src.warehouse import configure_semantic_timezone
+
 from .schemas import LLM_FEATURES
 
 
@@ -14,6 +16,7 @@ class CustomerStore:
             raise RuntimeError("Install DuckDB: pip install duckdb") from exc
 
         self._con = duckdb.connect(str(database), read_only=True)
+        configure_semantic_timezone(self._con)
 
     def get_snapshot(self, customer_id: str) -> dict[str, Any]:
         columns = ", ".join(LLM_FEATURES)

@@ -1,0 +1,33 @@
+FROM python:3.13-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    SIGNALDESK_DATABASE=/data/warehouse/signaldesk.duckdb \
+    SIGNALDESK_CORPUS_DIR=/app/data/generated/knowledge \
+    SIGNALDESK_RUNTIME_DIR=/app/data/runtime/commit17
+
+WORKDIR /app
+
+RUN groupadd --system signaldesk \
+    && useradd --system --gid signaldesk --home-dir /app signaldesk
+
+COPY requirements-*.txt ./
+RUN python -m pip install --upgrade pip \
+    && python -m pip install -r requirements-commit17.txt
+
+COPY src ./src
+COPY run_api.py ./run_api.py
+COPY data/generated/knowledge ./data/generated/knowledge
+
+RUN mkdir -p /app/data/runtime \
+    && chown -R signaldesk:signaldesk /app/data/runtime
+
+USER signaldesk
+
+EXPOSE 8001
+
+HEALTHCHECK --interval=15s --timeout=5s --start-period=20s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/api/v1/health/ready', timeout=3)"
+
+CMD ["python", "run_api.py", "--host", "0.0.0.0", "--port", "8001"]

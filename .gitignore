@@ -7,4 +7,6 @@
 /web/tsconfig.tsbuildinfo
 .DS_Store
 .env.example
+.env.commit17
 __pycache__/
+.coverage

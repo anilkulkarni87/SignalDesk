@@ -4354,3 +4354,123 @@ belong to Commit 17 production hardening.
 > Operational AI metrics become trustworthy only when attempts are correlated,
 > failures remain visible, denominators are explicit, unknown usage stays
 > unknown, and runtime completion is separated from answer quality.
+
+## Commit 17 - Production Hardening
+
+Commit 17 tests whether the observable SignalDesk product fails predictably
+when its dependencies, inputs, or capacity assumptions are deliberately broken.
+
+### Frozen behavioral scope
+
+```text
+model             gpt-5.6-luna
+reasoning effort  none
+prompt             commit10_v4_campaign_evidence_budget
+retrieval          lexical_current_approved
+```
+
+No prompt, retriever-ranking, or agent-reasoning change was made. The work is
+limited to resilience, deployment, and operational behavior.
+
+### Reliability boundaries
+
+The API now separates process liveness from serving readiness. Readiness probes
+the Customer 360 warehouse, approved knowledge, investigation store,
+observability store, idempotency store, and action ledger. An unavailable
+dependency returns readiness `503` without falsely claiming the process is
+dead.
+
+Agent limits are environment-configurable while preserving their Commit 10
+defaults:
+
+```text
+provider request timeout  45 seconds
+provider attempts          4
+model rounds               8
+tool calls                 8
+```
+
+Only declared transient provider failures are retried. Timeouts return `504`;
+agent execution limits return a bounded `503`; internal details are removed
+from user-visible observations.
+
+### Duplicate and capacity control
+
+User-scoped idempotency keys are persisted in SQLite. Completed duplicate
+requests replay the original investigation without another model call or run
+observation. Different input under the same key conflicts. Failed or stale
+reservations may be retried under an explicit policy.
+
+Sliding-window rate limits reject excess login or investigation work before an
+agent starts and return `Retry-After`. The implementation is deliberately
+single-instance and is not described as a distributed quota system.
+
+### Failure matrix
+
+```text
+retrieval dependency unavailable  readiness 503, liveness 200
+LLM timeout                       504 + sanitized failure observation
+malformed tool output             typed validation failure
+duplicate request                 durable replay, one agent call
+invalid customer                  bounded 404
+zero-document retrieval           explicit successful empty result
+agent loop                        configured-limit failure
+capacity exceeded                 429 before model work
+```
+
+The roadmap named a vector DB outage, but the accepted product path uses lexical
+retrieval. The test breaks the actual approved-knowledge dependency instead of
+testing an unused historical component.
+
+### Deployment and CI
+
+The API and web images run as non-root users. The warehouse is mounted
+read-only, mutable runtime state has an explicit volume, and the API filesystem
+is read-only under Compose. Next.js standalone output reduced the web image from
+about 727 MB to 225 MB.
+
+The first frontend image build surfaced three high-severity production
+dependency findings. A scoped Next.js upgrade to 16.3.1 produced a clean
+production npm audit.
+
+CI rebuilds deterministic synthetic data, checks Python lint, runs all tests,
+enforces 80% API-boundary coverage, verifies the frontend, and builds both
+images. Local syntax and build verification passed; the first GitHub-hosted CI
+run remains external evidence after push.
+
+### Verification
+
+```text
+Commit 17 focused tests          13 passed
+full repository tests           147 passed
+OpenAPI paths                    13
+API boundary coverage           92%
+failure scenarios                8 / 8 passed
+Python lint                      passed
+frontend type-check              passed
+frontend lint                    passed
+frontend production build        passed
+production npm vulnerabilities   0
+Docker Compose configuration     valid
+API image user / runtime         signaldesk / passed
+web image user / runtime         node / passed
+external model calls             0
+```
+
+The final API container load smoke measured 100/100 liveness requests, zero
+unhandled exceptions, 8.847 ms p50, 48.749 ms p95, and 770.58 requests/second
+at concurrency 10. This is container and HTTP evidence only, not model-backed
+investigation capacity.
+
+### Limitations
+
+SQLite idempotency, in-memory rate limits, deterministic failure injection, and
+local Docker Compose do not establish multi-instance production reliability.
+There is no external log shipper, trace backend, autoscaling policy, secret
+manager integration, alerting system, or real provider outage drill.
+
+### Commit 17 conclusion
+
+> Production hardening means deciding which failures are retryable, which work
+> must be deduplicated, when an instance must stop receiving traffic, and how
+> every failure remains observable.
