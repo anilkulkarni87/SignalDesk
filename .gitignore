@@ -2,6 +2,9 @@
 /data/warehouse
 /data/generated/incremental
 /data/runtime
+/web/.next
+/web/node_modules
+/web/tsconfig.tsbuildinfo
 .DS_Store
 .env.example
 __pycache__/
