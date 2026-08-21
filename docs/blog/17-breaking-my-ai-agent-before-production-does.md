@@ -173,10 +173,17 @@ The deterministic hardening suite produced:
 
 ```text
 8/8 failure scenarios passed
-147 repository tests passed
+148 repository tests passed
 92% API-boundary statement coverage
 0 production npm vulnerabilities
 ```
+
+The first clean GitHub runner did not pass. It exposed an undeclared timezone
+package and a DuckDB calculation that inherited the host timezone. Both were
+invisible locally because my machine already had the package and used the
+timezone under which the frozen cases were created. Declaring the dependency,
+setting the warehouse timezone explicitly, and adding a regression test turned
+that failure into a reproducibility lesson rather than hiding it.
 
 The final API container also handled 100 concurrent liveness-path requests with
 100% success, zero unhandled exceptions, and 48.749 ms p95.

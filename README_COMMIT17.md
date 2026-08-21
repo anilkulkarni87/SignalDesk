@@ -178,9 +178,16 @@ containers  build API and web images
 ```
 
 The backend gate requires at least 80% statement coverage over `src/api`. The
-measured local result is 92%. The workflow file is syntactically validated,
-but its first GitHub-hosted execution remains external evidence that can only
-exist after push.
+measured result is 92%. The first GitHub-hosted run exposed two environment
+assumptions hidden by the developer machine: DuckDB required `pytz` for
+timezone-aware results, and Customer 360 date calculations inherited the host
+timezone. Commit 17 now declares `pytz` as a runtime dependency and configures
+an explicit semantic timezone for warehouse builds and readers.
+
+The corrected GitHub-hosted run passed backend, frontend, and container jobs:
+<https://github.com/anilkulkarni87/SignalDesk/actions/runs/32453609629>.
+This is useful clean-environment evidence, not evidence of real production
+traffic or customer outcomes.
 
 ## Install and run locally
 
@@ -262,8 +269,8 @@ This is a liveness-path smoke, not model-backed workflow capacity evidence.
 ## Final verification
 
 ```text
-Commit 17 focused tests          13 passed
-full repository tests           147 passed
+Commit 17 focused tests          14 passed
+full repository tests           148 passed
 OpenAPI paths                    13
 API boundary coverage           92%
 failure scenarios                8 / 8 passed
@@ -277,6 +284,10 @@ API image build/runtime          passed
 web image build/runtime          passed
 external model calls             0
 ```
+
+The checked-in failure-injection report records the earlier 147-test snapshot.
+It remains unchanged as an immutable experiment artifact; the additional test
+guards the semantic timezone discovered by GitHub-hosted CI.
 
 ## What this milestone does not prove
 
