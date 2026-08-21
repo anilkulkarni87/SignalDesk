@@ -3,6 +3,8 @@ import type {
   Customer360,
   CustomerSearch,
   Investigation,
+  ObservabilitySummary,
+  RunObservation,
   Session,
 } from "./types";
 
@@ -89,4 +91,24 @@ export const api = {
       csrf,
       body: JSON.stringify({ decision, reason }),
     }),
+  observabilitySummary: () =>
+    request<ObservabilitySummary>("/api/v1/observability/summary"),
+  observabilityRuns: (limit = 100) =>
+    request<{ runs: RunObservation[] }>(
+      `/api/v1/observability/runs?limit=${limit}`,
+    ),
+  evaluateRun: (
+    requestId: string,
+    result: "PASS" | "FAIL",
+    note: string,
+    csrf: string,
+  ) =>
+    request<RunObservation>(
+      `/api/v1/observability/runs/${requestId}/evaluation`,
+      {
+        method: "POST",
+        csrf,
+        body: JSON.stringify({ result, note }),
+      },
+    ),
 };

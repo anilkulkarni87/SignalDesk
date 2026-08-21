@@ -5,11 +5,13 @@ import {
   BookOpen,
   Check,
   CheckCircle2,
+  ChartNoAxesCombined,
   ChevronRight,
   Clock3,
   Database,
   FileCheck2,
   LoaderCircle,
+  LayoutDashboard,
   LogOut,
   Play,
   Search,
@@ -31,6 +33,7 @@ import {
 } from "react";
 
 import { APIError, api } from "@/lib/api";
+import { ObservabilityDashboard } from "@/components/observability-dashboard";
 import type {
   ActionPackage,
   Customer360,
@@ -257,6 +260,7 @@ function ApprovalDialog({
 
 export function Workspace() {
   const [session, setSession] = useState<Session | null>(null);
+  const [activeView, setActiveView] = useState<"workspace" | "observability">("workspace");
   const [authLoading, setAuthLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [customers, setCustomers] = useState<CustomerSearchItem[]>([]);
@@ -379,6 +383,14 @@ export function Workspace() {
           <span>SignalDesk</span>
           <span className="environment-label">Learning</span>
         </div>
+        <nav className="view-switch" aria-label="Application views">
+          <button className={activeView === "workspace" ? "active" : ""} onClick={() => setActiveView("workspace")} title="Customer workspace">
+            <LayoutDashboard size={15} />Workspace
+          </button>
+          <button className={activeView === "observability" ? "active" : ""} onClick={() => setActiveView("observability")} title="Agent observability">
+            <ChartNoAxesCombined size={15} />Observability
+          </button>
+        </nav>
         <div className="topbar-actions">
           <span className="connection"><span /> API connected</span>
           <span className="reviewer"><UserRound size={15} />{session.reviewer_id}</span>
@@ -388,6 +400,10 @@ export function Workspace() {
         </div>
       </header>
 
+      {activeView === "observability" ? (
+        <ObservabilityDashboard session={session} />
+      ) : (
+        <>
       <div className="workspace-grid">
         <aside className="customer-rail">
           <div className="rail-heading">
@@ -599,6 +615,8 @@ export function Workspace() {
         </aside>
       </div>
       {action && <ApprovalDialog action={action} csrf={session.csrf_token} onChange={setAction} onClose={() => setAction(null)} />}
+        </>
+      )}
     </main>
   );
 }

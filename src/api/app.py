@@ -2,12 +2,20 @@ from __future__ import annotations
 
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from uuid import uuid4
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response, status
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.actions.workflow import ApprovalWorkflowError
+from src.observability import (
+    EvaluationUpdate,
+    ObservationNotFound,
+    ObservabilitySummary,
+    RunObservation,
+    RunObservationList,
+)
 
 from .auth import (
     CSRF_HEADER,
@@ -58,7 +66,7 @@ def create_app(
 
     app = FastAPI(
         title="SignalDesk API",
-        version="commit15_v1",
+        version="commit16_v1",
         lifespan=lifespan,
     )
     app.add_middleware(
@@ -68,6 +76,14 @@ def create_app(
         allow_methods=["GET", "POST", "DELETE"],
         allow_headers=["Content-Type", CSRF_HEADER],
     )
+
+    @app.middleware("http")
+    async def attach_request_id(request: Request, call_next):
+        request_id = f"REQ-{uuid4().hex[:20]}"
+        request.state.request_id = request_id
+        response = await call_next(request)
+        response.headers["x-signaldesk-request-id"] = request_id
+        return response
 
     def claims_from_request(request: Request) -> SessionClaims:
         token = request.cookies.get(SESSION_COOKIE)
@@ -154,6 +170,7 @@ def create_app(
     )
     async def investigate(
         payload: InvestigationCreateRequest,
+        request: Request,
         claims: SessionClaims = Depends(write_claims),
     ) -> InvestigationView:
         try:
@@ -161,6 +178,7 @@ def create_app(
                 service.investigate,
                 claims.user_id,
                 payload,
+                request.state.request_id,
             )
         except InvestigationUnavailable as exc:
             raise HTTPException(status_code=503, detail=str(exc)) from exc
@@ -232,5 +250,67 @@ def create_app(
                 status_code=status.HTTP_409_CONFLICT,
                 detail=str(exc),
             ) from exc
+
+    @app.get(
+        "/api/v1/observability/summary",
+        response_model=ObservabilitySummary,
+    )
+    async def observability_summary(
+        claims: SessionClaims = Depends(claims_from_request),
+    ) -> ObservabilitySummary:
+        return await run_in_threadpool(
+            service.observability_summary,
+            claims.user_id,
+        )
+
+    @app.get(
+        "/api/v1/observability/runs",
+        response_model=RunObservationList,
+    )
+    async def observability_runs(
+        limit: int = Query(default=100, ge=1, le=200),
+        claims: SessionClaims = Depends(claims_from_request),
+    ) -> RunObservationList:
+        return await run_in_threadpool(
+            service.observability_runs,
+            claims.user_id,
+            limit,
+        )
+
+    @app.get(
+        "/api/v1/observability/runs/{request_id}",
+        response_model=RunObservation,
+    )
+    async def observability_run(
+        request_id: str,
+        claims: SessionClaims = Depends(claims_from_request),
+    ) -> RunObservation:
+        try:
+            return await run_in_threadpool(
+                service.observability_run,
+                claims.user_id,
+                request_id,
+            )
+        except ObservationNotFound as exc:
+            raise HTTPException(status_code=404, detail="Run not found") from exc
+
+    @app.post(
+        "/api/v1/observability/runs/{request_id}/evaluation",
+        response_model=RunObservation,
+    )
+    async def evaluate_run(
+        request_id: str,
+        payload: EvaluationUpdate,
+        claims: SessionClaims = Depends(write_claims),
+    ) -> RunObservation:
+        try:
+            return await run_in_threadpool(
+                service.evaluate_run,
+                claims.user_id,
+                request_id,
+                payload,
+            )
+        except ObservationNotFound as exc:
+            raise HTTPException(status_code=404, detail="Run not found") from exc
 
     return app

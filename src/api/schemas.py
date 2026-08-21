@@ -12,7 +12,7 @@ from src.tools.schemas import CampaignEligibility, CustomerMetrics, CustomerProf
 class HealthView(StrictModel):
     status: Literal["ok"] = "ok"
     service: Literal["signaldesk-api"] = "signaldesk-api"
-    version: Literal["commit15_v1"] = "commit15_v1"
+    version: Literal["commit16_v1"] = "commit16_v1"
 
 
 class LoginRequest(StrictModel):
@@ -89,6 +89,7 @@ class InvestigationMetricsView(StrictModel):
 
 
 class InvestigationView(StrictModel):
+    request_id: str = Field(pattern=r"^REQ-[a-f0-9]{20}$")
     investigation_id: str = Field(pattern=r"^INV-[a-f0-9]{20}$")
     customer_id: str
     question: str

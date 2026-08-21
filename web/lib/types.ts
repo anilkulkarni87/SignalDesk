@@ -55,6 +55,7 @@ export type Evidence = {
 };
 
 export type Investigation = {
+  request_id: string;
   investigation_id: string;
   customer_id: string;
   question: string;
@@ -94,6 +95,70 @@ export type Investigation = {
     estimated_cost_usd: number | null;
   };
   created_at: string;
+};
+
+export type ObservedToolCall = {
+  round_number: number;
+  tool_name: string;
+  success: boolean;
+  error_code: string | null;
+  latency_ms: number;
+  returned_count: number | null;
+};
+
+export type RunObservation = {
+  request_id: string;
+  investigation_id: string | null;
+  user_id: string;
+  customer_id: string;
+  question: string;
+  status: "SUCCESS" | "ERROR";
+  task_success: boolean;
+  model: string;
+  prompt_version: string;
+  reasoning_effort: "none";
+  tool_calls: ObservedToolCall[];
+  retrieval_documents: string[];
+  retrieval_scores: number[];
+  tokens: {
+    input: number;
+    cached_input: number;
+    output: number;
+    reasoning: number;
+    total: number;
+  };
+  cost_usd: number | null;
+  latency_seconds: number;
+  final_answer: {
+    task_status?: string;
+    conclusion_code?: string;
+    risk_level?: string;
+    summary?: string;
+    [key: string]: unknown;
+  } | null;
+  evaluation_result: "NOT_EVALUATED" | "PASS" | "FAIL";
+  evaluation_note: string | null;
+  errors: Array<{
+    stage: string;
+    error_type: string;
+    message: string;
+  }>;
+  started_at: string;
+  completed_at: string;
+};
+
+export type ObservabilitySummary = {
+  total_runs: number;
+  successful_runs: number;
+  error_runs: number;
+  task_success_rate_pct: number;
+  latency_seconds: { p50: number; p95: number };
+  tokens_per_task: number;
+  cost_per_task_usd: number;
+  tool_failure_rate_pct: number;
+  retrieval_failure_rate_pct: number;
+  evaluated_runs: number;
+  evaluation_pass_rate_pct: number | null;
 };
 
 export type ActionPackage = {

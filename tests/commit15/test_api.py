@@ -192,7 +192,7 @@ class Commit15APITests(unittest.TestCase):
         response = TestClient(self.app).get("/api/v1/health")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["version"], "commit15_v1")
+        self.assertEqual(response.json()["version"], "commit16_v1")
 
     def test_protected_endpoint_requires_session(self):
         response = TestClient(self.app).get("/api/v1/customers")
@@ -240,9 +240,12 @@ class Commit15APITests(unittest.TestCase):
             clock=lambda: now,
         )
         issued = sessions.authenticate(ACCESS_CODE, "expiry-reviewer")
+        encoded_payload, signature = issued.token.split(".", maxsplit=1)
+        replacement = "A" if signature[0] != "A" else "B"
+        tampered_token = f"{encoded_payload}.{replacement}{signature[1:]}"
 
         with self.assertRaises(InvalidSessionError):
-            sessions.verify(f"{issued.token[:-1]}x")
+            sessions.verify(tampered_token)
 
         expired_sessions = SessionManager(
             ACCESS_CODE,
