@@ -1,11 +1,10 @@
 # SignalDesk
 
 SignalDesk is a synthetic customer-intelligence learning system built one
-measured milestone at a time. Commit 15 adds the first integrated analyst
-product: a FastAPI backend and Next.js workspace over the accepted Customer 360,
-retrieval, agent, workflow, and approval contracts.
+measured milestone at a time. Commit 16 adds durable run observability and an
+analyst dashboard to the FastAPI and Next.js product introduced in Commit 15.
 
-Start with [README_COMMIT15.md](README_COMMIT15.md) for installation, run
+Start with [README_COMMIT16.md](README_COMMIT16.md) for installation, run
 commands, architecture, verification, and the roadmap metric.
 
 The Commit 04 historical guide remains below, and later milestone guides are in
@@ -30,6 +29,7 @@ Next.js analyst workspace
   -> bounded LangGraph investigation
   -> grounded evidence and policy sources
   -> durable exact-payload human approval
+  -> scoped run observability and human evaluation
 ```
 
 The system is intentionally local and synthetic. It is designed to teach and

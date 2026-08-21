@@ -9,7 +9,7 @@ from pathlib import Path
 class APIConfig:
     database: Path = Path("data/warehouse/signaldesk.duckdb")
     corpus_dir: Path = Path("data/generated/knowledge")
-    runtime_dir: Path = Path("data/runtime/commit15")
+    runtime_dir: Path = Path("data/runtime/commit16")
     access_code: str = field(default="", repr=False)
     session_secret: str = field(default="", repr=False)
     session_ttl_seconds: int = 8 * 60 * 60
@@ -53,7 +53,7 @@ class APIConfig:
             runtime_dir=Path(
                 os.environ.get(
                     "SIGNALDESK_RUNTIME_DIR",
-                    "data/runtime/commit15",
+                    "data/runtime/commit16",
                 )
             ),
             access_code=os.environ.get("SIGNALDESK_ACCESS_CODE", ""),

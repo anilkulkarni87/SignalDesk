@@ -4258,3 +4258,99 @@ and error telemetry remain Commit 16. Deployment and reliability remain Commit
 > Productization means arranging trusted capabilities around a user's decision,
 > enforcing the browser/API boundary, and measuring the human workflow rather
 > than merely wrapping a model call in a screen.
+
+## Commit 16 - Observability, Evals, and Cost
+
+Commit 16 asks whether one API-driven investigation can be correlated across
+the HTTP request, agent execution, retrieval, tools, cost, answer, error, and
+human quality judgment.
+
+### Run observation boundary
+
+Each authenticated, schema-valid investigation attempt receives a generated
+`REQ-...` identifier before agent invocation. The identifier is returned in the
+HTTP header, successful investigation view, and durable run observation.
+
+The observation records:
+
+```text
+request and user identity
+model, prompt, and reasoning configuration
+tool outcomes and latency
+retrieval documents and scores
+token breakdown and estimated cost
+agent latency
+final structured answer
+human evaluation
+errors and timestamps
+```
+
+Failed model initialization or investigation attempts are recorded before the
+API returns a generic `503`. Authentication, CSRF, and schema rejections remain
+HTTP-boundary events because no agent run exists yet.
+
+### Metric semantics
+
+```text
+p50 / p95 latency       all recorded attempts
+tokens / task           recorded tokens / all attempts
+cost / task             recorded cost / all attempts
+tool failure rate       failed tool calls / all tool calls
+retrieval failure rate  failed or zero-result searches / all searches
+task success rate       COMPLETED answers / all attempts
+evaluation pass rate    PASS labels / all labeled runs
+```
+
+Tasks without knowledge search are excluded from the retrieval denominator.
+`LIMITED` is a returned answer but not task success. Runtime success and human
+answer quality remain separate.
+
+### Unknown usage
+
+Provider exceptions may occur before token usage is returned. Those observations
+record zero known tokens and unknown cost rather than an invented estimate.
+Aggregate cost and token metrics are therefore lower bounds when provider
+failures occur.
+
+### Dashboard
+
+The analyst-scoped dashboard provides aggregate metrics, a recent-run ledger,
+and selected-run details for model, prompt, tokens, cost, answer, tools,
+retrieval, errors, and human PASS/FAIL evaluation.
+
+Observations are stored in local SQLite under `data/runtime/commit16`. Only the
+evaluation label and note are mutable. Another signed reviewer cannot inspect
+or label the run.
+
+### Verification
+
+```text
+Commit 16 focused tests               7 passed
+full repository tests                 134 passed
+OpenAPI paths                         12
+Commit 16 Python lint                 passed
+frontend type-check                   passed
+frontend lint                         passed
+frontend production build             passed
+desktop dashboard workflow            passed
+390px mobile dashboard                passed
+external model calls                  0
+```
+
+The browser experiment created a frozen investigation through the real HTTP
+boundary, inspected its persisted projection, applied a human `PASS`, and
+confirmed the aggregate evaluation count. The deterministic run verifies
+observability wiring, not model quality.
+
+### Limitations
+
+This is a local SQLite telemetry system. It has no external trace export,
+structured log pipeline, retention policy, tenant-wide operations role,
+distributed transaction, or provider-side usage reconciliation. Those concerns
+belong to Commit 17 production hardening.
+
+### Commit 16 conclusion
+
+> Operational AI metrics become trustworthy only when attempts are correlated,
+> failures remain visible, denominators are explicit, unknown usage stays
+> unknown, and runtime completion is separated from answer quality.

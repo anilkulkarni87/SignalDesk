@@ -15,7 +15,7 @@ class InvestigationNotFound(KeyError):
 
 
 class InvestigationStore:
-    """Minimal product state; Commit 16 adds run-level observability."""
+    """Minimal product state for reloading owned investigations and actions."""
 
     def __init__(self, path: str | Path) -> None:
         self.path = Path(path)

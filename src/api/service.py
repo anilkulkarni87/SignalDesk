@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import threading
+import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Callable
@@ -9,6 +10,17 @@ from uuid import uuid4
 from src.actions import ActionProposal, ApprovalDecision, HumanApprovalWorkflow
 from src.actions.schemas import SupportCaseAction
 from src.agent.investigator import AgentConfig
+from src.agent.prompts import PROMPT_VERSION
+from src.observability import (
+    EvaluationUpdate,
+    ObservabilityStore,
+    ObservabilitySummary,
+    ObservedError,
+    ObservedTokenUsage,
+    ObservedToolCall,
+    RunObservation,
+    RunObservationList,
+)
 from src.tools import CDPTools, ToolRegistry
 from src.tools.schemas import ToolCallResult
 from src.workflow import LangGraphCustomerInvestigator
@@ -43,7 +55,7 @@ class CustomerRepository:
         try:
             import duckdb
         except ImportError as exc:
-            raise RuntimeError("Install DuckDB from requirements-commit15.txt") from exc
+            raise RuntimeError("Install DuckDB from requirements-commit16.txt") from exc
         self._connection = duckdb.connect(str(database), read_only=True)
         self._lock = threading.RLock()
 
@@ -110,6 +122,9 @@ class SignalDeskService:
         self._investigation_store = InvestigationStore(
             config.runtime_dir / "investigations.sqlite3"
         )
+        self._observability = ObservabilityStore(
+            config.runtime_dir / "observability.sqlite3"
+        )
         self._actions = HumanApprovalWorkflow(config.runtime_dir / "actions")
         self._investigator_factory = investigator_factory or self._default_investigator
         self._investigator: Any | None = None
@@ -126,6 +141,7 @@ class SignalDeskService:
 
     def close(self) -> None:
         self._actions.close()
+        self._observability.close()
         self._investigation_store.close()
         self._cdp_tools.close()
         self._customers.close()
@@ -177,26 +193,58 @@ class SignalDeskService:
         self,
         user_id: str,
         request: InvestigationCreateRequest,
+        request_id: str,
     ) -> InvestigationView:
+        started_at = datetime.now(UTC)
+        started = time.perf_counter()
+        stage = "initialize_agent"
         with self._investigation_lock:
             if self._investigator is None:
                 try:
                     self._investigator = self._investigator_factory(self._registry)
                 except Exception as exc:
+                    self._record_failed_run(
+                        request_id,
+                        user_id,
+                        request,
+                        stage,
+                        exc,
+                        started_at,
+                        started,
+                    )
                     raise InvestigationUnavailable(
                         "Live investigation is unavailable. Confirm OPENAI_API_KEY and "
-                        "the Commit 15 dependencies."
+                        "the Commit 16 dependencies."
                     ) from exc
+            stage = "agent_investigation"
             try:
                 run = self._investigator.investigate(
                     request.customer_id,
                     request.question,
                 )
             except Exception as exc:
+                self._record_failed_run(
+                    request_id,
+                    user_id,
+                    request,
+                    stage,
+                    exc,
+                    started_at,
+                    started,
+                )
                 raise InvestigationUnavailable(
                     "The investigation workflow did not complete."
                 ) from exc
-        view = self._to_investigation_view(run)
+        view = self._to_investigation_view(run, request_id)
+        self._observability.record(
+            self._to_run_observation(
+                request_id,
+                user_id,
+                run,
+                view,
+                started_at,
+            )
+        )
         self._investigation_store.save(user_id, view)
         return view
 
@@ -208,7 +256,10 @@ class SignalDeskService:
         return self._investigation_store.get(user_id, investigation_id)
 
     @staticmethod
-    def _to_investigation_view(run: WorkflowRun) -> InvestigationView:
+    def _to_investigation_view(
+        run: WorkflowRun,
+        request_id: str,
+    ) -> InvestigationView:
         investigation_id = f"INV-{uuid4().hex[:20]}"
         cited = set(run.answer.policy_document_ids)
         sources: dict[str, SourceView] = {}
@@ -240,6 +291,7 @@ class SignalDeskService:
                         cited=item["document_id"] in cited,
                     )
         return InvestigationView(
+            request_id=request_id,
             investigation_id=investigation_id,
             customer_id=run.request.customer_id,
             question=run.request.question,
@@ -264,6 +316,153 @@ class SignalDeskService:
                 estimated_cost_usd=run.metrics.estimated_cost_usd,
             ),
             created_at=datetime.now(UTC).isoformat(),
+        )
+
+    @staticmethod
+    def _to_run_observation(
+        request_id: str,
+        user_id: str,
+        run: WorkflowRun,
+        view: InvestigationView,
+        started_at: datetime,
+    ) -> RunObservation:
+        tool_calls: list[ObservedToolCall] = []
+        documents: list[str] = []
+        scores: list[float] = []
+        errors: list[ObservedError] = []
+        for trace in run.tool_trace:
+            output = trace.output or {}
+            returned_count = output.get("returned_count")
+            tool_calls.append(
+                ObservedToolCall(
+                    round_number=trace.round_number,
+                    tool_name=trace.tool_name,
+                    success=trace.success,
+                    error_code=trace.error_code,
+                    latency_ms=trace.latency_ms,
+                    returned_count=(
+                        returned_count if isinstance(returned_count, int) else None
+                    ),
+                )
+            )
+            if not trace.success:
+                errors.append(
+                    ObservedError(
+                        stage=f"tool:{trace.tool_name}",
+                        error_type=trace.error_code or "TOOL_ERROR",
+                        message="The tool call returned a structured failure.",
+                    )
+                )
+            if trace.tool_name == "search_knowledge_base" and trace.success:
+                for item in output.get("results", []):
+                    documents.append(str(item["document_id"]))
+                    scores.append(float(item["score"]))
+        metrics = run.metrics
+        return RunObservation(
+            request_id=request_id,
+            investigation_id=view.investigation_id,
+            user_id=user_id,
+            customer_id=run.request.customer_id,
+            question=run.request.question,
+            status="SUCCESS",
+            task_success=run.answer.task_status == "COMPLETED",
+            model=metrics.model,
+            prompt_version=metrics.prompt_version,
+            reasoning_effort="none",
+            tool_calls=tool_calls,
+            retrieval_documents=documents,
+            retrieval_scores=scores,
+            tokens=ObservedTokenUsage(
+                input=metrics.input_tokens,
+                cached_input=metrics.cached_input_tokens,
+                output=metrics.output_tokens,
+                reasoning=metrics.reasoning_tokens,
+                total=metrics.total_tokens,
+            ),
+            cost_usd=metrics.estimated_cost_usd,
+            latency_seconds=metrics.latency_seconds,
+            final_answer=run.answer.model_dump(mode="json"),
+            errors=errors,
+            started_at=started_at.isoformat(),
+            completed_at=datetime.now(UTC).isoformat(),
+        )
+
+    def _record_failed_run(
+        self,
+        request_id: str,
+        user_id: str,
+        request: InvestigationCreateRequest,
+        stage: str,
+        error: Exception,
+        started_at: datetime,
+        started: float,
+    ) -> None:
+        message = str(error).strip() or error.__class__.__name__
+        self._observability.record(
+            RunObservation(
+                request_id=request_id,
+                investigation_id=None,
+                user_id=user_id,
+                customer_id=request.customer_id,
+                question=request.question,
+                status="ERROR",
+                task_success=False,
+                model="gpt-5.6-luna",
+                prompt_version=PROMPT_VERSION,
+                reasoning_effort="none",
+                tool_calls=[],
+                retrieval_documents=[],
+                retrieval_scores=[],
+                tokens=ObservedTokenUsage(
+                    input=0,
+                    cached_input=0,
+                    output=0,
+                    reasoning=0,
+                    total=0,
+                ),
+                cost_usd=None,
+                latency_seconds=round(time.perf_counter() - started, 4),
+                final_answer=None,
+                errors=[
+                    ObservedError(
+                        stage=stage,
+                        error_type=error.__class__.__name__,
+                        message=message[:500],
+                    )
+                ],
+                started_at=started_at.isoformat(),
+                completed_at=datetime.now(UTC).isoformat(),
+            )
+        )
+
+    def observability_summary(self, user_id: str) -> ObservabilitySummary:
+        return self._observability.summary_for_user(user_id)
+
+    def observability_runs(
+        self,
+        user_id: str,
+        limit: int,
+    ) -> RunObservationList:
+        return self._observability.list_for_user(user_id, limit)
+
+    def observability_run(
+        self,
+        user_id: str,
+        request_id: str,
+    ) -> RunObservation:
+        return self._observability.get(user_id, request_id)
+
+    def evaluate_run(
+        self,
+        user_id: str,
+        request_id: str,
+        update: EvaluationUpdate,
+    ) -> RunObservation:
+        return self._observability.update_evaluation(
+            user_id,
+            request_id,
+            update.result,
+            update.note,
         )
 
     @staticmethod
