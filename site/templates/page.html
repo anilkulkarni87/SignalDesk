@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="page-header">
+  <p class="eyebrow dark">SignalDesk learning journey</p>
+  <h1>{{ title }}</h1>
+  <p>{{ description }}</p>
+  <span>{{ reading_minutes }} minute read</span>
+</header>
+<div class="page-layout">
+  <div class="prose page-prose">{{ content | safe }}</div>
+  {% if active == 'journey' %}
+  <section class="journey-catalog" aria-label="All journey phases">
+    {% for phase in phases %}
+    <div class="catalog-phase" id="{{ phase.id }}">
+      <header><span>{{ phase.number }}</span><div><h2>{{ phase.title }}</h2><p>{{ phase.summary }}</p></div></header>
+      <ol>
+        {% for article in phase.articles %}
+        <li><a href="{{ base_url }}{{ article.url }}"><span>{{ article.number }}</span><strong>{{ article.title }}</strong><small>{{ article.reading_minutes }} min</small></a></li>
+        {% endfor %}
+      </ol>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+  {% if active == 'labs' %}
+  <aside class="command-panel">
+    <p>Start locally</p>
+    <pre><code>python run_course.py doctor
+python run_course.py list
+python run_course.py start 01</code></pre>
+    <a class="button primary" href="https://github.com/anilkulkarni87/SignalDesk/tree/main/course">Open the course source</a>
+  </aside>
+  {% endif %}
+</div>
+{% endblock %}

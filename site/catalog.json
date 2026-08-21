@@ -1,0 +1,170 @@
+{
+  "site_title": "SignalDesk",
+  "site_description": "An evidence-driven journey from customer data and LLM evaluation to bounded agents, production hardening, and FDE delivery.",
+  "phases": [
+    {
+      "id": "foundations",
+      "number": "01",
+      "title": "Problem and Data Foundations",
+      "summary": "Start with the workflow, then create synthetic evidence and a semantic layer that the AI system can trust."
+    },
+    {
+      "id": "llm-engineering",
+      "number": "02",
+      "title": "LLM Engineering",
+      "summary": "Cross from deterministic software into probabilistic behavior with structured outputs, frozen cases, and regression measurement."
+    },
+    {
+      "id": "retrieval-rag",
+      "number": "03",
+      "title": "Retrieval and Grounding",
+      "summary": "Measure search quality before generation, then require policy claims to resolve to retrieved evidence."
+    },
+    {
+      "id": "tools-agents",
+      "number": "04",
+      "title": "Tools and Agents",
+      "summary": "Treat tools as typed APIs, bound the model loop, preserve state, and separate recommendation from authority."
+    },
+    {
+      "id": "product-operations",
+      "number": "05",
+      "title": "Product and Operations",
+      "summary": "Expose capabilities safely, build the analyst workflow, observe individual runs, and design known failures."
+    },
+    {
+      "id": "fde-capstone",
+      "number": "06",
+      "title": "FDE Capstone",
+      "summary": "Turn technical experiments into a defensible customer, engineering, security, operations, and investment decision."
+    }
+  ],
+  "articles": [
+    {
+      "number": "01",
+      "phase": "foundations",
+      "source": "docs/blog/01-thinking-like-an-fde.md",
+      "slug": "thinking-like-an-fde",
+      "summary": "Why the first engineering decision is choosing a measurable customer workflow, not choosing an AI framework."
+    },
+    {
+      "number": "02",
+      "phase": "foundations",
+      "source": "docs/blog/02-building-a-synthetic-cdp-for-ai-engineering-experiments.md",
+      "slug": "building-a-synthetic-cdp",
+      "summary": "How structural truth, semantic truth, and scale evidence create a safe substrate for AI experiments."
+    },
+    {
+      "number": "03",
+      "phase": "foundations",
+      "source": "docs/blog/03-why-your-ai-agent-still-needs-a-great-semantic-data-layer.md",
+      "slug": "semantic-data-layer-for-agents",
+      "summary": "Why deterministic customer metrics and time semantics must remain below the probabilistic model boundary."
+    },
+    {
+      "number": "04",
+      "phase": "llm-engineering",
+      "source": "docs/blog/04-llms-for-data-engineers-from-sql-determinism-to-probabilistic-systems.md",
+      "slug": "from-sql-determinism-to-llms",
+      "summary": "A data engineer's first controlled transition from deterministic calculations to structured model behavior."
+    },
+    {
+      "number": "05",
+      "phase": "llm-engineering",
+      "source": "docs/blog/05-treating-prompts-like-software-versioning-evals-and-regressions.md",
+      "slug": "prompts-as-versioned-software",
+      "summary": "Freeze prompts and cases, compare per-case behavior, and refuse to hide regressions behind an average."
+    },
+    {
+      "number": "06",
+      "phase": "retrieval-rag",
+      "source": "docs/blog/06-vector-search-from-first-principles-for-data-engineers.md",
+      "slug": "vector-search-from-first-principles",
+      "summary": "Compare lexical and vector retrieval using Recall@K, MRR, latency, and explicit relevance judgments."
+    },
+    {
+      "number": "07",
+      "phase": "retrieval-rag",
+      "source": "docs/blog/07-the-right-document-is-not-yet-a-grounded-answer.md",
+      "slug": "the-right-document-is-not-a-grounded-answer",
+      "summary": "Retrieval is necessary but insufficient: citations, excerpts, and unsupported policy claims need separate evaluation."
+    },
+    {
+      "number": "08",
+      "phase": "retrieval-rag",
+      "source": "docs/blog/08-rag-is-a-search-problem-before-it-is-an-llm-problem.md",
+      "slug": "rag-is-a-search-problem-first",
+      "summary": "Use controlled retrieval experiments to improve the weakest boundary before changing the model."
+    },
+    {
+      "number": "09",
+      "phase": "tools-agents",
+      "source": "docs/blog/09-designing-ai-tools-like-apis-not-magic-functions.md",
+      "slug": "designing-ai-tools-like-apis",
+      "summary": "Schemas, bounds, typed failures, and deterministic execution turn functions into trustworthy model tools."
+    },
+    {
+      "number": "10",
+      "phase": "tools-agents",
+      "source": "docs/blog/10-building-a-bounded-agent-by-measuring-the-loop.md",
+      "slug": "building-a-bounded-agent",
+      "summary": "Measure tool selection, arguments, evidence, stopping behavior, latency, and cost across the complete agent loop."
+    },
+    {
+      "number": "11",
+      "phase": "tools-agents",
+      "source": "docs/blog/11-from-agent-loops-to-stateful-ai-workflows-with-langgraph.md",
+      "slug": "stateful-workflows-with-langgraph",
+      "summary": "Make routing, checkpoints, recovery, and state transitions explicit without changing the accepted behavior."
+    },
+    {
+      "number": "12",
+      "phase": "tools-agents",
+      "source": "docs/blog/12-why-production-agents-need-permission-boundaries.md",
+      "slug": "agents-need-permission-boundaries",
+      "summary": "A recommendation is not authorization: exact-payload review, audit, and idempotency protect consequential actions."
+    },
+    {
+      "number": "13",
+      "phase": "tools-agents",
+      "source": "docs/blog/13-langgraph-vs-an-agent-sdk-choosing-an-orchestration-model.md",
+      "slug": "choosing-an-agent-runtime",
+      "summary": "Compare runtimes against one frozen contract and choose from workflow fit rather than framework novelty."
+    },
+    {
+      "number": "14",
+      "phase": "product-operations",
+      "source": "docs/blog/14-turning-a-cdp-into-an-mcp-server.md",
+      "slug": "turning-a-cdp-into-an-mcp-server",
+      "summary": "Expose four bounded, read-only capabilities through an authenticated protocol instead of exposing a database."
+    },
+    {
+      "number": "15",
+      "phase": "product-operations",
+      "source": "docs/blog/15-turning-an-ai-prototype-into-a-product-someone-can-actually-use.md",
+      "slug": "from-prototype-to-analyst-workspace",
+      "summary": "Turn the backend into a coherent analyst workflow with search, investigation, evidence review, and approval."
+    },
+    {
+      "number": "16",
+      "phase": "product-operations",
+      "source": "docs/blog/16-the-metrics-that-matter-for-production-ai-agents.md",
+      "slug": "metrics-for-production-ai-agents",
+      "summary": "Move from aggregate success to inspectable runs spanning tools, retrieval, tokens, cost, errors, and human evaluation."
+    },
+    {
+      "number": "17",
+      "phase": "product-operations",
+      "source": "docs/blog/17-breaking-my-ai-agent-before-production-does.md",
+      "slug": "breaking-the-agent-before-production",
+      "summary": "Inject timeouts, dependency loss, malformed output, duplicates, loops, and capacity pressure before users do."
+    },
+    {
+      "number": "18",
+      "phase": "fde-capstone",
+      "source": "docs/blog/18-from-ai-engineer-to-fde-delivering-evidence-not-a-demo.md",
+      "slug": "delivering-evidence-not-a-demo",
+      "summary": "Connect customer discovery, architecture, controls, evidence, operations, economics, and the next reversible decision."
+    }
+  ]
+}

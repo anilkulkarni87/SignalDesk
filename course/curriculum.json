@@ -1,0 +1,195 @@
+{
+  "course_version": 1,
+  "title": "SignalDesk: Building a Production-Minded AI System from First Principles",
+  "learning_contract": [
+    "problem",
+    "first_principles",
+    "build",
+    "measure",
+    "break",
+    "explain",
+    "ship"
+  ],
+  "lessons": [
+    {
+      "id": "01",
+      "phase": "01-foundations",
+      "title": "Problem-First FDE Discovery",
+      "status": "available",
+      "estimated_minutes": 45,
+      "prerequisites": [],
+      "lesson_path": "course/phases/01-foundations/01-problem-first-fde/lesson.md",
+      "verification_args": []
+    },
+    {
+      "id": "02",
+      "phase": "01-foundations",
+      "title": "Synthetic Customer Data with Semantic Truth",
+      "status": "available",
+      "estimated_minutes": 60,
+      "prerequisites": ["01"],
+      "lesson_path": "course/phases/01-foundations/02-synthetic-cdp/lesson.md",
+      "verification_args": []
+    },
+    {
+      "id": "03",
+      "phase": "01-foundations",
+      "title": "Customer 360 Semantic Layer",
+      "status": "planned",
+      "estimated_minutes": 60,
+      "prerequisites": ["02"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "04",
+      "phase": "02-llm-engineering",
+      "title": "Structured LLM Calls and Behavioral Evaluation",
+      "status": "available",
+      "estimated_minutes": 75,
+      "prerequisites": ["02"],
+      "lesson_path": "course/phases/02-llm-engineering/04-structured-llm-evaluation/lesson.md",
+      "verification_args": []
+    },
+    {
+      "id": "05",
+      "phase": "02-llm-engineering",
+      "title": "Prompts as Versioned Software",
+      "status": "planned",
+      "estimated_minutes": 60,
+      "prerequisites": ["04"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "06",
+      "phase": "03-retrieval-rag",
+      "title": "Retrieval from First Principles",
+      "status": "available",
+      "estimated_minutes": 75,
+      "prerequisites": ["04"],
+      "lesson_path": "course/phases/03-retrieval-rag/06-retrieval-first-principles/lesson.md",
+      "verification_args": ["-m", "pytest", "tests/commit06", "-q"]
+    },
+    {
+      "id": "07",
+      "phase": "03-retrieval-rag",
+      "title": "Grounded RAG",
+      "status": "planned",
+      "estimated_minutes": 75,
+      "prerequisites": ["06"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "08",
+      "phase": "03-retrieval-rag",
+      "title": "Retrieval Experimentation",
+      "status": "planned",
+      "estimated_minutes": 60,
+      "prerequisites": ["07"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "09",
+      "phase": "04-tools-agents",
+      "title": "Tools as Typed APIs",
+      "status": "planned",
+      "estimated_minutes": 75,
+      "prerequisites": ["08"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "10",
+      "phase": "04-tools-agents",
+      "title": "Bounded Agent Loops",
+      "status": "available",
+      "estimated_minutes": 90,
+      "prerequisites": ["06"],
+      "lesson_path": "course/phases/04-tools-agents/10-bounded-agent-loop/lesson.md",
+      "verification_args": ["-m", "pytest", "tests/commit10", "-q"]
+    },
+    {
+      "id": "11",
+      "phase": "04-tools-agents",
+      "title": "Stateful LangGraph Workflows",
+      "status": "planned",
+      "estimated_minutes": 75,
+      "prerequisites": ["10"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "12",
+      "phase": "04-tools-agents",
+      "title": "Human Approval and Action Authority",
+      "status": "planned",
+      "estimated_minutes": 75,
+      "prerequisites": ["11"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "13",
+      "phase": "04-tools-agents",
+      "title": "Comparing Agent Runtimes",
+      "status": "planned",
+      "estimated_minutes": 60,
+      "prerequisites": ["12"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "14",
+      "phase": "05-product-operations",
+      "title": "Exposing Bounded Tools through MCP",
+      "status": "planned",
+      "estimated_minutes": 60,
+      "prerequisites": ["13"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "15",
+      "phase": "05-product-operations",
+      "title": "API and Analyst Workspace",
+      "status": "planned",
+      "estimated_minutes": 90,
+      "prerequisites": ["14"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "16",
+      "phase": "05-product-operations",
+      "title": "Agent Observability",
+      "status": "planned",
+      "estimated_minutes": 60,
+      "prerequisites": ["15"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "17",
+      "phase": "05-product-operations",
+      "title": "Failure Injection and Hardening",
+      "status": "planned",
+      "estimated_minutes": 90,
+      "prerequisites": ["16"],
+      "lesson_path": null,
+      "verification_args": []
+    },
+    {
+      "id": "18",
+      "phase": "06-fde-capstone",
+      "title": "FDE Evidence and Delivery Capstone",
+      "status": "available",
+      "estimated_minutes": 90,
+      "prerequisites": ["10"],
+      "lesson_path": "course/phases/06-fde-capstone/18-fde-delivery/lesson.md",
+      "verification_args": ["-m", "pytest", "tests/commit18", "-q"]
+    }
+  ]
+}

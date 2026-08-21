@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="article-shell">
+  <header class="article-header">
+    <a class="back-link" href="{{ base_url }}/journey/#{{ article.phase }}">Back to {{ article.phase_data.title }}</a>
+    <p class="chapter-meta">Chapter {{ article.number }} / Phase {{ article.phase_data.number }}</p>
+    <h1>{{ article.title }}</h1>
+    <p class="article-deck">{{ article.summary }}</p>
+    <div class="article-byline">
+      <span>{{ article.reading_minutes }} minute{% if article.reading_minutes != 1 %}s{% endif %} read</span>
+      <span>SignalDesk learning journey</span>
+    </div>
+  </header>
+  <div class="article-layout">
+    <aside class="article-rail">
+      <span>Phase {{ article.phase_data.number }}</span>
+      <strong>{{ article.phase_data.title }}</strong>
+      <p>{{ article.phase_data.summary }}</p>
+    </aside>
+    <div class="prose">{{ article.content | safe }}</div>
+  </div>
+  <nav class="article-pagination" aria-label="Chapter navigation">
+    {% if previous %}
+    <a href="{{ base_url }}/chapters/{{ previous.slug }}/"><span>Previous</span><strong>{{ previous.number }}. {{ previous.title }}</strong></a>
+    {% else %}<span></span>{% endif %}
+    {% if next_article %}
+    <a class="next" href="{{ base_url }}/chapters/{{ next_article.slug }}/"><span>Next</span><strong>{{ next_article.number }}. {{ next_article.title }}</strong></a>
+    {% else %}
+    <a class="next" href="{{ base_url }}/capstone/"><span>Complete</span><strong>Present the capstone</strong></a>
+    {% endif %}
+  </nav>
+</article>
+{% endblock %}

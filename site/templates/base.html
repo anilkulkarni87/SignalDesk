@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }}</title>
+    <meta name="description" content="{{ page_description }}">
+    <meta name="theme-color" content="#087f68">
+    <link rel="canonical" href="{{ canonical_url | default(site_url) }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ page_title }}">
+    <meta property="og:description" content="{{ page_description }}">
+    <meta property="og:image" content="{{ site_url }}/assets/signaldesk-observability.png">
+    <meta property="og:url" content="{{ canonical_url | default(site_url) }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="{{ base_url }}/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ base_url }}/assets/site.css">
+    <script defer src="{{ base_url }}/assets/site.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="{{ base_url }}/" aria-label="SignalDesk home">
+        <span class="brand-mark" aria-hidden="true">SD</span>
+        <span>SignalDesk</span>
+        <span class="brand-tag">Learning</span>
+      </a>
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-button>
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" aria-label="Primary navigation" data-menu>
+        <a {% if active == 'journey' %}class="active"{% endif %} href="{{ base_url }}/journey/">Journey</a>
+        <a {% if active == 'experiments' %}class="active"{% endif %} href="{{ base_url }}/experiments/">Evidence</a>
+        <a {% if active == 'labs' %}class="active"{% endif %} href="{{ base_url }}/labs/">Guided Labs</a>
+        <a {% if active == 'capstone' %}class="active"{% endif %} href="{{ base_url }}/capstone/">Capstone</a>
+        <a class="nav-github" href="https://github.com/anilkulkarni87/SignalDesk">GitHub</a>
+      </nav>
+    </header>
+    <main id="content">
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+      <div>
+        <a class="footer-brand" href="{{ base_url }}/">SignalDesk</a>
+        <p>A synthetic, evidence-driven AI engineering and FDE learning journey.</p>
+      </div>
+      <div class="footer-links">
+        <a href="{{ base_url }}/journey/">18 chapters</a>
+        <a href="{{ base_url }}/labs/">Guided labs</a>
+        <a href="{{ base_url }}/capstone/">Demo</a>
+        <a href="https://github.com/anilkulkarni87/SignalDesk">Source</a>
+      </div>
+      <p class="footer-scope">Synthetic data. Measured experiments. No production or customer-impact claims.</p>
+    </footer>
+  </body>
+</html>
