@@ -44,6 +44,10 @@ class InvestigationStore:
     def close(self) -> None:
         self._connection.close()
 
+    def ping(self) -> None:
+        with self._lock:
+            self._connection.execute("SELECT 1").fetchone()
+
     def save(self, user_id: str, view: InvestigationView) -> None:
         payload = view.model_dump_json()
         with self._lock, self._connection:

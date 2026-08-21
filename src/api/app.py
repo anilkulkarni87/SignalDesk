@@ -1,10 +1,21 @@
 from __future__ import annotations
 
+import logging
+import time
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from uuid import uuid4
 
-from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response, status
+from fastapi import (
+    Depends,
+    FastAPI,
+    Header,
+    HTTPException,
+    Query,
+    Request,
+    Response,
+    status,
+)
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -35,10 +46,18 @@ from .schemas import (
     InvestigationCreateRequest,
     InvestigationView,
     LoginRequest,
+    ReadinessView,
     SessionView,
+)
+from .resilience import (
+    IdempotencyConflict,
+    IdempotencyInProgress,
+    SlidingWindowRateLimiter,
 )
 from .service import (
     CustomerNotFound,
+    InvestigationLimitReached,
+    InvestigationTimedOut,
     InvestigationUnavailable,
     SignalDeskService,
 )
@@ -57,6 +76,15 @@ def create_app(
         config.session_secret,
         ttl_seconds=config.session_ttl_seconds,
     )
+    login_limiter = SlidingWindowRateLimiter(
+        config.login_rate_limit,
+        config.rate_limit_window_seconds,
+    )
+    investigation_limiter = SlidingWindowRateLimiter(
+        config.investigation_rate_limit,
+        config.rate_limit_window_seconds,
+    )
+    request_logger = logging.getLogger("signaldesk.api.request")
 
     @asynccontextmanager
     async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
@@ -66,7 +94,7 @@ def create_app(
 
     app = FastAPI(
         title="SignalDesk API",
-        version="commit16_v1",
+        version="commit17_v1",
         lifespan=lifespan,
     )
     app.add_middleware(
@@ -74,16 +102,63 @@ def create_app(
         allow_origins=list(config.allowed_origins),
         allow_credentials=True,
         allow_methods=["GET", "POST", "DELETE"],
-        allow_headers=["Content-Type", CSRF_HEADER],
+        allow_headers=["Content-Type", CSRF_HEADER, "Idempotency-Key"],
+        expose_headers=[
+            "x-signaldesk-request-id",
+            "x-signaldesk-idempotent-replay",
+            "x-signaldesk-original-request-id",
+            "Retry-After",
+        ],
     )
 
     @app.middleware("http")
     async def attach_request_id(request: Request, call_next):
         request_id = f"REQ-{uuid4().hex[:20]}"
         request.state.request_id = request_id
-        response = await call_next(request)
+        started = time.perf_counter()
+        try:
+            response = await call_next(request)
+        except Exception as exc:
+            request_logger.error(
+                "http_request_failed",
+                extra={
+                    "event": "http_request_failed",
+                    "request_id": request_id,
+                    "method": request.method,
+                    "path": request.url.path,
+                    "status_code": 500,
+                    "duration_ms": round(
+                        (time.perf_counter() - started) * 1000,
+                        3,
+                    ),
+                    "error_type": exc.__class__.__name__,
+                },
+            )
+            raise
         response.headers["x-signaldesk-request-id"] = request_id
+        request_logger.info(
+            "http_request",
+            extra={
+                "event": "http_request",
+                "request_id": request_id,
+                "method": request.method,
+                "path": request.url.path,
+                "status_code": response.status_code,
+                "duration_ms": round(
+                    (time.perf_counter() - started) * 1000,
+                    3,
+                ),
+            },
+        )
         return response
+
+    def enforce_rate_limit(decision) -> None:
+        if not decision.allowed:
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                detail="Request rate limit exceeded",
+                headers={"Retry-After": str(decision.retry_after_seconds)},
+            )
 
     def claims_from_request(request: Request) -> SessionClaims:
         token = request.cookies.get(SESSION_COOKIE)
@@ -114,8 +189,25 @@ def create_app(
     def health() -> HealthView:
         return HealthView()
 
+    @app.get("/api/v1/health/ready", response_model=ReadinessView)
+    async def readiness(response: Response) -> ReadinessView:
+        checks = await run_in_threadpool(service.readiness)
+        ready = all(value == "ready" for value in checks.values())
+        if not ready:
+            response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+        return ReadinessView(
+            status="ready" if ready else "not_ready",
+            checks=checks,
+        )
+
     @app.post("/api/v1/auth/session", response_model=SessionView)
-    def login(payload: LoginRequest, response: Response) -> SessionView:
+    def login(
+        payload: LoginRequest,
+        request: Request,
+        response: Response,
+    ) -> SessionView:
+        client_ip = request.client.host if request.client else "unknown"
+        enforce_rate_limit(login_limiter.check(client_ip))
         try:
             issued = sessions.authenticate(payload.access_code, payload.reviewer_id)
         except InvalidSessionError as exc:
@@ -171,17 +263,40 @@ def create_app(
     async def investigate(
         payload: InvestigationCreateRequest,
         request: Request,
+        response: Response,
+        idempotency_key: str | None = Header(
+            default=None,
+            alias="Idempotency-Key",
+            min_length=8,
+            max_length=128,
+            pattern=r"^[A-Za-z0-9._:-]+$",
+        ),
         claims: SessionClaims = Depends(write_claims),
     ) -> InvestigationView:
+        enforce_rate_limit(investigation_limiter.check(claims.user_id))
         try:
-            return await run_in_threadpool(
+            outcome = await run_in_threadpool(
                 service.investigate,
                 claims.user_id,
                 payload,
                 request.state.request_id,
+                idempotency_key,
             )
+            if outcome.replayed:
+                response.status_code = status.HTTP_200_OK
+                response.headers["x-signaldesk-idempotent-replay"] = "true"
+                response.headers["x-signaldesk-original-request-id"] = (
+                    outcome.view.request_id
+                )
+            return outcome.view
+        except InvestigationTimedOut as exc:
+            raise HTTPException(status_code=504, detail=str(exc)) from exc
+        except InvestigationLimitReached as exc:
+            raise HTTPException(status_code=503, detail=str(exc)) from exc
         except InvestigationUnavailable as exc:
             raise HTTPException(status_code=503, detail=str(exc)) from exc
+        except (IdempotencyConflict, IdempotencyInProgress) as exc:
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
 
     @app.get(
         "/api/v1/investigations/{investigation_id}",

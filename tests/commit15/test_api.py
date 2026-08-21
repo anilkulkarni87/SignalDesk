@@ -192,7 +192,7 @@ class Commit15APITests(unittest.TestCase):
         response = TestClient(self.app).get("/api/v1/health")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["version"], "commit16_v1")
+        self.assertEqual(response.json()["version"], "commit17_v1")
 
     def test_protected_endpoint_requires_session(self):
         response = TestClient(self.app).get("/api/v1/customers")

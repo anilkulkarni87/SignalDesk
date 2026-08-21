@@ -134,6 +134,13 @@ class CDPTools:
         }
         self._knowledge_index = LexicalIndex(list(self._policy_documents.values()))
 
+    def readiness(self) -> dict[str, bool]:
+        self._connection.execute("SELECT 1").fetchone()
+        return {
+            "tool_warehouse": True,
+            "approved_knowledge": bool(self._policy_documents),
+        }
+
     def close(self) -> None:
         self._connection.close()
 

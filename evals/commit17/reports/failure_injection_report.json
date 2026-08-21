@@ -1,0 +1,21 @@
+{
+  "experiment_version": "commit17_failure_injection_v1",
+  "executed_on": "2026-08-20",
+  "scenarios": 8,
+  "passed": 8,
+  "pass_rate_pct": 100.0,
+  "external_model_calls": 0,
+  "api_boundary_coverage_pct": 92.0,
+  "full_repository_tests": 147,
+  "unhandled_exceptions_in_failure_suite": 0,
+  "result": "PASSED",
+  "evidence": {
+    "matrix": "evals/commit17/failure_matrix.json",
+    "tests": "tests/commit17/test_hardening.py"
+  },
+  "limitations": [
+    "Dependency failures are deterministic injections, not external provider outages.",
+    "The load smoke exercises liveness throughput, not full model-backed investigation capacity.",
+    "The local SQLite and in-memory rate-limit implementations are single-instance controls."
+  ]
+}

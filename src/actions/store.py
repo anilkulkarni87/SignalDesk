@@ -37,6 +37,9 @@ class ActionStore:
     def close(self) -> None:
         self.connection.close()
 
+    def ping(self) -> None:
+        self.connection.execute("SELECT 1").fetchone()
+
     def __enter__(self) -> "ActionStore":
         return self
 

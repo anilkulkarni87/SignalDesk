@@ -12,7 +12,14 @@ from src.tools.schemas import CampaignEligibility, CustomerMetrics, CustomerProf
 class HealthView(StrictModel):
     status: Literal["ok"] = "ok"
     service: Literal["signaldesk-api"] = "signaldesk-api"
-    version: Literal["commit16_v1"] = "commit16_v1"
+    version: Literal["commit17_v1"] = "commit17_v1"
+
+
+class ReadinessView(StrictModel):
+    status: Literal["ready", "not_ready"]
+    service: Literal["signaldesk-api"] = "signaldesk-api"
+    version: Literal["commit17_v1"] = "commit17_v1"
+    checks: dict[str, Literal["ready", "unavailable"]]
 
 
 class LoginRequest(StrictModel):

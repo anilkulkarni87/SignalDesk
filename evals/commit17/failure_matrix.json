@@ -1,0 +1,58 @@
+{
+  "experiment_version": "commit17_failure_injection_v1",
+  "runtime_retrieval": "lexical_current_approved",
+  "model": "gpt-5.6-luna",
+  "reasoning_effort": "none",
+  "prompt_version": "commit10_v4_campaign_evidence_budget",
+  "scenarios": [
+    {
+      "scenario": "retrieval_dependency_unavailable",
+      "injection": "approved knowledge readiness probe returns unavailable",
+      "expected": "readiness returns 503 while liveness remains 200",
+      "test": "test_liveness_stays_up_while_readiness_reports_dependency_failure"
+    },
+    {
+      "scenario": "llm_timeout",
+      "injection": "investigator raises TimeoutError",
+      "expected": "API returns 504 and persists a sanitized failed observation",
+      "test": "test_timeout_returns_504_and_records_sanitized_failure"
+    },
+    {
+      "scenario": "malformed_tool_output",
+      "injection": "tool handler returns an object that violates its output schema",
+      "expected": "registry returns a structured VALIDATION_ERROR envelope",
+      "test": "test_malformed_tool_output_becomes_structured_validation_failure"
+    },
+    {
+      "scenario": "duplicate_request",
+      "injection": "same user, idempotency key, and payload submitted twice",
+      "expected": "second request replays the first result without another agent run",
+      "test": "test_duplicate_request_replays_without_second_agent_run"
+    },
+    {
+      "scenario": "invalid_customer",
+      "injection": "unknown customer ID requested",
+      "expected": "API returns a bounded 404 response",
+      "test": "tests.commit15.test_api.Commit15APITests.test_unknown_customer_returns_404"
+    },
+    {
+      "scenario": "retrieval_returns_zero_documents",
+      "injection": "knowledge query has no matching terms",
+      "expected": "tool returns successful structured output with returned_count zero",
+      "test": "test_zero_document_retrieval_is_explicit_success_not_exception"
+    },
+    {
+      "scenario": "agent_loop",
+      "injection": "investigator raises AgentLimitError at its round boundary",
+      "expected": "API returns a bounded 503 and records the limit failure",
+      "test": "test_agent_loop_limit_returns_bounded_failure"
+    },
+    {
+      "scenario": "capacity_limit",
+      "injection": "one user exceeds the investigation sliding-window limit",
+      "expected": "API returns 429 with Retry-After and performs no extra agent run",
+      "test": "test_investigation_rate_limit_returns_retry_after"
+    }
+  ],
+  "scope_note": "The accepted product runtime uses lexical retrieval. The unavailable retrieval test therefore breaks the approved knowledge dependency rather than pretending the unused Commit 06 vector store is on the serving path."
+}

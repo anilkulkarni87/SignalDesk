@@ -7,6 +7,7 @@ import argparse
 import uvicorn
 
 from src.api import APIConfig, create_app
+from src.api.logging import configure_json_logging
 
 
 def parse_args() -> argparse.Namespace:
@@ -18,6 +19,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    configure_json_logging()
     try:
         config = APIConfig.from_env()
     except ValueError as exc:

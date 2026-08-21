@@ -1,6 +1,6 @@
 """Prompt V2 for Commit 05."""
 
-from src.llm.prompt_versions.v1 import build_user_input
+from src.llm.prompt_versions.v1 import build_user_input as build_user_input
 
 PROMPT_VERSION = "commit05_v2_warning_flag_calibration"
 PROMPT_CHANGE_HYPOTHESIS = (

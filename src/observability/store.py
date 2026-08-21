@@ -101,6 +101,10 @@ class ObservabilityStore:
     def close(self) -> None:
         self._connection.close()
 
+    def ping(self) -> None:
+        with self._lock:
+            self._connection.execute("SELECT 1").fetchone()
+
     def record(self, observation: RunObservation) -> None:
         with self._lock, self._connection:
             self._connection.execute(
