@@ -5,13 +5,11 @@ measured milestone at a time. Commit 18 packages the customer hypothesis,
 architecture, evidence, controls, operations, economics, limitations, and next
 validation decision into an FDE delivery pack.
 
-The new [SignalDesk Learning Edition](course/README.md) turns that cumulative
-journey into an 18-lesson curriculum map with six runnable pilot lessons,
-zero-model-call checks, and local progress tracking.
-
 The public learning site turns the same repository evidence into an 18-chapter
-reading journey, an experiment scorecard, guided-lab entry points, and a
-capstone narrative. Build it locally with the instructions in
+reading journey, a concept-oriented Code Companion, an experiment scorecard,
+and a capstone narrative. The companion points directly to the important code,
+real execution paths, accepted evidence, and limitations rather than adding a
+parallel coursework layer. Build it locally with the instructions in
 [site/README.md](site/README.md). The six-post launch sequence is under
 [docs/linkedin](docs/linkedin/README.md).
 

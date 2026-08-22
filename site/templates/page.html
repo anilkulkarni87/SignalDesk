@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <header class="page-header">
-  <p class="eyebrow dark">SignalDesk learning journey</p>
+  <p class="eyebrow dark">SignalDesk engineering journey</p>
   <h1>{{ title }}</h1>
   <p>{{ description }}</p>
   <span>{{ reading_minutes }} minute read</span>
@@ -22,13 +22,13 @@
     {% endfor %}
   </section>
   {% endif %}
-  {% if active == 'labs' %}
+  {% if active == 'code' %}
   <aside class="command-panel">
-    <p>Start locally</p>
-    <pre><code>python run_course.py doctor
-python run_course.py list
-python run_course.py start 01</code></pre>
-    <a class="button primary" href="https://github.com/anilkulkarni87/SignalDesk/tree/main/course">Open the course source</a>
+    <p>Start with the source</p>
+    <pre><code>git clone https://github.com/anilkulkarni87/SignalDesk.git
+cd SignalDesk
+python -m venv .venv</code></pre>
+    <a class="button primary" href="https://github.com/anilkulkarni87/SignalDesk">Open the repository</a>
   </aside>
   {% endif %}
 </div>

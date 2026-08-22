@@ -180,10 +180,10 @@ def main() -> int:
             "The measured results, failed targets, and claim boundaries behind SignalDesk.",
         ),
         (
-            "labs",
-            "site/pages/labs.md",
-            "Guided Labs - Beta",
-            "Six zero-model-call pilot lessons across the complete SignalDesk learning arc.",
+            "code",
+            "site/pages/code.md",
+            "Code Companion",
+            "Connect SignalDesk concepts to selected source files, real commands, measured evidence, and explicit boundaries.",
         ),
         (
             "capstone",
@@ -207,7 +207,7 @@ def main() -> int:
         )
         write_page(output, slug, html)
 
-    urls = ["/", "/journey/", "/experiments/", "/labs/", "/capstone/"] + [
+    urls = ["/", "/journey/", "/code/", "/experiments/", "/capstone/"] + [
         article["url"] for article in rendered_articles
     ]
     sitemap = "\n".join(
