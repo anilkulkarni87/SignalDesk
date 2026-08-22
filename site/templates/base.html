@@ -23,15 +23,15 @@
       <a class="brand" href="{{ base_url }}/" aria-label="SignalDesk home">
         <span class="brand-mark" aria-hidden="true">SD</span>
         <span>SignalDesk</span>
-        <span class="brand-tag">Learning</span>
+        <span class="brand-tag">Case Study</span>
       </a>
       <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-button>
         <span></span><span></span><span></span>
       </button>
       <nav class="site-nav" aria-label="Primary navigation" data-menu>
         <a {% if active == 'journey' %}class="active"{% endif %} href="{{ base_url }}/journey/">Journey</a>
+        <a {% if active == 'code' %}class="active"{% endif %} href="{{ base_url }}/code/">Code Companion</a>
         <a {% if active == 'experiments' %}class="active"{% endif %} href="{{ base_url }}/experiments/">Evidence</a>
-        <a {% if active == 'labs' %}class="active"{% endif %} href="{{ base_url }}/labs/">Guided Labs</a>
         <a {% if active == 'capstone' %}class="active"{% endif %} href="{{ base_url }}/capstone/">Capstone</a>
         <a class="nav-github" href="https://github.com/anilkulkarni87/SignalDesk">GitHub</a>
       </nav>
@@ -42,11 +42,11 @@
     <footer class="site-footer">
       <div>
         <a class="footer-brand" href="{{ base_url }}/">SignalDesk</a>
-        <p>A synthetic, evidence-driven AI engineering and FDE learning journey.</p>
+        <p>A synthetic, evidence-driven AI engineering and FDE case study.</p>
       </div>
       <div class="footer-links">
         <a href="{{ base_url }}/journey/">18 chapters</a>
-        <a href="{{ base_url }}/labs/">Guided labs</a>
+        <a href="{{ base_url }}/code/">Code companion</a>
         <a href="{{ base_url }}/capstone/">Demo</a>
         <a href="https://github.com/anilkulkarni87/SignalDesk">Source</a>
       </div>

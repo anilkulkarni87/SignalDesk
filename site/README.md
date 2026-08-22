@@ -1,7 +1,9 @@
-# SignalDesk Learning Site
+# SignalDesk Case Study Site
 
 The site is a static reading layer over the repository's 18 canonical posts in
-`docs/blog`. It does not duplicate the article content or require model calls.
+`docs/blog`. Its Code Companion connects the main engineering concepts to
+selected source files, executable commands, accepted evidence, and explicit
+limitations. It does not require model calls to build.
 
 ## Build locally
 
@@ -42,7 +44,7 @@ a successful push to `main`.
 
 - Edit long-form posts in `docs/blog`.
 - Edit ordering, summaries, phases, and slugs in `site/catalog.json`.
-- Edit page-specific copy in `site/pages`.
+- Edit the journey, evidence, Code Companion, and capstone pages in `site/pages`.
 - Edit presentation in `site/templates` and `site/assets`.
 - Never edit `_site`; it is generated and ignored.
 

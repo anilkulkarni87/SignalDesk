@@ -60,7 +60,7 @@ def test_build_produces_home_pages_articles_and_metadata(tmp_path: Path) -> None
         output / "index.html",
         output / "journey" / "index.html",
         output / "experiments" / "index.html",
-        output / "labs" / "index.html",
+        output / "code" / "index.html",
         output / "capstone" / "index.html",
         output / "sitemap.xml",
         output / "robots.txt",
@@ -92,11 +92,29 @@ def test_generated_local_links_and_assets_resolve(tmp_path: Path) -> None:
 def test_homepage_preserves_claim_boundaries_and_product_visual(tmp_path: Path) -> None:
     output = build_site(tmp_path)
     homepage = (output / "index.html").read_text(encoding="utf-8")
-    assert "A learning system, not a production deployment" in homepage
+    assert "A synthetic engineering case study, not a production deployment" in homepage
     assert "98%" in homepage
     assert "&lt;8s, missed" in homepage
     assert "/SignalDesk/assets/signaldesk-observability.png" in homepage
     assert "From data engineer to forward deployed engineer" in homepage
+
+
+def test_code_companion_replaces_guided_labs(tmp_path: Path) -> None:
+    output = build_site(tmp_path)
+    companion = (output / "code" / "index.html").read_text(encoding="utf-8")
+    homepage = (output / "index.html").read_text(encoding="utf-8")
+    sitemap = (output / "sitemap.xml").read_text(encoding="utf-8")
+
+    assert not (output / "labs").exists()
+    assert "/SignalDesk/labs/" not in homepage
+    assert "/labs/" not in sitemap
+    assert "Code Companion" in companion
+    assert "Synthetic customer data" in companion
+    assert "Vector search" in companion
+    assert "Retrieval-augmented generation" in companion
+    assert "MCP integration" in companion
+    assert "src/retrieval/chunking.py" in companion
+    assert "src/mcp_server/server.py" in companion
 
 
 def test_site_css_avoids_gradient_and_oversized_card_radii() -> None:

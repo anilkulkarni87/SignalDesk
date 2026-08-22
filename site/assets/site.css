@@ -681,6 +681,7 @@ a {
   color: var(--ink);
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   letter-spacing: 0;
+  scroll-margin-top: 90px;
 }
 
 .prose h2 {
